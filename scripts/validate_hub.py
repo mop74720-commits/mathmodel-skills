@@ -19,8 +19,8 @@ for f in files:
     # Guard against the old generic placeholder procedure.
     if "只完成本 Skill 的局部任务，不推进比赛阶段" in text and "读取输入并确认事实/合同版本" in text:
         errors.append(f"{f.relative_to(ROOT)} still contains v0.1.0 generic procedure")
-if len(files)!=27:
-    errors.append(f"expected 27 skills, got {len(files)}")
+if len(files)!=39:
+    errors.append(f"expected 39 skills (27 core + 12 algorithm), got {len(files)}")
 if len(events)!=len(set(events)):
     errors.append("duplicate trigger events")
 if errors:

@@ -33,6 +33,20 @@ description: 基于问题结构、数据条件、可解释性、求解成本和�
 5. 对候选给出定性证据矩阵：适配度、实现风险、验证成本、解释性、潜在增益。不要用无依据的 0-100“综合分”冒充客观评价。
 6. 识别失败模式和退出条件，例如 MILP 规模爆炸、时间序列泄漏、机理参数不可辨识、神经网络样本不足。
 7. 给出推荐顺序：Baseline、首选、仅在特定条件下才值得尝试的备选，并说明触发条件。
+8. 若问题结构已足够明确，不要继续在本 Skill 内展开算法细节，而是路由到最小必要的 algorithm Skill：
+   - 线性/整数/0-1/资源分配 → `ALGO_LINEAR_INTEGER`
+   - 连续非线性/非凸优化 → `ALGO_NONLINEAR_OPT`
+   - 图、流、路径、TSP/VRP → `ALGO_NETWORK_ROUTING`
+   - 时间序列预测 → `ALGO_TIME_SERIES`
+   - 有标签回归/分类 → `ALGO_SUPERVISED_LEARNING`
+   - 聚类/降维 → `ALGO_UNSUPERVISED_LEARNING`
+   - 多指标评价/排序 → `ALGO_MULTI_CRITERIA`
+   - ODE/状态空间 → `ALGO_ODE_DYNAMICS`
+   - PDE/空间场 → `ALGO_PDE_DYNAMICS`
+   - Monte Carlo/Markov/随机模拟 → `ALGO_STOCHASTIC_SIM`
+   - 假设检验/参数推断 → `ALGO_STATISTICAL_INFERENCE`
+   - 几何/碰撞/空间重建 → `ALGO_GEOMETRY`。
+   混合题允许一个主 algorithm Skill + 一个必要的 secondary，不要一次加载整套算法库。
 
 ## Outputs
 
@@ -56,6 +70,6 @@ description: 基于问题结构、数据条件、可解释性、求解成本和�
 
 ## Handoff
 
-推荐下一事件通常为 `MODEL_CONTRACT_MISSING` 或 `MODELS_NEED_COMPARISON`。
+推荐下一事件优先是匹配的 `ALGO_*` 事件；若算法族已经确定且无需进一步展开，再转 `MODEL_CONTRACT_MISSING` 或 `MODELS_NEED_COMPARISON`。
 
 统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。

@@ -1,19 +1,29 @@
-# Algorithm Index
+# Algorithm Knowledge Index
 
-本索引只用于从问题结构定位模型族，不是“看到关键词就套模型”的菜单。
+本索引负责从“问题结构”路由到算法族 Skill。它不是按关键词套算法的菜单，也不决定比赛阶段。
 
-| 问题结构 | Baseline | 常见候选 | 首要检查 |
+| 结构信号 | Primary event | Baseline 思路 | 首要风险 |
 |---|---|---|---|
-| 线性资源分配 | LP | MILP / robust LP | 变量类型、约束方向、可行性 |
-| 路由/调度 | shortest path / assignment | VRP/TSP/MILP/heuristic | 图方向、容量、子回路、时间窗 |
-| 连续非线性优化 | local NLP | multi-start / global heuristic | 尺度、初值、约束违反 |
-| 时序预测 | naive / seasonal naive | ARIMA/ETS/ML | 时间切分、泄漏、区间 |
-| 小样本趋势 | simple regression / naive | grey model / Bayesian | 样本量、假设敏感性 |
-| 多指标评价 | equal weight / direct metric | entropy/TOPSIS/AHP/PCA | 指标方向、归一化、权重解释 |
-| 分类 | majority / logistic | tree/SVM/boosting | 类别不平衡、泄漏、校准 |
-| 聚类 | simple k-means baseline | hierarchical/DBSCAN/GMM | 尺度、簇稳定性、可解释性 |
-| 机理动力学 | conservation / simple ODE | ODE/PDE/state-space | 单位、初边值、守恒、刚性 |
-| 随机系统 | deterministic baseline | Monte Carlo / Markov | seed、置信区间、收敛 |
-| 几何重建 | direct geometry | optimization / distance transform | 坐标、边界、实体尺寸 |
+| 线性目标/约束，含连续、整数、0-1变量 | `ALGO_LINEAR_INTEGER` | LP / 简单 MILP | 可行性、Big-M、整数回代 |
+| 连续非线性、黑箱、多峰 | `ALGO_NONLINEAR_OPT` | 局部 NLP | 尺度、初值、非凸、约束处理 |
+| 节点/边/路径/流/车辆/时间窗 | `ALGO_NETWORK_ROUTING` | shortest path / assignment | 负权、容量、子回路、未来信息 |
+| 时间有序、预测未来 | `ALGO_TIME_SERIES` | naive / seasonal naive | 泄漏、切分、结构突变 |
+| 有标签回归/分类 | `ALGO_SUPERVISED_LEARNING` | linear/logistic/majority | split 泄漏、不平衡、校准 |
+| 无标签分群/降维 | `ALGO_UNSUPERVISED_LEARNING` | k-means / PCA | 距离尺度、稳定性、伪解释 |
+| 多指标综合排序/评价 | `ALGO_MULTI_CRITERIA` | 等权归一化 | 指标方向、权重、排名稳定性 |
+| 时间连续动力学、状态方程 | `ALGO_ODE_DYNAMICS` | 简化 ODE | 单位、刚性、守恒、可辨识性 |
+| 空间+时间场、边界条件 | `ALGO_PDE_DYNAMICS` | 简化 PDE/解析特例 | 适定性、网格、稳定性、收敛 |
+| 随机输入、概率/期望、Markov | `ALGO_STOCHASTIC_SIM` | 解析/确定性近似 | seed、方差、CI、收敛 |
+| 参数估计、差异检验、效应判断 | `ALGO_STATISTICAL_INFERENCE` | 描述统计/简单检验 | 独立性、效应量、多重比较 |
+| 几何边界、姿态、碰撞、重建 | `ALGO_GEOMETRY` | 解析几何 | 坐标、实体尺寸、边界容差 |
 
-复杂模型只有在 Baseline 无法解释关键结构或性能缺口时才升级。
+## 混合问题的组合规则
+
+- 优先识别“决定结论的主结构”，只加载一个 primary algorithm Skill。
+- Secondary 只用于明确耦合，例如 `network-routing + linear-integer-optimization`、`ODE + nonlinear-optimization`。
+- 同一模型族的不同 solver/超参数不算新的 algorithm Skill。
+- 如果算法选择会改变假设或问题定义，必须回到 `ASSUMPTION_WEAK` / `PROBLEM_AMBIGUOUS`，不能在算法层偷偷改题。
+
+## 升级原则
+
+复杂方法只有在 Baseline 暴露了明确缺口后升级。升级证据可以是：约束无法表达、系统性偏差、泛化缺口、计算复杂度、非线性/随机结构或验证结果，而不是“看起来更高级”。

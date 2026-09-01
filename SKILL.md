@@ -1,6 +1,6 @@
 ---
 name: mathmodel-skills
-version: 0.1.0
+version: 0.1.2
 description: 数学建模专项 Skill Hub。接收 Coach 或用户给出的局部事件，渐进式路由到 Role、专项 Skill、工具和 QA；不管理比赛时间线与全局优先级。
 ---
 
@@ -70,6 +70,26 @@ Skill Hub 权威：
 | `CLAIM_UNSUPPORTED` | `audit/claim-evidence` |
 | `PAPER_NEEDS_ATTACK` | `audit/paper-review` |
 | `PRE_SUBMISSION` | `audit/final-review` |
+
+
+## 4A. Algorithm Knowledge Events
+
+当 `MODEL_UNCERTAIN` 已识别出结构后，Router 优先进入一个算法族 Skill，而不是继续让 model-selection 承担全部算法知识。
+
+| Event | Algorithm Skill |
+|---|---|
+| `ALGO_LINEAR_INTEGER` | `algorithm/linear-integer-optimization` |
+| `ALGO_NONLINEAR_OPT` | `algorithm/nonlinear-optimization` |
+| `ALGO_NETWORK_ROUTING` | `algorithm/network-routing` |
+| `ALGO_TIME_SERIES` | `algorithm/time-series` |
+| `ALGO_SUPERVISED_LEARNING` | `algorithm/supervised-learning` |
+| `ALGO_UNSUPERVISED_LEARNING` | `algorithm/unsupervised-learning` |
+| `ALGO_MULTI_CRITERIA` | `algorithm/multi-criteria-evaluation` |
+| `ALGO_ODE_DYNAMICS` | `algorithm/ode-dynamics` |
+| `ALGO_PDE_DYNAMICS` | `algorithm/pde-dynamics` |
+| `ALGO_STOCHASTIC_SIM` | `algorithm/stochastic-simulation` |
+| `ALGO_STATISTICAL_INFERENCE` | `algorithm/statistical-inference` |
+| `ALGO_GEOMETRY` | `algorithm/geometry-reconstruction` |
 
 ## 5. 标准 Skill 回执
 

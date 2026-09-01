@@ -50,6 +50,22 @@
 26. “整篇论文内容基本齐了，按评阅视角攻击一轮。” -> `PAPER_NEEDS_ATTACK` -> `paper-review`
 27. “准备提交，做最后的规则、PDF、数字和附件检查。” -> `PRE_SUBMISSION` -> `final-review`
 
+
+## Algorithm Knowledge Layer
+
+28. “Q2 是 0-1 选址和产能约束。” -> `ALGO_LINEAR_INTEGER` -> `linear-integer-optimization`
+29. “目标函数非凸，变量连续而且初值敏感。” -> `ALGO_NONLINEAR_OPT` -> `nonlinear-optimization`
+30. “带容量和时间窗的配送车辆路径。” -> `ALGO_NETWORK_ROUTING` -> `network-routing`
+31. “用过去 36 个月预测未来 6 个月。” -> `ALGO_TIME_SERIES` -> `time-series`
+32. “有标签数据做二分类。” -> `ALGO_SUPERVISED_LEARNING` -> `supervised-learning`
+33. “没有标签，要找稳定群组。” -> `ALGO_UNSUPERVISED_LEARNING` -> `unsupervised-learning`
+34. “十个指标综合评价并排序。” -> `ALGO_MULTI_CRITERIA` -> `multi-criteria-evaluation`
+35. “状态随时间由微分方程演化。” -> `ALGO_ODE_DYNAMICS` -> `ode-dynamics`
+36. “温度场同时随空间和时间变化。” -> `ALGO_PDE_DYNAMICS` -> `pde-dynamics`
+37. “用 Monte Carlo 求失效概率。” -> `ALGO_STOCHASTIC_SIM` -> `stochastic-simulation`
+38. “比较两组差异并报告置信区间。” -> `ALGO_STATISTICAL_INFERENCE` -> `statistical-inference`
+39. “有限尺寸物体的碰撞和空间轨迹。” -> `ALGO_GEOMETRY` -> `geometry-reconstruction`
+
 ## 必须返回 Coach 的反例
 
 - “现在还剩 8 小时，要不要放弃 Q4？” -> `HANDOFF_TO_COACH`

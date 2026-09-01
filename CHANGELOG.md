@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2
+
+- 新增 12 个 algorithm-family Skill，覆盖优化、网络、预测、机器学习、评价、动力学、随机、统计和几何。
+- `model-selection` 增加结构化 `ALGO_*` dispatch，不再承担全部算法细节。
+- 新增 `algorithm-dispatch.md` 和更完整的 `algorithm-index.md`。
+- 新增算法路由测试；保持 Coach 对阶段、优先级、冻结和提交的唯一调度权。
+- 未引入固定页数/图数/模型数、固定扰动比例或强制用户审批。
+
+
 ## 0.1.1
 
 - Deepened all 27 event-driven Skills from generic contracts into executable local workflows.

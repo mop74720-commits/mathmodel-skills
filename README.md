@@ -2,9 +2,9 @@
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.1：27 个 Skill 执行级深化
+## v0.1.2：27 个执行 Skill + 12 个算法族 Skill
 
-本版本不改变 v0.1.0 的三层架构和事件名，只把 27 个专项 Skill 从合同骨架深化为可直接执行的局部工作流。每个 Skill 均包含：Trigger、Scope、Inputs、Decision Rules（按需）、Procedure、Outputs、Checks、Failure、Handoff。
+本版本保留 v0.1.1 的 27 个事件驱动 Skill，并新增 12 个算法族 Skill。`model-selection` 负责识别问题结构并路由，算法族 Skill 负责模型族内部的算法选择、适用条件、验证设计与失败分流。所有 Skill 继续采用 Trigger、Scope、Inputs、Procedure、Outputs、Checks、Failure、Handoff 合同。
 
 设计原则：
 
@@ -54,6 +54,7 @@ mathmodel-skills/
 │   ├── coding/
 │   └── writing/
 ├── skills/
+│   ├── algorithm/
 │   ├── problem/
 │   ├── modeling/
 │   ├── coding/
@@ -94,4 +95,6 @@ MODEL_UNCERTAIN -> skills/modeling/model-selection
 
 ```bash
 python scripts/validate_hub.py
+python scripts/validate_algorithm_routing.py
+python scripts/validate_scenarios.py
 ```
