@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.11 — Paper Quality Repair
+
+- 新增 `paper-synthesis`：明确 Repo→paper 的选择性压缩与 main/appendix/support 分层。
+- 新增 `editorial-compression`：处理正文膨胀、算法百科、重复、审计化/合规补丁污染。
+- 新增 `judge-review`：有限注意力评委扫读、5-minute map、scan friction；不使用虚构评分表。
+- `paper-review` 收窄为 scientific/semantic review，避免把数学正确性、编辑质量、合规问题混成一个总评。
+- `final-review` 增加 compliance overlay 非退化检查：合规修改不得无必要破坏正文叙事和渲染质量。
+- writing role、outline、result-writing、abstract、technical-style、visualization-review 同步 paper-quality contract。
+- 新增 `references/paper-quality-contract.md` 与 `scripts/validate_paper_quality.py`。
+- SkillHub 现为 53 个事件驱动 Skill；新增能力仍按需调用，不形成论文固定流水线。
+
+
 ## 0.1.10
 
 - 强化 `OFFICIAL_RULES_NEEDED` 到固定 Competition Repo 规则位置。

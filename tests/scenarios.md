@@ -85,3 +85,7 @@
 49. 多个自主主体的最优策略彼此依赖，需要均衡分析 -> `ALGO_GAME_THEORY` -> `game-theory`
 
 50. “准备按 2026 当届规则排版，但还没核验官方页数、模板和提交要求。” -> `OFFICIAL_RULES_NEEDED` -> `competition-rules`
+
+51. “Competition Repo 很完整，但论文像把实验日志和审计记录全打印出来，想重新合成竞赛正文。” -> `PAPER_SYNTHESIS_NEEDED` -> `paper-synthesis`
+52. “论文科学结果正确，但正文越来越长，算法百科、重复说明和合规补丁把主线冲散了。” -> `PAPER_TOO_BLOATED` -> `editorial-compression`
+53. “论文已经成形，想模拟评委五分钟扫读，看每问答案和关键贡献能不能快速抓住。” -> `PAPER_JUDGE_REVIEW_NEEDED` -> `judge-review`

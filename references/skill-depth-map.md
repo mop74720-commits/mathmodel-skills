@@ -1,6 +1,6 @@
 # Skill Depth Map
 
-v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.10 目前共 50 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
+v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.11 目前共 53 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
 
 | Category | Skill | Event | 核心输出 |
 |---|---|---|---|
@@ -73,3 +73,13 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.10 目前�
 | problem | competition-rules | OFFICIAL_RULES_NEEDED | 当届官方 rule profile、来源/locator、硬约束、UNKNOWN/CONFLICT |
 
 同时新增不占 Router Event 的深度参考：模型组合模式、MATLAB 实现规范、Figure 三份选图/编码/review guide。
+
+## v0.1.11 Paper Quality Repair
+
+| Category | Skill | Event | 核心输出 |
+|---|---|---|---|
+| writing | paper-synthesis | PAPER_SYNTHESIS_NEEDED | Repo→正文选择、main/appendix/support 映射、每问证据闭环 |
+| writing | editorial-compression | PAPER_TOO_BLOATED | delete/merge/move/keep 清单、压缩正文、渲染节奏修复 |
+| audit | judge-review | PAPER_JUDGE_REVIEW_NEEDED | 5-minute map、scan friction、评委视角最小修改 |
+
+三者不构成强制阶段：只有当前论文问题命中时才调用。Scientific `paper-review`、Judge `judge-review`、Compliance `final-review` 的 PASS/FAIL 语义相互独立。

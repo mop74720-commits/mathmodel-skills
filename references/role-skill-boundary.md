@@ -1,4 +1,4 @@
-# Role / Skill / Coach Boundary — v0.1.10
+# Role / Skill / Coach Boundary — v0.1.11
 
 - Coach decides global priority, question switching, freeze/rollback, risk acceptance and submission readiness.
 - SkillHub solves local technical events and returns evidence/risk/handoff.
