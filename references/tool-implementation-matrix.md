@@ -1,4 +1,4 @@
-# Tool Implementation Matrix — v0.1.11
+# Tool Implementation Matrix — v0.1.12
 
 | Tool | Quality-selected implementation | Validation target | Known boundary |
 |---|---|---|---|
@@ -8,7 +8,7 @@
 | DOCX | paragraphs/tables/headings/media/styles/OMML/revisions/comments/fields/hyperlinks/relationship audit; template-style inspection; real render; deterministic self-check | smoke + real render | no copied restricted editing code; no full comment/redline/LaTeX→OMML editing suite |
 | LaTeX | feature doctor; generic/CJK init; real build + bibliography; resource/ref checks; build provenance; SHA bind; PDF/font/page audit; optional explicit rule thresholds | real XeLaTeX smoke | contest class/template rules remain external/official; source-only checks cannot prove rendered quality |
 | Paper Search | OpenAlex + Crossref; DOI + high-threshold fuzzy title dedup; year/citation filters; transparent relevance ranking | network-independent self-test | metadata discovery only; paper claims require source verification |
-| Reproducibility | feature-scoped dependency doctor; run manifest v2 create/verify; Python/MATLAB/other runtime identity; explicit dependency versions; input/artifact hashes; Git provenance | smoke | records explicitly requested files/dependencies; MATLAB toolbox availability is reported separately; not a container/environment lockfile |
+| Reproducibility | feature-scoped dependency doctor; run manifest v3 create/verify/replay; CSV/JSON semantic fingerprint; provenance bundle / verify-bundle; Python/MATLAB/other runtime identity; explicit dependency versions; input/artifact hashes; Git provenance | smoke | verify=artifact identity, replay=command rerun evidence, bundle=selected evidence identity; none alone proves scientific correctness |
 
 `PASS`/smoke 仅说明机械实现按测试用例运行，不代表模型、统计结论或论文科学质量通过。
 
@@ -17,3 +17,9 @@
 - XLSX: added `stream_rows.py` for large read-only attachments; choose it before full workbook loading when cell/style semantics are unnecessary.
 - Reproducibility: `verify` now explicitly means artifact integrity; `replay` executes the recorded command and classifies EXACT_MATCH / SEMANTIC_MATCH / MISMATCH.
 - Relative input/artifact paths are resolved against manifest `--cwd`.
+
+
+## v0.1.12 Research-quality integration
+
+- Reproducibility: provenance bundle binds manifest / ledger / rule profile / claim-evidence by SHA-256 while preserving the stronger v0.1.10 distinction between integrity and replay.
+- ScholarSkill-derived capability selection is documented as independent method transformation, not as code/registry ingestion.

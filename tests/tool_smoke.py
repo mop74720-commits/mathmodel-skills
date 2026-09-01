@@ -68,6 +68,8 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','create','--output',manifest,'--run-id','smoke','--cwd',repod,'--runtime','python','--command',f'{sys.executable} regen.py','--seed','42','--input','input.txt','--artifact','result.csv','--semantic-decimals','10')
     v=run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','verify',manifest); assert 'artifact_integrity' in v
     rr=run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','replay',manifest,'--timeout','30'); assert 'SEMANTIC_MATCH' in rr
+    bundle=repod/'provenance-bundle.json'; run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','bundle','--manifest',manifest,'--output',bundle,'--cwd',repod,'--status','confirmatory'); assert bundle.exists()
+    vb=run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','verify-bundle',bundle); assert 'provenance_bundle_integrity' in vb
 
     print('SMOKE search', flush=True)
     # Network-independent search logic test

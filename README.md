@@ -1,10 +1,14 @@
 # mathmodel-skills
 
+## v0.1.12：局部路线反驳与 flip/fallback
+
+保持 50-event 边界，不增加 contest-route-selection Skill。强化 `model-selection / model-challenge / model-comparison`：复杂度必须有 baseline 缺陷与 deciding evidence 支撑；增加 strongest objection、rejected alternative、refutation test、flip condition 和 fallback trigger/action。全局选题仍由 Coach + Selection Workspace 处理。
+
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.11：53 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
+## v0.1.12：50 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
 
-v0.1.11 继承 v0.1.10 的发布一致性、官方规则闭环、复现与大 XLSX 能力，并新增论文终稿质量修复：把 Repo→paper synthesis、编辑压缩和 Judge Review 分离为三个按需事件。Hub/Coach 权限边界、18 个原子算法族和 7 个 Tool 保持不变。
+v0.1.12 以 v0.1.10 的集成审计修复为基线，选择性吸收一条 ScholarSkill 定向增强分支中的高价值科研质量协议：数据合同/泄漏审计、决策性实验合同、不确定性预算、写作前 citation planning 与 provenance bundle。保留 v0.1.10 的 50-event 边界、动态 validator、replay reproducibility 和百万行 XLSX streaming；不恢复越权 `competition-strategy`。
 
 设计原则：
 
@@ -18,7 +22,17 @@ v0.1.11 继承 v0.1.10 的发布一致性、官方规则闭环、复现与大 XL
 
 
 
-## v0.1.10 Rehearsal Integration Patch
+
+## v0.1.12 Targeted Research-Quality Integration
+
+- `data-audit`：增加 row-unit/data contract、missingness pattern、六类 leakage 与 split integrity。
+- `experiment-manager`：增加 `EXPLORATORY / CONFIRMATORY` 与 decision-bearing Experiment Contract。
+- `robustness`：增加 uncertainty budget，分离数据/参数/结构/场景/算法/数值不确定性。
+- `claim-evidence`：增加写作前 citation purpose planning，继续区分外部文献与本地运行证据。
+- `reproducibility`：在 v0.1.10 的 manifest/verify/replay 语义上新增 provenance bundle；hash 仍只证明工件身份，不等同科学正确性。
+- 保留 `references/scholarskill-selection-2026-08-31.*` 作为吸收裁决记录；不安装大规模外部 registry，不新增 Router event。
+
+## v0.1.10 Rehearsal Integration Patch（保留）
 
 - 移除越权的 first-class `competition-strategy`；全局竞赛策略归 Coach，官方规则提取仍由 `competition-rules` 负责。
 - `validate_hub.py` 不再硬编码 Skill 数量，而是校验 Skill 文件、trigger、registry path、registry version 的双向一致性。
@@ -174,30 +188,9 @@ python tests/tool_smoke.py
 ```
 
 
-## v0.1.10 Official submission closure
+## v0.1.10 Official submission closure（保留）
 
 - `competition-rules` 统一落盘到 Competition Repo 的 `rules/OFFICIAL_RULES.md` + `RULE_PROFILE.json`。
 - `final-review` 在规则未核验时硬阻止 submission-ready 结论，但不阻塞前期科学工作。
 - AI 披露增加真实性约束：缺模型版本/关键交互等历史证据时明确 BLOCKED，不允许补造。
 - 正式支撑材料与论文附录源程序一致性进入 final-review。
-
-
-## v0.1.11 — Paper Quality Repair
-
-本版修复“科学/合规越来越严，但终稿反而像审计报告”的退化风险。
-
-新增三个按需事件，不构成固定流程：
-
-- `PAPER_SYNTHESIS_NEEDED` → `paper-synthesis`：把完整 Competition Repo 选择性合成为论文，而不是按目录打印。
-- `PAPER_TOO_BLOATED` → `editorial-compression`：压缩重复、算法百科、内部治理和补丁化内容，迁移到附录/支撑材料。
-- `PAPER_JUDGE_REVIEW_NEEDED` → `judge-review`：模拟有限注意力评委扫读，输出 5-minute map 和 scan friction，不使用虚构评分表。
-
-核心原则：
-
-- Repo completeness ≠ paper completeness。
-- Scientific Review / Judge Review / Compliance Review 分离。
-- 主正文、附录、支撑材料分层；长代码附录不能成为正文质量下降的理由。
-- 合规修改采用最小必要 overlay，若破坏正文渲染质量则回退重新设计，而不是继续堆补丁。
-- 不设通用固定页数、图数、公式数或“论文总分”。
-
-回归检查：`python scripts/validate_paper_quality.py`。

@@ -26,13 +26,14 @@ description: 建立/审查论文关键主张到公式、运行、表图、数据
 
 ## Procedure
 
-1. 抽取需要证据的 claim：每个子问题核心结论、摘要数字、最优/优于/显著/稳定等强表述、关键假设和方法依据。
-2. 为每个 claim 指定证据类型与精确位置：题面、公式/合同、run_id/结果字段、图表文件/编号、文献 DOI/页段。
-3. 区分“直接证据”和“背景支持”：文献说某方法常用，不等于证明本题结果正确；另一段正文也不是结果证据。
-4. 对所有关键数字回到 Final Run 核对，不允许用手工二次计算或旧表作为唯一来源。
-5. 检查强度匹配：证据只能支持相关性时，claim 不得写因果；只做局部实验时，不得写“普遍优越”。
-6. 标记缺证据 claim，明确需要 modeling/coding/experiment/writing 哪一层补齐；不要通过弱化证据标准来“补表”。
-7. 更新 Claim-Evidence Map，并标记哪些 claim 已冻结。
+1. 若正文尚未成稿，先从 outline 提取预期 claim，并按 `PROBLEM_FACT / METHOD_JUSTIFICATION / DEFINITION_OR_THEORY / COMPARATIVE_BACKGROUND / LOCAL_RESULT / INTERPRETATION / LIMITATION` 分类；这样先规划证据再写，而不是写完后补 citation。
+2. 抽取需要证据的 claim：每个子问题核心结论、摘要数字、最优/优于/显著/稳定等强表述、关键假设和方法依据。
+3. 为每个 claim 指定证据类型与精确位置：题面、公式/合同、run_id/结果字段、图表文件/编号、文献 DOI/页段。
+4. 区分“直接证据”和“背景支持”：文献说某方法常用，不等于证明本题结果正确；另一段正文也不是结果证据。
+5. 对所有关键数字回到 Final Run 核对，不允许用手工二次计算或旧表作为唯一来源。
+6. 检查强度匹配：证据只能支持相关性时，claim 不得写因果；只做局部实验时，不得写“普遍优越”。
+7. 标记缺证据 claim，明确需要 modeling/coding/experiment/writing 哪一层补齐；不要通过弱化证据标准来“补表”。
+8. 更新 Claim-Evidence Map，并标记哪些 claim 已冻结。
 
 ## Outputs
 
@@ -44,7 +45,8 @@ description: 建立/审查论文关键主张到公式、运行、表图、数据
 
 - 每个摘要关键数字有 Final Run 来源
 - 核心结论有至少一种直接证据
-- 文献引用与实际 claim 匹配
+- 文献引用与实际 claim 匹配，且 citation purpose 在写作前或审计时可解释
+- 文献只支撑背景/方法/理论时，不被错误当作本地数值结果证据
 - 没有循环引用正文作为证据
 
 ## Failure
@@ -61,3 +63,7 @@ description: 建立/审查论文关键主张到公式、运行、表图、数据
 
 ## Tool Routing
 需要外部方法/公式依据时调用 `tools/paper-search/scripts/hybrid_scholar.py` 找候选，再回到 DOI/出版机构页面核验；检索结果本身不是直接证据。
+
+## Deep Reference
+
+写作前 citation planning 读取 `references/citation-evidence-planning.md`。比赛通常使用 targeted evidence search；只有任务明确要求时才升级为 scoping/systematic review 级别。

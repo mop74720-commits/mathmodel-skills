@@ -25,14 +25,15 @@ description: 轻量记录每次实验的代码版本、参数、输入、结果�
 
 ## Procedure
 
-1. 为每次有决策价值的运行分配稳定 `run_id`；探索性极小测试可以合并记录，不要求每次 print 都登记。
-2. 记录最少字段：run_id、问题、时间、代码 commit/版本、输入版本、模型/配置、seed、状态、关键结果、备注。
-3. 若参数很多，保存配置文件或参数哈希，不把几十列硬塞进 Ledger；Ledger 指向详细配置。
-4. 对失败运行记录失败类型和淘汰原因；失败实验是后续排错和论文方法选择的证据。
-5. 当某次运行被新结果替代，标记 `SUPERSEDED` 而不是删除；只允许一个明确的 Final 候选进入最终证据链。
-6. 将结果文件/图表与 run_id 关联，避免手工复制后失去来源。
-7. 只对关键工件做哈希或版本锚定，不要求给项目内每个临时文件计算 SHA。
-8. 需要可机器验证的 manifest 时调用 `tools/reproducibility`：记录命令、seed、指定输入/产物 SHA-256、Git/运行时/依赖版本；禁止导出完整环境变量或秘密。
+1. 先区分 `EXPLORATORY` 与 `CONFIRMATORY`。会改变模型选择、headline 数字或最终 claim 的运行，在执行前写最小 Experiment Contract：问题、Baseline、唯一变化项、数据/场景、主指标、seed/fold、停止规则、失败定义、预期产物；纯 debug/极小探索无需形式化。
+2. 为每次有决策价值的运行分配稳定 `run_id`；探索性极小测试可以合并记录，不要求每次 print 都登记。
+3. 记录最少字段：run_id、问题、时间、代码 commit/版本、输入版本、模型/配置、seed、状态、关键结果、备注。
+4. 若参数很多，保存配置文件或参数哈希，不把几十列硬塞进 Ledger；Ledger 指向详细配置。
+5. 对失败运行记录失败类型和淘汰原因；失败实验是后续排错和论文方法选择的证据。
+6. 当某次运行被新结果替代，标记 `SUPERSEDED` 而不是删除；只允许一个明确的 Final 候选进入最终证据链。
+7. 将结果文件/图表与 run_id 关联，避免手工复制后失去来源。
+8. 只对关键工件做哈希或版本锚定，不要求给项目内每个临时文件计算 SHA。
+9. 需要可机器验证的 manifest 时调用 `tools/reproducibility`：记录命令、seed、指定输入/产物 SHA-256、Git/运行时/依赖版本；禁止导出完整环境变量或秘密。
 
 ## Outputs
 
@@ -43,6 +44,7 @@ description: 轻量记录每次实验的代码版本、参数、输入、结果�
 ## Checks
 
 - 任何论文关键数字都能追到 run_id
+- 会改变最终结论的比较实验有事前 Experiment Contract，比较口径/资源/数据一致或差异有明确理由
 - 失败运行没有被误当 Final
 - 同一 run_id 不对应多套互相冲突结果
 - Git commit/代码版本记录存在（适用时）
@@ -58,3 +60,7 @@ description: 轻量记录每次实验的代码版本、参数、输入、结果�
 返回可追溯状态和当前 Final 候选；是否保留更多历史运行由 Coach/团队决定。
 
 统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。
+
+## Deep Reference
+
+决策性实验按需读取 `references/experiment-protocol.md`。比赛允许自适应探索，但强结论应尽量由冻结合同后的 confirmatory run 或诚实的验证程序支撑。

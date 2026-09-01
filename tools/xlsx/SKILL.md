@@ -3,7 +3,7 @@ name: tool-xlsx
 description: XLSX 工作簿结构/公式审计、受限读取、百万行级只读流式读取和显式 LibreOffice 重算；编辑与大数据读取分开处理。
 ---
 
-# Tool: XLSX — v0.1.11
+# Tool: XLSX — v0.1.10
 
 普通工作簿：
 

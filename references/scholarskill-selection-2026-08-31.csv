@@ -1,0 +1,10 @@
+candidate,observed_value,v0.1.9_decision,destination
+literature-review,review rigor tiers and evidence synthesis,TRANSFORMED,citation-evidence planning
+paper-citation-planner,plan citation purpose before drafting,ADOPTED_AS_METHOD,claim-evidence + citation-evidence-planning
+bio-orchestrator,input-aware routing and reproducibility bundle,TRANSFORMED,provenance-bundle only
+grouped-statistics,grouped/missingness-aware data analysis,TRANSFORMED,data-audit + xlsx
+paper-search,multi-source search/fallback,PARTIAL_DEFER,current OpenAlex+Crossref retained
+paper-interpreter,structured critical reading,DEFER,research mode only
+autoresearch,experiment/protocol orientation,THEME_ONLY,experiment-protocol
+protocolsio-integration,external protocol persistence,EXCLUDED,no contest dependency
+research-pipeline,broad end-to-end orchestration,EXCLUDED,duplicates Coach

@@ -39,6 +39,19 @@ if actual_paths!=set(reg_paths):
 if 'COMPETITION_STRATEGY_NEEDED' in reg_events:
     errors.append('global competition strategy must remain Coach-owned, not a first-class SkillHub event')
 
+# v0.1.12 local route-decision regression
+route_ref=ROOT/'references/route-decision-primitives.md'
+if not route_ref.exists(): errors.append('missing route-decision-primitives.md')
+for rel,phrases in {
+    'skills/modeling/model-selection/SKILL.md':['strongest_objection','deciding_evidence','flip_condition','fallback'],
+    'skills/modeling/model-challenge/SKILL.md':['strongest_objection','simplest_viable_replacement','flip_condition'],
+    'skills/modeling/model-comparison/SKILL.md':['deciding_evidence','flip_condition'],
+}.items():
+    txt=(ROOT/rel).read_text(encoding='utf-8')
+    for phrase in phrases:
+        if phrase not in txt: errors.append(f'{rel} missing route-decision field {phrase}')
+if any('contest-route-selection' in p for p in reg_paths): errors.append('contest-route-selection must not become a first-class SkillHub path')
+
 version=(ROOT/'VERSION').read_text(encoding='utf-8').strip()
 root_skill=(ROOT/'SKILL.md').read_text(encoding='utf-8')
 if f'version: {version}' not in root_skill:

@@ -39,3 +39,13 @@
 本版本改用“同能力择优”而不是“只补缺失项”的策略。详细裁决见 `references/overlap-quality-selection.md`。
 
 特别说明：XiaoMa 的 `tools/docx/LICENSE.txt` / `tools/pdf/LICENSE.txt` 在审计基线中包含限制提取、复制、衍生和再分发的条款。因此 v0.1.6 不复制这些目录的源码/模板，只根据可观察能力边界做独立实现；这也是为什么“XiaoMa 在能力上胜出”不等于“把其代码直接打进本包”。
+
+
+## v0.1.12 ScholarSkill discovery note
+
+2026-08-31 的定向筛选把 ScholarSkill 视为能力发现/比较入口，不作为代码、文本或大规模 registry 的复制来源。采用的思想被独立转化为数据泄漏审计、决策性实验合同、不确定性预算、citation planning 与 provenance bundle；筛选裁决见 `references/scholarskill-selection-2026-08-31.md`。
+
+
+## v0.1.12 route-selection integration note
+
+选择性参考 `y3519712124-ui/math-modeling-contest-route-selection`（MIT）。只吸收局部 model-choice/refutation/flip/fallback 原语；A/B/C 选题和全局 route selection 明确保留为 Coach 决策，不新增 `competition-strategy` 或 `contest-route-selection` Skill。固定 45/55 权重、固定分差和固定 Day-One gate 未采用。

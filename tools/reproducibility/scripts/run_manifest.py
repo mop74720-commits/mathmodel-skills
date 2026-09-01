@@ -215,12 +215,72 @@ def replay(a):
                       'note':'EXACT_MATCH is byte reproducibility; SEMANTIC_MATCH means configured numeric canonicalization matched despite byte drift.'},ensure_ascii=False,indent=2))
     return 0 if ok else 1
 
+
+def bundle(a):
+    cwd=Path(a.cwd or '.').resolve()
+    fields={
+        'run_manifest': a.manifest,
+        'run_ledger': a.ledger,
+        'rule_profile': a.rule_profile,
+        'claim_evidence_map': a.claim_evidence,
+    }
+    refs={}; missing=[]
+    for key,raw in fields.items():
+        if not raw: continue
+        path=resolve_user_path(raw,cwd)
+        if not path.exists():
+            missing.append(str(path)); continue
+        refs[key]=digest(path,cwd,None)
+    if missing:
+        print(json.dumps({'ok':False,'missing_files':missing,'note':'relative paths are resolved against --cwd'},ensure_ascii=False,indent=2),file=sys.stderr); return 2
+    try:
+        manifest_obj=load_manifest(resolve_user_path(a.manifest,cwd))
+    except Exception as e:
+        print(json.dumps({'ok':False,'error':f'invalid manifest: {e}'},ensure_ascii=False,indent=2),file=sys.stderr); return 2
+    obj={
+        'schema':'mathmodel-provenance-bundle/v1',
+        'created_at_utc':datetime.now(timezone.utc).isoformat(),
+        'status':a.status,
+        'run_id':manifest_obj.get('run_id'),
+        'run_manifest_schema':manifest_obj.get('schema'),
+        'cwd':str(cwd),
+        'refs':refs,
+        'notes':a.note,
+        'claim_boundary':{
+            'hashes_establish':'recorded artifact identity/integrity',
+            'hashes_do_not_establish':'scientific correctness or replay reproducibility',
+        },
+    }
+    out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
+    out.write_text(json.dumps(obj,ensure_ascii=False,indent=2),encoding='utf-8')
+    print(out); return 0
+
+def verify_bundle(a):
+    try:
+        b=json.loads(Path(a.bundle).read_text(encoding='utf-8'))
+    except Exception as e:
+        print(json.dumps({'ok':False,'check_type':'provenance_bundle_integrity','reason':'invalid_json','error':str(e)},ensure_ascii=False,indent=2)); return 2
+    if b.get('schema')!='mathmodel-provenance-bundle/v1':
+        print(json.dumps({'ok':False,'check_type':'provenance_bundle_integrity','reason':'unsupported_schema','schema':b.get('schema')},ensure_ascii=False,indent=2)); return 2
+    base=Path(a.cwd or b.get('cwd') or '.').resolve(); checks=[]; ok=True
+    for key,item in b.get('refs',{}).items():
+        path=item_path(item,base)
+        if not path.exists():
+            checks.append({'ref':key,'path':str(path),'ok':False,'reason':'missing'}); ok=False; continue
+        now_sha=sha256_file(path); same=(now_sha==item.get('sha256') and path.stat().st_size==item.get('bytes'))
+        checks.append({'ref':key,'path':str(path),'ok':same,'sha256':now_sha}); ok &= same
+    print(json.dumps({'ok':ok,'check_type':'provenance_bundle_integrity','schema':b.get('schema'),'run_id':b.get('run_id'),'status':b.get('status'),'cwd':str(base),'checks':checks,
+                      'note':'PASS verifies referenced bundle artifacts are unchanged; it does not prove scientific correctness or command replay.'},ensure_ascii=False,indent=2))
+    return 0 if ok else 1
+
 def main():
-    ap=argparse.ArgumentParser(description='Run manifest tool with separate artifact-integrity and replay-reproducibility semantics.')
+    ap=argparse.ArgumentParser(description='Run manifest + provenance bundle tool with separate artifact-integrity and replay-reproducibility semantics.')
     sub=ap.add_subparsers(dest='cmd',required=True)
     p=sub.add_parser('doctor'); p.add_argument('--features',nargs='+',required=True); p.set_defaults(func=doctor)
     p=sub.add_parser('create'); p.add_argument('--output',required=True); p.add_argument('--run-id',required=True); p.add_argument('--command',required=True); p.add_argument('--seed'); p.add_argument('--cwd'); p.add_argument('--runtime',default='python'); p.add_argument('--runtime-version'); p.add_argument('--dependency',action='append',default=[]); p.add_argument('--input',action='append',default=[]); p.add_argument('--artifact',action='append',default=[]); p.add_argument('--package',action='append',default=[]); p.add_argument('--note',action='append',default=[]); p.add_argument('--semantic-decimals',type=int); p.set_defaults(func=create)
     p=sub.add_parser('verify',help='artifact integrity only; does not execute the run'); p.add_argument('manifest'); p.add_argument('--cwd'); p.set_defaults(func=verify)
     p=sub.add_parser('replay',help='execute recorded command and compare regenerated artifacts'); p.add_argument('manifest'); p.add_argument('--cwd'); p.add_argument('--timeout',type=int,default=600); p.add_argument('--allow-input-drift',action='store_true'); p.set_defaults(func=replay)
+    p=sub.add_parser('bundle',help='bind a run manifest and selected evidence indexes by SHA-256 without claiming replay reproducibility'); p.add_argument('--manifest',required=True); p.add_argument('--output',required=True); p.add_argument('--cwd'); p.add_argument('--ledger'); p.add_argument('--rule-profile'); p.add_argument('--claim-evidence'); p.add_argument('--status',choices=['exploratory','confirmatory','final'],default='final'); p.add_argument('--note',action='append',default=[]); p.set_defaults(func=bundle)
+    p=sub.add_parser('verify-bundle',help='verify provenance bundle artifact identity only'); p.add_argument('bundle'); p.add_argument('--cwd'); p.set_defaults(func=verify_bundle)
     a=ap.parse_args(); raise SystemExit(a.func(a))
 if __name__=='__main__': main()
