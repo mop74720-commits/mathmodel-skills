@@ -1,14 +1,14 @@
 # mathmodel-skills
 
-## v0.1.12：局部路线反驳与 flip/fallback
+## v0.1.13：v0.1.11 + v0.1.12 质量合并修复
 
-保持 50-event 边界，不增加 contest-route-selection Skill。强化 `model-selection / model-challenge / model-comparison`：复杂度必须有 baseline 缺陷与 deciding evidence 支撑；增加 strongest objection、rejected alternative、refutation test、flip condition 和 fallback trigger/action。全局选题仍由 Coach + Selection Workspace 处理。
+以 v0.1.12 为结构底座，恢复 v0.1.11 在 0.1.12 升级中被回退的 3 个论文质量事件；同时保留 v0.1.12 的局部路线反驳、数据合同、实验合同、不确定性与 provenance 增强。不增加 contest-route-selection Skill。强化 `model-selection / model-challenge / model-comparison`：复杂度必须有 baseline 缺陷与 deciding evidence 支撑；增加 strongest objection、rejected alternative、refutation test、flip condition 和 fallback trigger/action。全局选题仍由 Coach + Selection Workspace 处理。
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.12：50 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
+## v0.1.13：53 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
 
-v0.1.12 以 v0.1.10 的集成审计修复为基线，选择性吸收一条 ScholarSkill 定向增强分支中的高价值科研质量协议：数据合同/泄漏审计、决策性实验合同、不确定性预算、写作前 citation planning 与 provenance bundle。保留 v0.1.10 的 50-event 边界、动态 validator、replay reproducibility 和百万行 XLSX streaming；不恢复越权 `competition-strategy`。
+v0.1.13 修复 v0.1.12 基于 v0.1.10 建包时遗漏 v0.1.11 Paper Quality Repair 的版本回归：恢复 paper-synthesis、editorial-compression、judge-review 与 paper-quality contract，同时完整保留 v0.1.12 的 research-quality / route-decision 增强。全局竞赛策略仍由 Coach 决定。
 
 设计原则：
 
@@ -194,3 +194,13 @@ python tests/tool_smoke.py
 - `final-review` 在规则未核验时硬阻止 submission-ready 结论，但不阻塞前期科学工作。
 - AI 披露增加真实性约束：缺模型版本/关键交互等历史证据时明确 BLOCKED，不允许补造。
 - 正式支撑材料与论文附录源程序一致性进入 final-review。
+
+## v0.1.13 Recovered Paper Quality Repair
+
+- `PAPER_SYNTHESIS_NEEDED` → `paper-synthesis`
+- `PAPER_TOO_BLOATED` → `editorial-compression`
+- `PAPER_JUDGE_REVIEW_NEEDED` → `judge-review`
+- 恢复 `references/paper-quality-contract.md` 和 `validate_paper_quality.py`。
+- Scientific / Judge / Compliance Review 分离。
+- Repo completeness ≠ paper completeness。
+- 保留 v0.1.12 的 route refutation、data contract、Experiment Contract、uncertainty budget、citation planning、provenance bundle。

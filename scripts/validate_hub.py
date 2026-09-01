@@ -39,7 +39,7 @@ if actual_paths!=set(reg_paths):
 if 'COMPETITION_STRATEGY_NEEDED' in reg_events:
     errors.append('global competition strategy must remain Coach-owned, not a first-class SkillHub event')
 
-# v0.1.12 local route-decision regression
+# v0.1.13 retains v0.1.12 local route-decision regression
 route_ref=ROOT/'references/route-decision-primitives.md'
 if not route_ref.exists(): errors.append('missing route-decision-primitives.md')
 for rel,phrases in {

@@ -73,3 +73,14 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.12 目前�
 | problem | competition-rules | OFFICIAL_RULES_NEEDED | 当届官方 rule profile、来源/locator、硬约束、UNKNOWN/CONFLICT |
 
 同时新增不占 Router Event 的深度参考：模型组合模式、MATLAB 实现规范、Figure 三份选图/编码/review guide。
+
+
+## v0.1.13 recovered paper-quality capabilities
+
+| layer | skill | event | depth |
+|---|---|---|---|
+| writing | paper-synthesis | PAPER_SYNTHESIS_NEEDED | Repo→正文选择、main/appendix/support 映射、每问证据闭环 |
+| writing | editorial-compression | PAPER_TOO_BLOATED | delete/merge/move/keep 清单、压缩正文、渲染节奏修复 |
+| audit | judge-review | PAPER_JUDGE_REVIEW_NEEDED | 5-minute map、scan friction、评委视角最小修改 |
+
+三者按当前问题触发，不构成 synthesis→compression→judge→final 强制链。

@@ -1,6 +1,6 @@
 ---
 name: mathmodel-skills
-version: 0.1.12
+version: 0.1.13
 description: 数学建模专项 Skill Hub。接收 Coach 或用户给出的局部事件，渐进式路由到 Role、专项 Skill、工具和 QA；不管理比赛时间线与全局优先级。
 ---
 
@@ -36,7 +36,7 @@ Skill Hub 权威：
 2. 一次优先调用一个 primary Skill；只有 primary 输出明确缺口时才加载 secondary Skill。
 3. 先读目标 Skill 的 `SKILL.md`；只有其 `Procedure` 要求时才加载 Role、Tool 或 references。
 4. 不运行完整流水线来解决单点问题。
-5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.12 的七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
+5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.13 的七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
 6. QA reviewer 默认只读，不直接修改权威产物。
 
 ## 4. 常见事件
@@ -67,6 +67,8 @@ Skill Hub 权威：
 | `PAPER_OUTLINE_NEEDED` | `writing/outline` |
 | `ABSTRACT_NEEDED` | `writing/abstract` |
 | `RESULT_SECTION_NEEDED` | `writing/result-writing` |
+| `PAPER_SYNTHESIS_NEEDED` | `writing/paper-synthesis` |
+| `PAPER_TOO_BLOATED` | `writing/editorial-compression` |
 | `WRITING_STYLE_WEAK` | `writing/technical-style` |
 | `ENGLISH_PAPER_NEEDED` | `writing/english-paper` |
 | `MODEL_NEEDS_REVIEW` | `audit/model-review` |
@@ -74,6 +76,7 @@ Skill Hub 权威：
 | `FINAL_RESULT_NEEDS_REVIEW` | `audit/result-review` |
 | `CLAIM_UNSUPPORTED` | `audit/claim-evidence` |
 | `PAPER_NEEDS_ATTACK` | `audit/paper-review` |
+| `PAPER_JUDGE_REVIEW_NEEDED` | `audit/judge-review` |
 | `PRE_SUBMISSION` | `audit/final-review` |
 
 
@@ -149,3 +152,8 @@ handoff:
 - 不以评分表伪装官方评审分数。
 - 不允许 writer 编造未运行结果。
 - 不允许 coding 通过偷偷改模型公式来绕开 model contract。
+
+- 不把 Competition Repo 的完整性等同于论文正文的完整性；正文必须选择性表达。
+- 不允许为了合规把内部 audit/provenance/AI 历史无必要塞进科学正文。
+- Scientific Review、Judge Review、Compliance Review 分离；任何一个 PASS 都不自动代表另外两个 PASS。
+- 论文质量判断优先看实际渲染页，不靠固定页数、图数或主观总分。

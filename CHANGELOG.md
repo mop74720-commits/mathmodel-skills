@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.13
+
+- 修复 0.1.12 以 0.1.10 为结构基线时误丢失 0.1.11 Paper Quality Repair 的版本回归。
+- 恢复 `paper-synthesis / editorial-compression / judge-review`，事件数重新为 53。
+- 恢复 `paper-quality-contract.md`、`validate_paper_quality.py` 与 paper-quality regression cases。
+- 保留 0.1.12 全部 ScholarSkill 定向增强：data contract/leakage、Experiment Contract、uncertainty budget、citation planning、provenance bundle。
+- 保留 0.1.12 route-decision primitives：strongest objection、deciding evidence、flip condition、fallback；不新增全局 contest-route-selection Skill。
+- 本版是定点合并修复，不恢复固定论文流程、固定页数/图数/模型数。
+
+
 ## 0.1.12
 
 - 以 v0.1.10 集成审计修复为唯一结构基线，选择性吸收 ScholarSkill 定向增强分支，不直接覆盖现有实现。
