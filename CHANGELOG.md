@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.1
+
+- Deepened all 27 event-driven Skills from generic contracts into executable local workflows.
+- Added domain-specific procedures, checks, failure routing and handoff logic for each Skill.
+- Preserved every v0.1.0 event name/path and Coach-vs-Hub authority boundary.
+- Removed fixed percentage sensitivity assumptions and arbitrary quantity targets from detailed procedures.
+- Strengthened Final Run, Run Ledger, Claim-Evidence, numerical verification and independent review semantics.
+- Expanded router scenario coverage to all 27 events and added a Skill Depth Map.
+
 ## 0.1.0
 
 - 建立 XiaoMa 风格的 Router / Role / Tool / QA 骨架，但重新编写内容。

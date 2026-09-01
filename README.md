@@ -2,6 +2,18 @@
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
+## v0.1.1：27 个 Skill 执行级深化
+
+本版本不改变 v0.1.0 的三层架构和事件名，只把 27 个专项 Skill 从合同骨架深化为可直接执行的局部工作流。每个 Skill 均包含：Trigger、Scope、Inputs、Decision Rules（按需）、Procedure、Outputs、Checks、Failure、Handoff。
+
+设计原则：
+
+- 不引入固定 01→12 阶段链；仍由事件路由。
+- 不使用页数、图数、统一百分比扰动等伪硬指标。
+- Skill 不拥有比赛阶段/时间/提交决策权，仍归 Coach。
+- QA 返回证据化 PASS/WARN/FAIL/NOT_INDEPENDENTLY_VERIFIED，不用主观总分代替问题。
+- 论文/结果关键数字优先绑定 Final Run 与 Claim-Evidence Map。
+
 ## 定位
 
 ```text

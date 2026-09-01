@@ -1,34 +1,60 @@
 ---
 name: abstract
 trigger: ABSTRACT_NEEDED
-description: 用已冻结结果写摘要：问题→方法→关键结果→验证/价值。
+description: 基于已冻结证据写摘要：最少背景，逐问交代方法、关键结果和验证/意义，不引入正文没有的新结论。
 ---
 
-# Abstract
+# abstract
 
 ## Trigger
-`ABSTRACT_NEEDED` 或用户明确要求本局部能力。
+
+- 事件：`ABSTRACT_NEEDED`。
+- 用户明确点名本能力时也可直接调用。
+- 本 Skill 只解决局部问题；比赛阶段、时间预算、是否放弃某题仍由 Coach 决定。
 
 ## Scope
-用已冻结结果写摘要：问题→方法→关键结果→验证/价值。
+
+摘要是最终结果的压缩，不是项目计划。只有关键数字已稳定时才应写定稿；早期可写占位结构但不能伪造结果。
 
 ## Inputs
-最终结果、模型名、题目
+
+- 最终问题合同
+- Final 结果与 run_id
+- 主模型/方法名称
+- 关键验证结果
+- 官方摘要长度/格式（如有）
 
 ## Procedure
-1. 读取输入并确认事实/合同版本。
-2. 只完成本 Skill 的局部任务，不推进比赛阶段。
-3. 生成结构化产物或建议，并记录关键假设与证据。
-4. 按 Checks 自检；需要独立判断时调用对应 audit Skill。
+
+1. 第一句/首段只保留理解题目所需的最少背景，迅速进入“本文解决什么”。
+2. 按题目实际问题组织摘要，每问用“方法 → 关键数值/策略 → 必要验证/解释”构成闭环；不要求机械地每问一段。
+3. 优先写能够区分方案价值的数字：最优值、误差、成本、时间、概率、稳定区间等；所有数字必须能追到 Final Run。
+4. 方法名具体到足以识别核心路线，但避免堆砌算法清单；同一模型族不同小技巧不必全部写进摘要。
+5. 若有鲁棒性/交叉验证等关键可信度证据，用一句话概括最重要结果。
+6. 删除“效果很好、精度很高、显著提升”等无比较基准的形容词；若说提升，写清相对谁、提升多少。
+7. 最后统一核对摘要数字、单位、模型名称与正文/表图完全一致。
 
 ## Outputs
-摘要草稿事实清单/写作指引
+
+- 可直接进入论文的摘要文本
+- 摘要数字-证据对照表或内部核对记录
 
 ## Checks
-关键数字必须从 final result 复制；背景从简；不写未验证创新。
+
+- 摘要无正文外的新 claim
+- 关键数字与 Final Run 一致
+- 没有过量背景/算法堆砌
+- 相对改进有基准
+- 关键词与实际方法匹配
 
 ## Failure
-结果未冻结则不生成定稿。
+
+- 结果尚未稳定：返回 `FINAL_RESULT_NEEDS_REVIEW`
+- 摘要 claim 缺证据：转 `CLAIM_UNSUPPORTED`
+- 摘要与正文冲突：转 `PAPER_NEEDS_ATTACK`
 
 ## Handoff
-返回 `status / outputs_written / key_findings / risks / qa_status / handoff`。Coach 决定是否采纳或继续。
+
+摘要完成后可建议 `PAPER_NEEDS_ATTACK` 或 `PRE_SUBMISSION`，由 Coach 决定。
+
+统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。

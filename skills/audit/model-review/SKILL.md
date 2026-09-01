@@ -1,34 +1,59 @@
 ---
 name: model-review
 trigger: MODEL_NEEDS_REVIEW
-description: 独立攻击模型合同的正确性、覆盖性、单位、假设、约束和可实现性。
+description: 以独立审查者视角攻击模型合同：题目覆盖、数学正确性、单位、假设、可辨识性、约束、边界与可实现性。
 ---
 
-# Model Review
+# model-review
 
 ## Trigger
-`MODEL_NEEDS_REVIEW` 或用户明确要求本局部能力。
+
+- 事件：`MODEL_NEEDS_REVIEW`。
+- 用户明确点名本能力时也可直接调用。
+- 本 Skill 只解决局部问题；比赛阶段、时间预算、是否放弃某题仍由 Coach 决定。
 
 ## Scope
-独立攻击模型合同的正确性、覆盖性、单位、假设、约束和可实现性。
+
+只读审查，不代替建模者修改权威模型。目标是找到会使后续实现/论文失效的 P0/P1 问题。
 
 ## Inputs
-题面、数据事实、模型合同
+
+- 问题合同与题面
+- 模型合同
+- 假设登记
+- 数据审计
+- 必要文献/领域约束
 
 ## Procedure
-1. 读取输入并确认事实/合同版本。
-2. 只完成本 Skill 的局部任务，不推进比赛阶段。
-3. 生成结构化产物或建议，并记录关键假设与证据。
-4. 按 Checks 自检；需要独立判断时调用对应 audit Skill。
+
+1. 从题目反向检查：每个显式子问题是否被模型输出覆盖，是否有条件被漏掉或擅自添加。
+2. 逐式检查符号定义、维度/单位、索引范围、目标方向、约束方向、初边值与概率/流量/质量等结构守恒。
+3. 检查假设是否真的足以推出模型，是否存在“论文写了假设但代码没用”或“代码隐含了额外假设”。
+4. 检查参数可辨识性/可估计性：数据是否足以确定参数，是否存在多组参数产生同样输出却被当唯一解。
+5. 构造边界/退化案例：零需求、极限参数、单节点、无噪声、e=0、容量无限等适用场景，看模型是否回到合理结果。
+6. 检查可实现性：所需变量是否有数据，优化问题是否可行，计算规模是否合理，验证方案是否可执行。
+7. 按 P0/P1/P2 输出发现，不提供“综合分”代替问题证据。
 
 ## Outputs
-QA 回执
+
+- 独立模型审查回执
+- P0/P1/P2 发现及证据
+- 必须返工项与可选改进
 
 ## Checks
-reviewer 默认只读；P0 正确性 > P1 复现/一致性 > P2 改进。
+
+- reviewer 未参与被审合同编写（若声称独立）
+- 每个 FAIL 有具体公式/条件/文件位置
+- 没有因模型复杂而自动判优/判劣
 
 ## Failure
-问题返 modeling。
+
+- P0/P1 存在：FAIL，handoff modeling
+- 缺输入导致无法检查关键点：BLOCKED/NOT_INDEPENDENTLY_VERIFIED
+- 通过后可建议 `IMPLEMENT_MODEL`
 
 ## Handoff
-返回 `status / outputs_written / key_findings / risks / qa_status / handoff`。Coach 决定是否采纳或继续。
+
+只返回审查结论；Coach 决定是否返工、降级或带风险继续。
+
+统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。
