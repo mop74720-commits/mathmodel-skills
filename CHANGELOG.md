@@ -80,3 +80,10 @@
 - 删除固定 12 阶段链、固定图数/篇幅、逐阶段审批和无 Subagent 即全局阻断。
 - 明确 Coach > Hub 的调度权边界。
 - 新增 registry、QA contract、router scenarios 和结构校验脚本。
+
+
+## v0.1.8
+- 减法优化：降低 Skill 重复。
+- 新增 competition-strategy。
+- 增加 claim-evidence Figure 映射。
+- 增加 benchmark 压力测试规范。
