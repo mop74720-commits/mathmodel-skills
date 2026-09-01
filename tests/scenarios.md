@@ -72,3 +72,13 @@
 - “Q1 和 Q3 哪个优先？” -> `HANDOFF_TO_COACH`
 - “现在能不能冻结模型？” -> `HANDOFF_TO_COACH`
 - “要不要为了创新冒险换一整套模型？” -> Skill 可以分析局部风险，但最终取舍 -> `HANDOFF_TO_COACH`
+
+40. 赛题是公共卫生决策，当前模型没有考虑删失/重复测量/领域评价口径 -> `DOMAIN_CONTEXT_NEEDED` -> `domain-context`
+41. 模型已经很复杂，需要检查某个模块到底有没有必要 -> `MODEL_NEEDS_CHALLENGE` -> `model-challenge`
+42. 论文数字正确，但语言模板化、结果只报数不解释 -> `WRITING_STYLE_WEAK` -> `technical-style`
+43. 只有很短的趋势序列，想评估 GM(1,1) 是否值得作为候选 -> `ALGO_GREY_FORECAST` -> `grey-forecasting`
+44. 多个单位有多投入多产出，需要相对效率而不是普通综合排名 -> `ALGO_EFFICIENCY_ANALYSIS` -> `efficiency-analysis`
+45. 服务窗口到达-服务-等待问题，需要估计等待时间和容量 -> `ALGO_QUEUEING` -> `queueing`
+46. 题目核心是库存-流量-反馈-时滞和政策情景 -> `ALGO_SYSTEM_DYNAMICS` -> `system-dynamics`
+47. 扩散/拥挤由空间格点上的局部更新规则驱动 -> `ALGO_CELLULAR_AUTOMATA` -> `cellular-automata`
+48. 多个自主主体的最优策略彼此依赖，需要均衡分析 -> `ALGO_GAME_THEORY` -> `game-theory`

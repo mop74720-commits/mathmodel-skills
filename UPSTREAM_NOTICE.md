@@ -1,26 +1,31 @@
 # Upstream design notice
 
-本项目参考以下公开仓库的设计思想：
+本项目参考以下公开仓库：
 
 1. https://github.com/XiaoMaColtAI/math-modeling-skill
 2. https://github.com/han69611/math-modeling-skills
 
-截至本版本生成时，两者 GitHub 仓库元数据显示 `license: null`，仓库根目录也未提供可供本项目直接再分发其源码/文本的许可证声明。因此：
+本版本覆盖审计固定到：
 
-- 本项目不包含两仓库原始脚本、模板或大段原文复制；
-- 仅吸收公开可观察到的架构思想、能力划分和工作流模式；
-- Role、Skill、Tool、QA 的文字与接口均在本项目中重新编写；
-- 若上游未来补充明确许可证，可再评估是否引入兼容的原始资产。
+- XiaoMa commit `e5d9313420d519f18ed1429d52d95fe0a72ae944`
+- Han commit `b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca`
+
+许可证观察：XiaoMa 当前 GitHub 元数据为 `license: null`，根目录树未见 `LICENSE`；Han 的 GitHub 元数据同样为 `license: null`，但其 README 明确写有 `License: MIT`。本项目仍采用独立重写的方式，不把上游整仓源码/模板原样再分发。
 
 主要设计映射：
 
-- XiaoMa：三角色分工、Skill Root / Project Root 隔离、渐进加载、独立质检、工具技能化。
-- Han：假设设计、模型选择、实验记录、结果对比、创新候选、严格 reviewer 与 final verify 的局部能力。
+- XiaoMa：三角色、Skill/Project Root 隔离、渐进加载、独立 QA、工具技能化、算法索引、复现与文档质量思想。
+- Han：假设设计、模型选择、实验管理、结果分析、创新、领域知识、自我挑战、Reviewer、Verify、可视化审查等细粒度能力。
 
-本项目额外做出的关键改变：
+本项目的架构性改造：
 
-- 移除固定阶段强制链；
-- 移除“无 Subagent 即全局阻断”；
-- 移除固定图数量、篇幅数量等非官方硬指标；
-- 移除用户逐阶段审批依赖；
-- 将 QA 改成状态与风险回执，由 Coach 决定是否继续、返工或降级。
+- 固定阶段工作流由 Coach 管理，Skill Hub 改为事件路由；
+- 无 Subagent 时返回 `NOT_INDEPENDENTLY_VERIFIED`，不把整场比赛全局 BLOCKED；
+- 固定图数、页数、字数、固定扰动比例等非官方指标不作为硬规则；
+- Innovation Score / paper-score 等主观总分不作为官方或科学真值；
+- 平台专用 DSH 插件、仓库运营元数据和 Legacy 重复工作流不进入通用 Hub。
+
+逐项覆盖情况见：
+
+- `references/upstream-coverage-matrix.md`
+- `references/upstream-coverage-matrix.csv`

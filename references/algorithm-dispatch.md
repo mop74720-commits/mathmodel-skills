@@ -1,12 +1,13 @@
 # Algorithm Dispatch Contract
 
-`model-selection` 负责判断模型族；`skills/algorithm/*` 负责该族内部的算法选择和验证设计。
+`model-selection` 负责判断模型族；必要时先用 `DOMAIN_CONTEXT_NEEDED` 补领域机制；`skills/algorithm/*` 负责该族内部的算法选择和验证设计。v0.1.3 共 18 个算法族入口。
 
 标准链：
 
 ```text
 MODEL_UNCERTAIN
   -> model-selection
+  -> [DOMAIN_CONTEXT_NEEDED if needed]
   -> ALGO_* (one primary)
   -> MODEL_CONTRACT_MISSING
   -> IMPLEMENT_MODEL

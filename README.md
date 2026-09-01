@@ -2,9 +2,9 @@
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.2：27 个执行 Skill + 12 个算法族 Skill
+## v0.1.3：48 个事件驱动 Skill + Upstream Coverage Matrix
 
-本版本保留 v0.1.1 的 27 个事件驱动 Skill，并新增 12 个算法族 Skill。`model-selection` 负责识别问题结构并路由，算法族 Skill 负责模型族内部的算法选择、适用条件、验证设计与失败分流。所有 Skill 继续采用 Trigger、Scope、Inputs、Procedure、Outputs、Checks、Failure、Handoff 合同。
+本版本在 v0.1.2 的 39 个 Skill 上继续补齐两个上游的高价值缺口，现有 48 个事件驱动 Skill，其中 18 个为算法族。新增 `references/upstream-coverage-matrix.md/.csv`，逐项记录 XiaoMa 与 Han 的能力映射、完整/部分吸收和主动排除项。所有 Skill 继续采用 Trigger、Scope、Inputs、Procedure、Outputs、Checks、Failure、Handoff 合同。
 
 设计原则：
 
@@ -13,6 +13,14 @@
 - Skill 不拥有比赛阶段/时间/提交决策权，仍归 Coach。
 - QA 返回证据化 PASS/WARN/FAIL/NOT_INDEPENDENTLY_VERIFIED，不用主观总分代替问题。
 - 论文/结果关键数字优先绑定 Final Run 与 Claim-Evidence Map。
+
+## v0.1.3 新增缺口补齐
+
+- `DOMAIN_CONTEXT_NEEDED` → `domain-context`：9 类常见领域机制/陷阱/评价口径。
+- `MODEL_NEEDS_CHALLENGE` → `model-challenge`：简化、替换、去掉、解释测试。
+- `WRITING_STYLE_WEAK` → `technical-style`：技术表达去模板化，但不以“规避 AI 检测”为目标。
+- 新增 6 个算法族：灰色预测、DEA/效率、排队、系统动力学、元胞自动机、博弈论。
+- 新增 `references/upstream-coverage-matrix.md` 和 CSV，对两个上游共 72 个重要条目逐项映射。
 
 ## 定位
 
@@ -31,9 +39,9 @@ Competition Repo
 设计来源：
 
 - `XiaoMaColtAI/math-modeling-skill`：吸收角色分工、渐进式加载、SKILL_ROOT/PROJECT_ROOT 分离、独立 reviewer/QA、工具分类等设计思想。
-- `han69611/math-modeling-skills`：吸收假设设计、模型选择、实验管理、结果分析、创新、Reviewer、Verify 等细粒度能力思想。
+- `han69611/math-modeling-skills`：吸收假设设计、模型选择、实验管理、结果分析、创新、领域知识、模型自挑战、Reviewer、Verify 等细粒度能力思想。
 
-两个上游仓库当前均未声明许可证，因此本项目不复制其原文、脚本或模板；所有内容均为按上述思想重新设计和独立编写。见 `UPSTREAM_NOTICE.md`。
+本项目继续采用独立重写而非整仓复制。XiaoMa 当前根目录未见明确 LICENSE；Han 的 README 声明 MIT，但仓库元数据未识别出 license。具体来源与处理见 `UPSTREAM_NOTICE.md`。
 
 ## 最重要的边界
 
@@ -55,6 +63,7 @@ mathmodel-skills/
 │   └── writing/
 ├── skills/
 │   ├── algorithm/
+│   ├── domain/
 │   ├── problem/
 │   ├── modeling/
 │   ├── coding/
@@ -97,4 +106,5 @@ MODEL_UNCERTAIN -> skills/modeling/model-selection
 python scripts/validate_hub.py
 python scripts/validate_algorithm_routing.py
 python scripts/validate_scenarios.py
+python scripts/validate_upstream_coverage.py
 ```

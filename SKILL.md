@@ -1,6 +1,6 @@
 ---
 name: mathmodel-skills
-version: 0.1.2
+version: 0.1.3
 description: 数学建模专项 Skill Hub。接收 Coach 或用户给出的局部事件，渐进式路由到 Role、专项 Skill、工具和 QA；不管理比赛时间线与全局优先级。
 ---
 
@@ -47,10 +47,12 @@ Skill Hub 权威：
 | `DATA_UNKNOWN` | `problem/data-audit` |
 | `PROBLEM_AMBIGUOUS` | `problem/ambiguity-resolution` |
 | `ASSUMPTION_WEAK` | `problem/hypothesis` |
+| `DOMAIN_CONTEXT_NEEDED` | `domain/domain-context` |
 | `MODEL_UNCERTAIN` | `modeling/model-selection` |
 | `MODELS_NEED_COMPARISON` | `modeling/model-comparison` |
 | `MODEL_CONTRACT_MISSING` | `modeling/model-contract` |
 | `NEED_LOW_RISK_IMPROVEMENT` | `modeling/innovation` |
+| `MODEL_NEEDS_CHALLENGE` | `modeling/model-challenge` |
 | `IMPLEMENT_MODEL` | `coding/implementation` |
 | `SOLVER_FAILED` | `coding/solver-debug` |
 | `NUMERICAL_SUSPECT` | `coding/numerical-check` |
@@ -64,6 +66,7 @@ Skill Hub 权威：
 | `PAPER_OUTLINE_NEEDED` | `writing/outline` |
 | `ABSTRACT_NEEDED` | `writing/abstract` |
 | `RESULT_SECTION_NEEDED` | `writing/result-writing` |
+| `WRITING_STYLE_WEAK` | `writing/technical-style` |
 | `MODEL_NEEDS_REVIEW` | `audit/model-review` |
 | `MVP_NEEDS_CHECK` | `audit/mvp-check` |
 | `FINAL_RESULT_NEEDS_REVIEW` | `audit/result-review` |
@@ -82,12 +85,18 @@ Skill Hub 权威：
 | `ALGO_NONLINEAR_OPT` | `algorithm/nonlinear-optimization` |
 | `ALGO_NETWORK_ROUTING` | `algorithm/network-routing` |
 | `ALGO_TIME_SERIES` | `algorithm/time-series` |
+| `ALGO_GREY_FORECAST` | `algorithm/grey-forecasting` |
 | `ALGO_SUPERVISED_LEARNING` | `algorithm/supervised-learning` |
 | `ALGO_UNSUPERVISED_LEARNING` | `algorithm/unsupervised-learning` |
 | `ALGO_MULTI_CRITERIA` | `algorithm/multi-criteria-evaluation` |
+| `ALGO_EFFICIENCY_ANALYSIS` | `algorithm/efficiency-analysis` |
 | `ALGO_ODE_DYNAMICS` | `algorithm/ode-dynamics` |
 | `ALGO_PDE_DYNAMICS` | `algorithm/pde-dynamics` |
 | `ALGO_STOCHASTIC_SIM` | `algorithm/stochastic-simulation` |
+| `ALGO_QUEUEING` | `algorithm/queueing` |
+| `ALGO_SYSTEM_DYNAMICS` | `algorithm/system-dynamics` |
+| `ALGO_CELLULAR_AUTOMATA` | `algorithm/cellular-automata` |
+| `ALGO_GAME_THEORY` | `algorithm/game-theory` |
 | `ALGO_STATISTICAL_INFERENCE` | `algorithm/statistical-inference` |
 | `ALGO_GEOMETRY` | `algorithm/geometry-reconstruction` |
 

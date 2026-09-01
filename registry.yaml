@@ -1,6 +1,42 @@
-version: 0.1.2
+version: 0.1.3
 router_policy: minimal-primary-first
 skills:
+  - event: DOMAIN_CONTEXT_NEEDED
+    name: domain-context
+    path: skills/domain/domain-context
+    description: "加载领域特有机制、数据陷阱、约束和评价口径，避免数学可行但领域无意义。"
+  - event: MODEL_NEEDS_CHALLENGE
+    name: model-challenge
+    path: skills/modeling/model-challenge
+    description: "通过简化、替换、去掉和解释测试检查模型必要性、可解释性与创新真实性。"
+  - event: WRITING_STYLE_WEAK
+    name: technical-style
+    path: skills/writing/technical-style
+    description: "修复模板化、流水账、无解释结果和空泛评价，不改变数学事实。"
+  - event: ALGO_GREY_FORECAST
+    name: grey-forecasting
+    path: skills/algorithm/grey-forecasting
+    description: "小样本趋势型灰色预测：适用性、Baseline、滚动验证和外推边界。"
+  - event: ALGO_EFFICIENCY_ANALYSIS
+    name: efficiency-analysis
+    path: skills/algorithm/efficiency-analysis
+    description: "DEA/多投入多产出效率分析：DMU同质性、前沿、slack与稳健性。"
+  - event: ALGO_QUEUEING
+    name: queueing
+    path: skills/algorithm/queueing
+    description: "排队系统：到达/服务机制、稳态条件、解析/仿真和容量配置。"
+  - event: ALGO_SYSTEM_DYNAMICS
+    name: system-dynamics
+    path: skills/algorithm/system-dynamics
+    description: "系统动力学：库存-流量、反馈、延迟、量纲和政策情景。"
+  - event: ALGO_CELLULAR_AUTOMATA
+    name: cellular-automata
+    path: skills/algorithm/cellular-automata
+    description: "元胞自动机：空间格点、局部规则、边界、尺度和涌现验证。"
+  - event: ALGO_GAME_THEORY
+    name: game-theory
+    path: skills/algorithm/game-theory
+    description: "博弈论：玩家、策略、收益、信息结构、均衡和社会最优对照。"
   - event: ALGO_LINEAR_INTEGER
     name: linear-integer-optimization
     path: skills/algorithm/linear-integer-optimization

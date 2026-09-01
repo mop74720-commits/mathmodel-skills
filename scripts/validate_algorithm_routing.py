@@ -2,6 +2,12 @@ from pathlib import Path
 import re, sys
 ROOT=Path(__file__).resolve().parents[1]
 expected={
+"ALGO_GREY_FORECAST":"grey-forecasting",
+"ALGO_EFFICIENCY_ANALYSIS":"efficiency-analysis",
+"ALGO_QUEUEING":"queueing",
+"ALGO_SYSTEM_DYNAMICS":"system-dynamics",
+"ALGO_CELLULAR_AUTOMATA":"cellular-automata",
+"ALGO_GAME_THEORY":"game-theory",
 "ALGO_LINEAR_INTEGER":"linear-integer-optimization",
 "ALGO_NONLINEAR_OPT":"nonlinear-optimization",
 "ALGO_NETWORK_ROUTING":"network-routing",
@@ -38,4 +44,4 @@ if errors:
     print('FAIL')
     for e in errors: print('-',e)
     sys.exit(1)
-print('ALGORITHM_ROUTING_PASS: 12 algorithm skills')
+print('ALGORITHM_ROUTING_PASS: 18 algorithm skills')

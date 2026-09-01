@@ -26,7 +26,7 @@ description: 基于问题结构、数据条件、可解释性、求解成本和�
 
 ## Procedure
 
-1. 先判定每个子问题的主类型：优化、预测、评价、分类/聚类、机理/仿真、图网络或混合类型；混合题拆成组件而不是硬贴单标签。
+1. 先判定每个子问题的主类型：优化、预测、评价、分类/聚类、机理/仿真、图网络或混合类型；混合题拆成组件而不是硬贴单标签。若赛题属于明显专业领域且领域机制会改变变量、约束或评价口径，先发出 `DOMAIN_CONTEXT_NEEDED`，再做最终模型取舍。
 2. 建立 Baseline：应简单、可解释、可快速复现，用于判断复杂方案是否真的带来收益；Baseline 不等于“低质量模型”。
 3. 生成少数真正独立的候选模型族。候选之间若只差超参数或同一机制的近似阶次，按一个模型族处理。
 4. 逐个检查适用条件：所需数据、变量类型、约束表达能力、样本量、可辨识性、计算复杂度、是否能在剩余环境中实现、可用验证方式。
@@ -38,12 +38,18 @@ description: 基于问题结构、数据条件、可解释性、求解成本和�
    - 连续非线性/非凸优化 → `ALGO_NONLINEAR_OPT`
    - 图、流、路径、TSP/VRP → `ALGO_NETWORK_ROUTING`
    - 时间序列预测 → `ALGO_TIME_SERIES`
+   - 小样本、信息不完全且趋势平滑的灰色预测候选 → `ALGO_GREY_FORECAST`
    - 有标签回归/分类 → `ALGO_SUPERVISED_LEARNING`
    - 聚类/降维 → `ALGO_UNSUPERVISED_LEARNING`
    - 多指标评价/排序 → `ALGO_MULTI_CRITERIA`
+   - 多投入—多产出相对效率/前沿 → `ALGO_EFFICIENCY_ANALYSIS`
    - ODE/状态空间 → `ALGO_ODE_DYNAMICS`
    - PDE/空间场 → `ALGO_PDE_DYNAMICS`
    - Monte Carlo/Markov/随机模拟 → `ALGO_STOCHASTIC_SIM`
+   - 到达—服务—等待/拥堵 → `ALGO_QUEUEING`
+   - 库存—流量—反馈—延迟 → `ALGO_SYSTEM_DYNAMICS`
+   - 空间格点+局部更新规则 → `ALGO_CELLULAR_AUTOMATA`
+   - 多主体策略互动 → `ALGO_GAME_THEORY`
    - 假设检验/参数推断 → `ALGO_STATISTICAL_INFERENCE`
    - 几何/碰撞/空间重建 → `ALGO_GEOMETRY`。
    混合题允许一个主 algorithm Skill + 一个必要的 secondary，不要一次加载整套算法库。
@@ -70,6 +76,6 @@ description: 基于问题结构、数据条件、可解释性、求解成本和�
 
 ## Handoff
 
-推荐下一事件优先是匹配的 `ALGO_*` 事件；若算法族已经确定且无需进一步展开，再转 `MODEL_CONTRACT_MISSING` 或 `MODELS_NEED_COMPARISON`。
+推荐下一事件优先是 `DOMAIN_CONTEXT_NEEDED`（若领域机制尚未核清）或匹配的 `ALGO_*` 事件；候选模型形成后、若需要检查复杂度和创新真实性，可转 `MODEL_NEEDS_CHALLENGE`。算法族已经确定且无需进一步展开时，再转 `MODEL_CONTRACT_MISSING` 或 `MODELS_NEED_COMPARISON`。
 
 统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。

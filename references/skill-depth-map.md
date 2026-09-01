@@ -1,6 +1,6 @@
 # Skill Depth Map
 
-v0.1.1 保持 v0.1.0 的 27 个事件和目录不变，只把内部内容深化到执行级。
+v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，目前共 48 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
 
 | Category | Skill | Event | 核心输出 |
 |---|---|---|---|
@@ -39,3 +39,21 @@ v0.1.1 保持 v0.1.0 的 27 个事件和目录不变，只把内部内容深化�
 - 数值、模型、论文审计以证据为中心，不使用虚构综合分。
 - 需要时可以组合第二个 Skill，但组合应由第一个 Skill 的失败/风险证据触发。
 - Coach 仍拥有 priority、stage、freeze、abandon、submit 决策权。
+
+## v0.1.2 Algorithm Family Additions
+
+- 12 个算法族：线性/整数优化、非线性优化、网络路由、时序、监督学习、无监督学习、多指标评价、ODE、PDE、随机仿真、统计推断、几何重建。
+
+## v0.1.3 Coverage-Driven Additions
+
+| Category | Skill | Event | 核心输出 |
+|---|---|---|---|
+| domain | domain-context | DOMAIN_CONTEXT_NEEDED | 领域机制—建模影响、特有陷阱、指标/约束 |
+| modeling | model-challenge | MODEL_NEEDS_CHALLENGE | 简化/替换/去掉/解释测试、组件必要性 |
+| writing | technical-style | WRITING_STYLE_WEAK | 技术表达修订、证据缺口，不改变数学事实 |
+| algorithm | grey-forecasting | ALGO_GREY_FORECAST | 灰色预测适用性、Baseline、滚动外推验证 |
+| algorithm | efficiency-analysis | ALGO_EFFICIENCY_ANALYSIS | DEA 规格、效率/slack、稳健性 |
+| algorithm | queueing | ALGO_QUEUEING | 排队系统合同、稳态/仿真、等待与容量 |
+| algorithm | system-dynamics | ALGO_SYSTEM_DYNAMICS | 因果回路、stock-flow、政策情景 |
+| algorithm | cellular-automata | ALGO_CELLULAR_AUTOMATA | 元胞/邻域/更新/边界与涌现验证 |
+| algorithm | game-theory | ALGO_GAME_THEORY | 玩家/策略/收益/均衡与集中式基准 |

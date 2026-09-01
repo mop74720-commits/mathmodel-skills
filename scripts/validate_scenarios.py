@@ -12,8 +12,8 @@ for ev,name in rows:
 for ev,name in registry.items():
     if ev.startswith('ALGO_') and (ev,name) not in rows:
         errors.append(f'missing algorithm scenario {ev}->{name}')
-if len(rows)<39:
-    errors.append(f'expected >=39 routed scenarios, got {len(rows)}')
+if len(rows)<48:
+    errors.append(f'expected >=48 routed scenarios, got {len(rows)}')
 if errors:
     print('FAIL')
     for e in errors: print('-',e)
