@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.4
+
+- 六个 Tool 从纯契约升级为可执行核心：PDF、XLSX、Figure、DOCX、LaTeX、Paper Search。
+- 新增 PDF 结构审计/页码文本抽取；XLSX 工作簿审计/受限读取。
+- 新增 Figure 数据剖析、图文件检查和 matplotlib 导出 helper。
+- 新增 DOCX OOXML/OMML 审计与真实 LibreOffice 页面渲染。
+- 新增 LaTeX doctor/init-cjk/build/bind/validate，并实际通过 XeLaTeX smoke。
+- 新增 OpenAlex + Crossref 双源学术检索与 DOI/题名去重；不复制上游 AnySearch 实现。
+- 增加 `validate_tools.py` 与 `tool_smoke.py`；coverage matrix 将 figure/paper-search/latex/pdf 更新为 TRANSFORMED，DOCX/XLSX 保持 PARTIAL。
+- 48 个事件 Skill 和 18 个算法族保持不变，Coach/Hub 权限边界不变。
+
 ## 0.1.3
 
 - 新增 Upstream Coverage Matrix，对 XiaoMa 与 Han 共 72 个重要条目逐项标记 FULL / TRANSFORMED / PARTIAL / EXCLUDED。

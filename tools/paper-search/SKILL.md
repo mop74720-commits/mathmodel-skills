@@ -1,26 +1,20 @@
 ---
 name: tool-paper-search
-description: 为模型、公式或主张搜索可追溯文献证据。
+description: 用两个独立公共学术元数据源检索并按 DOI/题名去重，给模型/公式/主张提供可追溯入口。
 ---
 
-# Tool: paper-search
+# Tool: Paper Search
 
-## Scope
-为模型、公式或主张搜索可追溯文献证据。
+## Commands
+```bash
+python tools/paper-search/scripts/openalex_scholar.py --query "vehicle routing robust optimization" --limit 10
+python tools/paper-search/scripts/crossref_scholar.py --query "vehicle routing robust optimization" --limit 10
+python tools/paper-search/scripts/hybrid_scholar.py --query "vehicle routing robust optimization" --limit 10
+python tools/paper-search/scripts/hybrid_scholar.py --self-test
+```
 
-## Inputs
-明确的 claim/模型族/关键词
-
-## Outputs
-题名、作者、年份、DOI/出版页、适用条件
-
-## Rules
-- Tool 负责载体与机械处理，不替代 modeling / coding / writing 的科学判断。
-- 所有项目产物写入 `PROJECT_ROOT`。
-- 已有官方模板、题面或权威数据时优先使用，不自行改写事实。
-
-## Checks
-不把搜索摘要当原文；关键方法回到 DOI/出版机构页面核验。
+## Policy
+本实现采用 OpenAlex + Crossref，而不是复制上游 AnySearch 代码。检索结果只是候选元数据；关键公式、假设和方法主张仍需打开 DOI/出版机构原页面核验。
 
 ## Handoff
-把产物路径、警告和未验证项返回调用它的专项 Skill。
+返回 title/authors/year/DOI/source URL 和检索错误；不要把搜索摘要直接当论文原文。

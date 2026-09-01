@@ -58,3 +58,6 @@ description: 建立/审查论文关键主张到公式、运行、表图、数据
 返回证据覆盖状态；是否允许带 WARN 写作由 Coach 决定。
 
 统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。
+
+## Tool Routing
+需要外部方法/公式依据时调用 `tools/paper-search/scripts/hybrid_scholar.py` 找候选，再回到 DOI/出版机构页面核验；检索结果本身不是直接证据。

@@ -1,26 +1,24 @@
 ---
 name: tool-latex
-description: 管理 LaTeX 项目、真实编译、引用与 PDF 技术检查。
+description: LaTeX 环境诊断、CJK 基线初始化、真实编译、资源哈希绑定和基础 PDF/日志验证。
 ---
 
-# Tool: latex
+# Tool: LaTeX
 
-## Scope
-管理 LaTeX 项目、真实编译、引用与 PDF 技术检查。
-
-## Inputs
-LaTeX 源、模板、资源
-
-## Outputs
-源码项目、PDF、编译日志
-
-## Rules
-- Tool 负责载体与机械处理，不替代 modeling / coding / writing 的科学判断。
-- 所有项目产物写入 `PROJECT_ROOT`。
-- 已有官方模板、题面或权威数据时优先使用，不自行改写事实。
+## Commands
+```bash
+python tools/latex/scripts/latex_paper.py doctor --engine xelatex
+python tools/latex/scripts/latex_paper.py init-cjk paper/main.tex
+python tools/latex/scripts/latex_paper.py build paper/main.tex --engine xelatex --publish paper/final.pdf
+python tools/latex/scripts/latex_paper.py bind paper --output paper/latex-project.json
+python tools/latex/scripts/latex_paper.py validate paper/main.tex --pdf paper/final.pdf
+```
 
 ## Checks
-真实编译而不是只检查源码；官方模板优先；未解析引用/编译错误必须暴露。
+- `build` 真实运行 TeX engine，不以源码存在代替编译。
+- `validate` 暴露 PDF 缺失、LaTeX Error、未解析引用/引文。
+- `bind` 对项目资源做 SHA-256 清单，用于最终结果追溯。
+- 官方模板优先，`init-cjk` 只是无官方模板时的环境 smoke baseline。
 
 ## Handoff
-把产物路径、警告和未验证项返回调用它的专项 Skill。
+编译/引用问题返回 writing；内容或数值问题不在本工具修正。

@@ -1,26 +1,23 @@
 ---
 name: tool-xlsx
-description: 检查或处理 Excel/CSV 数据，保持字段、类型、单位和公式语义。
+description: 对 Excel 工作簿做只读结构/公式审计和受限行读取，避免在建模前猜字段。
 ---
 
-# Tool: xlsx
+# Tool: XLSX
 
 ## Scope
-检查或处理 Excel/CSV 数据，保持字段、类型、单位和公式语义。
+只读检查 `.xlsx`：工作表、行列、表头、公式、错误单元格、合并区域、隐藏状态和冻结窗格。当前版本不假装在 Python 中计算 Excel 公式。
 
-## Inputs
-xlsx/xls/csv
-
-## Outputs
-数据档案、清洗后副本或指定结果表
-
-## Rules
-- Tool 负责载体与机械处理，不替代 modeling / coding / writing 的科学判断。
-- 所有项目产物写入 `PROJECT_ROOT`。
-- 已有官方模板、题面或权威数据时优先使用，不自行改写事实。
+## Commands
+```bash
+python tools/xlsx/scripts/audit_workbook.py data.xlsx --json
+python tools/xlsx/scripts/read_rows.py data.xlsx --sheet Sheet1 --max-row 30 --max-col 15
+```
 
 ## Checks
-原始附件只读；先审计工作表、行列、缺失、异常、重复和单位。
+- 原始附件不覆盖。
+- 公式单元格与缓存值是不同概念；需要权威重算时交给实际 Excel/兼容计算引擎，不用旧缓存冒充新结果。
+- 清洗动作属于 `data-audit`，本工具只给事实。
 
 ## Handoff
-把产物路径、警告和未验证项返回调用它的专项 Skill。
+结构和字段事实交给 `DATA_UNKNOWN` / `data-audit`。

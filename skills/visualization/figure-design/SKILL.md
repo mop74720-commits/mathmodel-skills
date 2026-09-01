@@ -57,3 +57,6 @@ description: 围绕一个明确主张选择最小充分图型、统计口径和�
 返回 Figure Contract 给实现/绘图工具；是否纳入正文由 writing/Coach 决定。
 
 统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。
+
+## Tool Routing
+合同冻结后，可用 `tools/figure/scripts/profile_data.py` 复核数据形态；成图后用 `check_figure.py` 做机械审计。机械 PASS 不替代实际读图。

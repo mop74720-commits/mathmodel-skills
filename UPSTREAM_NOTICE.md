@@ -10,7 +10,7 @@
 - XiaoMa commit `e5d9313420d519f18ed1429d52d95fe0a72ae944`
 - Han commit `b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca`
 
-许可证观察：XiaoMa 当前 GitHub 元数据为 `license: null`，根目录树未见 `LICENSE`；Han 的 GitHub 元数据同样为 `license: null`，但其 README 明确写有 `License: MIT`。本项目仍采用独立重写的方式，不把上游整仓源码/模板原样再分发。
+许可证观察：XiaoMa 当前 GitHub 元数据为 `license: null`，根目录树未见 `LICENSE`；Han 的 GitHub 元数据同样为 `license: null`，但其 README 明确写有 `License: MIT`。本项目仍采用独立重写的方式，不把上游整仓源码/模板原样再分发。v0.1.4 新增的工具脚本也是依据公开能力边界重新实现，而非复制上游脚本正文。
 
 主要设计映射：
 

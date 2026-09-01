@@ -58,3 +58,7 @@ description: 建立可复核的数据事实基线：结构、单位、质量、�
 把数据事实和风险返回 Coach；不要在本 Skill 中自行决定删掉整个问题或更换比赛策略。
 
 统一回执字段：`status / inputs_used / outputs_written / key_findings / risks / qa_status / handoff`。Skill 可以建议下一个事件，但不能自行切换比赛阶段。
+
+## Tool Routing
+- PDF/扫描题面附件：先用 `tools/pdf/scripts/inspect_pdf.py`；嵌入文本可用 `extract_text.py`，视觉内容仍回看页面。
+- XLSX：先用 `tools/xlsx/scripts/audit_workbook.py`，再按需用 `read_rows.py`；不要先把整本工作簿盲目导入模型代码。

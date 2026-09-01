@@ -5,16 +5,18 @@
 基线：
 - XiaoMa: `XiaoMaColtAI/math-modeling-skill` commit `e5d9313420d519f18ed1429d52d95fe0a72ae944`。
 - Han: `han69611/math-modeling-skills` commit `b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca`。
-- 本仓库：`mathmodel-skills v0.1.3`。
+- 本仓库：`mathmodel-skills v0.1.4`。
 
 状态定义：`FULL`=核心能力已落入可调用 Skill；`TRANSFORMED`=吸收但按 Coach/Hub 边界改造；`PARTIAL`=只吸收方法/接口，具体工具或细节仍缺；`EXCLUDED`=主动不吸收。
 
 ## 摘要
 
-- **XiaoMaColtAI/math-modeling-skill@e5d9313**：TRANSFORMED 4，FULL 18，PARTIAL 11，EXCLUDED 2。
-- **han69611/math-modeling-skills@b5b98ae**：TRANSFORMED 6，EXCLUDED 9，FULL 21，PARTIAL 1。
+- **XiaoMaColtAI/math-modeling-skill@e5d9313**：TRANSFORMED 8，FULL 18，PARTIAL 7，EXCLUDED 2。
+- **han69611/math-modeling-skills@b5b98ae**：TRANSFORMED 6，EXCLUDED 9，FULL 22，PARTIAL 0。
 
 v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey-forecasting`、`efficiency-analysis`、`queueing`、`system-dynamics`、`cellular-automata`、`game-theory`。
+
+v0.1.4 新补：六个工具的可执行核心；figure/paper-search/latex/pdf 从仅接口升级为 `TRANSFORMED`，DOCX/XLSX 仍诚实保留为 `PARTIAL`。
 
 ## XiaoMaColtAI/math-modeling-skill@e5d9313
 
@@ -36,7 +38,7 @@ v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey
 | 论文手/references/章节模板.md | PARTIAL | writing/outline | 保留思想 | 不固定章节模板，按问题与证据链组织 |
 | 论文手/references/自审框架.md | FULL | audit/paper-review + final-review | 吸收 | 数学/证据/可读性/过度宣称检查 |
 | 论文手/references/英文化工作流.md | PARTIAL | roles/writing | 未来可补 | MCM/ICM 英文化尚无独立 Skill |
-| 论文手/references/论文格式规范.md | PARTIAL | tools/docx + tools/latex + final-review | 接口吸收 | 具体格式脚本未完整实现 |
+| 论文手/references/论文格式规范.md | PARTIAL | tools/docx + tools/latex + final-review | 继续规则化 | 已有可执行载体 QA；具体比赛格式仍必须按当届官方模板/规则配置 |
 | references/Subagent调度.md | TRANSFORMED | qa/protocol.md + reviewer-contract.md | 吸收 | 独立 reviewer 思想保留；无 Subagent 不再全局 BLOCKED |
 | references/算法索引.md | FULL | references/algorithm-index.md + algorithm-dispatch.md | 吸收 | 渐进加载与按问题族路由保留 |
 | assets/01-优化算法说明.md | FULL | algorithm/linear-integer-optimization + nonlinear-optimization | 吸收 | 优化大类已覆盖 |
@@ -47,12 +49,12 @@ v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey
 | assets/06-综合类算法说明.md | FULL | stochastic-simulation + ode-dynamics + queueing + system-dynamics + cellular-automata + game-theory | 吸收 | v0.1.3 补排队/系统动力学/CA/博弈 |
 | assets/07-机器学习算法说明.md | FULL | supervised-learning + unsupervised-learning | 吸收 | 算法级细分仍可继续向 RF/XGBoost/NN 下钻 |
 | tools/figure/SKILL.md 方法论 | FULL | figure-design + visualization-review + tools/figure | 吸收 | 数据剖析→claim→选图→视觉审查逻辑已吸收；固定图数删除 |
-| tools/figure/scripts/* | PARTIAL | tools/figure | 未来可补 | 当前 Hub 有工具契约，没有完整脚本实现 |
-| tools/paper_search/* | PARTIAL | tools/paper-search | 未来可补 | 有工具接口，未重实现双引擎脚本 |
-| tools/docx/* | PARTIAL | tools/docx | 未来可补 | 有工具接口，未重实现完整 OMML/validate 工具链 |
-| tools/latex/* | PARTIAL | tools/latex | 未来可补 | 有工具接口，未重实现 doctor/build/bind/validate 全工具链 |
-| tools/xlsx/* | PARTIAL | tools/xlsx | 未来可补 | 有工具接口，未重实现全部模板/重算/错误检查脚本 |
-| tools/pdf/* | PARTIAL | tools/pdf | 未来可补 | 有工具接口，未重实现全部抽取工具 |
+| tools/figure/scripts/* | TRANSFORMED | tools/figure | 核心重实现 | 已实现 profile_data / check_figure / export_figure；复杂 layout/visual helper 不逐文件复制 |
+| tools/paper_search/* | TRANSFORMED | tools/paper-search | 替代实现 | 已实现 OpenAlex + Crossref 双源检索、DOI/题名去重；不复制 AnySearch 专有接口 |
+| tools/docx/* | PARTIAL | tools/docx | 继续深化 | 已实现结构/OMML/修订/批注审计和真实渲染；复杂公式转换、评论编辑等仍缺 |
+| tools/latex/* | TRANSFORMED | tools/latex | 核心重实现 | 已实现 doctor / init-cjk / build / bind / validate 并真实 XeLaTeX smoke |
+| tools/xlsx/* | PARTIAL | tools/xlsx | 继续深化 | 已实现工作簿审计和受限行读取；公式权威重算/模板编辑工具仍未实现 |
+| tools/pdf/* | TRANSFORMED | tools/pdf | 核心重实现 | 已实现 PDF 结构审计与带页码嵌入文本抽取；OCR 明确不作为默认 |
 | dsh-plugin/math-modeling-agent/* | EXCLUDED | — | 主动排除 | DeepSeek Harness 平台专用封装，不属于通用 Skill Hub 核心 |
 | .github / imgs / star-history / changelog | EXCLUDED | — | 主动排除 | 仓库运营与展示元数据，不影响建模能力 |
 
@@ -90,7 +92,7 @@ v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey
 | cumcm-paper-writing | FULL | writing/* + audit/paper-review | 吸收 | 结构、模型理由、结果解释、摘要与图表证据均覆盖 |
 | domain-knowledge | FULL | domain/domain-context | 吸收 | v0.1.3 补9大领域特有机制/陷阱/指标 |
 | innovation-engine | TRANSFORMED | modeling/innovation + model-challenge | 吸收 | 创新路径保留，数字打分删除 |
-| latex-cjk-setup | PARTIAL | tools/latex | 未来可补 | 接口存在，具体 CJK 工具链未完整实现 |
+| latex-cjk-setup | FULL | tools/latex init-cjk + doctor/build | 吸收并实现 | 提供 CJK smoke 模板并真实 XeLaTeX 编译验证，不把它当官方比赛模板 |
 | math-modeling | TRANSFORMED | Router + 48 event skills | 吸收 | 综合大 Skill 被拆成渐进加载的专项能力 |
 | model-selection | FULL | modeling/model-selection | 吸收并增强 | 增加算法族/领域上下文/失败条件 |
 | paper-score | EXCLUDED | audit/paper-review + final-review | 主动排除评分 | 保留风险检查，不保留主观100分 |
@@ -100,9 +102,10 @@ v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey
 
 ## Remaining High-Value Gaps
 
-1. **XiaoMa 工具实现层**仍是最大缺口：`figure/docx/latex/paper_search/xlsx/pdf` 当前主要吸收接口和方法论，未完整重实现其脚本与模板。
-2. **MCM/ICM 英文化工作流**目前仅部分存在于 writing role，尚未做成独立事件 Skill。
-3. 算法族现在覆盖较完整，但仍可继续从“算法族”下钻到具体算法单元（如 MILP scheduling、VRP、ARIMA/ETS、XGBoost 等）；这属于深化，不属于当前上游覆盖缺失。
+1. **DOCX 深层编辑/公式转换**：当前能审计和真实渲染，但还未覆盖上游的复杂 LaTeX→OMML、批注/修订编辑等完整工具面。
+2. **XLSX 公式权威重算与模板写入**：当前能审计/读行，但不假装 Python 可以完整模拟 Excel 计算引擎。
+3. **MCM/ICM 英文化工作流**目前仍仅部分存在于 writing role，尚未做成独立事件 Skill。
+4. 算法族覆盖较完整，后续主要是向具体算法单元下钻，而不是补上游大类。
 
 ## Explicit Non-Goals
 
