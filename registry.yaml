@@ -1,4 +1,4 @@
-version: 0.1.9
+version: 0.1.10
 router_policy: minimal-primary-first
 skills:
   - event: DOMAIN_CONTEXT_NEEDED

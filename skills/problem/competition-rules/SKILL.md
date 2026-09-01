@@ -32,11 +32,12 @@ description: 把目标竞赛当届官方规则/模板提取成可追溯 rule pro
 5. 若本地规则/模板文件可访问，记录 SHA-256；若只核验 URL，记录检索时间和稳定定位信息。
 6. 将能机械检查的规则写成机器可读字段；无法机械验证的保留自然语言说明和人工检查项。
 7. 对冲突或缺失规则显式返回 `CONFLICT/UNKNOWN`；不要自行猜测。
-8. 生成 `mathmodel-competition-rules/v1` profile，并把后续 DOCX/LaTeX/PDF/final-review 的规则输入统一指向该文件。
+8. 在 Competition Repo 的 `rules/` 下生成一组同源文件：`OFFICIAL_RULES.md` 保存人类可读的逐条规则与来源，`RULE_PROFILE.json` 保存 `mathmodel-competition-rules/v1` 的机器可读伴随字段。后续 DOCX/LaTeX/PDF/final-review 统一读取这组文件。
 
 ## Outputs
 
-- `competition-rules.yaml` 或等价的 `mathmodel-competition-rules/v1` 文件
+- `rules/OFFICIAL_RULES.md`（人类可读）
+- `rules/RULE_PROFILE.json`（`mathmodel-competition-rules/v1` 机器伴随文件）
 - 官方来源列表与版本/届次
 - `OFFICIAL_HARD` 约束清单
 - `UNKNOWN/CONFLICT` 待核项
@@ -52,7 +53,7 @@ description: 把目标竞赛当届官方规则/模板提取成可追溯 rule pro
 
 ## Failure
 
-- 找不到当届官方来源：保持 `UNKNOWN` 并返回风险，不伪造规则。
+- 找不到当届官方来源：保持 `UNKNOWN` 并返回风险，不伪造规则；允许继续建模，但必须把最终可提交状态保持为 `PENDING_OFFICIAL_RULES_VERIFICATION`。
 - 官方规则之间冲突：返回 `CONFLICT`，要求 Coach/用户决定是否继续核验。
 - 规则已明确但交付物违反硬约束：转 `PRE_SUBMISSION`/载体工具修复，不在本 Skill 内改论文内容。
 

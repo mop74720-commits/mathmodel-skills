@@ -1,4 +1,4 @@
-# Tool Implementation Matrix — v0.1.9
+# Tool Implementation Matrix — v0.1.10
 
 | Tool | Quality-selected implementation | Validation target | Known boundary |
 |---|---|---|---|
@@ -12,7 +12,7 @@
 
 `PASS`/smoke 仅说明机械实现按测试用例运行，不代表模型、统计结论或论文科学质量通过。
 
-## v0.1.9 Rehearsal patch
+## v0.1.10 Rehearsal patch
 
 - XLSX: added `stream_rows.py` for large read-only attachments; choose it before full workbook loading when cell/style semantics are unnecessary.
 - Reproducibility: `verify` now explicitly means artifact integrity; `replay` executes the recorded command and classifies EXACT_MATCH / SEMANTIC_MATCH / MISMATCH.

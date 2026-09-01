@@ -1,8 +1,14 @@
 # Changelog
 
-## 0.1.9
+## 0.1.10
 
-- 2020C 全系统演练修复版。
+- 强化 `OFFICIAL_RULES_NEEDED` 到固定 Competition Repo 规则位置。
+- final-review 将规则核验、AI 披露真实性、论文附录源程序、独立支撑材料一致性纳入最终审计。
+- 不新增全局策略 Skill，不改变 50 个局部事件边界。
+
+### Integration-audit fixes
+
+- 全系统演练与集成审计修复版。
 - 移除越权 `competition-strategy` first-class Skill，恢复 50 个局部事件 Skill。
 - validator 改为 registry/Skill 双向动态一致性检查并校验版本。
 - reproducibility 拆分 artifact integrity / replay reproducibility，修正 cwd 相对路径，支持 CSV/JSON semantic fingerprint。
@@ -12,7 +18,7 @@
 
 - 减法优化：降低 Skill 重复。
 - 增加 claim-evidence Figure 映射与 benchmark 压力测试规范。
-- 曾加入 `competition-strategy`；2020C 演练证明其越过 Coach/Hub 边界，因此在 0.1.9 回退为 Coach-owned strategy。
+- 曾加入 `competition-strategy`；集成审计证明其越过 Coach/Hub 边界，因此在 0.1.10 回退为 Coach-owned strategy。
 
 ## 0.1.7
 

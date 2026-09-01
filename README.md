@@ -2,9 +2,9 @@
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.9：50 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
+## v0.1.10：50 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
 
-v0.1.9 保留 v0.1.7 的深度选择，并完成 2020C 演练后的发布一致性与复现/大 XLSX 修复。补齐 XiaoMa 剩余高价值 PARTIAL——结构化模型组合模式、MATLAB 一等后端、当届官方比赛规则 profile、Figure 深度选图/编码/误导审查。Hub/Coach 权限边界和 18 个原子算法族保持不变。
+v0.1.10 保留 v0.1.7 的深度选择，并完成全系统演练后的发布一致性与复现/大 XLSX 修复。补齐 XiaoMa 剩余高价值 PARTIAL——结构化模型组合模式、MATLAB 一等后端、当届官方比赛规则 profile、Figure 深度选图/编码/误导审查。Hub/Coach 权限边界和 18 个原子算法族保持不变。
 
 设计原则：
 
@@ -18,7 +18,7 @@ v0.1.9 保留 v0.1.7 的深度选择，并完成 2020C 演练后的发布一致�
 
 
 
-## v0.1.9 Rehearsal Integration Patch
+## v0.1.10 Rehearsal Integration Patch
 
 - 移除越权的 first-class `competition-strategy`；全局竞赛策略归 Coach，官方规则提取仍由 `competition-rules` 负责。
 - `validate_hub.py` 不再硬编码 Skill 数量，而是校验 Skill 文件、trigger、registry path、registry version 的双向一致性。
@@ -172,3 +172,11 @@ python scripts/validate_tools.py
 python scripts/validate_profiles.py
 python tests/tool_smoke.py
 ```
+
+
+## v0.1.10 Official submission closure
+
+- `competition-rules` 统一落盘到 Competition Repo 的 `rules/OFFICIAL_RULES.md` + `RULE_PROFILE.json`。
+- `final-review` 在规则未核验时硬阻止 submission-ready 结论，但不阻塞前期科学工作。
+- AI 披露增加真实性约束：缺模型版本/关键交互等历史证据时明确 BLOCKED，不允许补造。
+- 正式支撑材料与论文附录源程序一致性进入 final-review。
