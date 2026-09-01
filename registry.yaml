@@ -1,0 +1,111 @@
+version: 0.1.0
+router_policy: minimal-primary-first
+skills:
+  - event: CLAIM_UNSUPPORTED
+    name: claim-evidence
+    path: skills/audit/claim-evidence
+    description: "建立或审查每个论文主张到公式、运行、表图、文献的证据路径。"
+  - event: PRE_SUBMISSION
+    name: final-review
+    path: skills/audit/final-review
+    description: "提交前做有限且高价值的最终审计：官方硬约束、PDF视觉、数字一致、引用、附件、AI声明。"
+  - event: MODEL_NEEDS_REVIEW
+    name: model-review
+    path: skills/audit/model-review
+    description: "独立攻击模型合同的正确性、覆盖性、单位、假设、约束和可实现性。"
+  - event: MVP_NEEDS_CHECK
+    name: mvp-check
+    path: skills/audit/mvp-check
+    description: "复现最小纵向切片，验证输入→核心算法→结果链真的跑通。"
+  - event: PAPER_NEEDS_ATTACK
+    name: paper-review
+    path: skills/audit/paper-review
+    description: "以严格评委视角审查数学、逻辑、证据、图表、夸大、可读性和 AI 痕迹。"
+  - event: FINAL_RESULT_NEEDS_REVIEW
+    name: result-review
+    path: skills/audit/result-review
+    description: "对候选 Final Run 做独立复现与关键结论核对。"
+  - event: IMPLEMENT_MODEL
+    name: implementation
+    path: skills/coding/implementation
+    description: "把 model contract 实现为最小可运行纵向切片，再扩展到正式计算。"
+  - event: NUMERICAL_SUSPECT
+    name: numerical-check
+    path: skills/coding/numerical-check
+    description: "检查离散误差、容差、随机误差、尺度病态和守恒/边界残差。"
+  - event: SOLVER_FAILED
+    name: solver-debug
+    path: skills/coding/solver-debug
+    description: "定位 infeasible、diverge、timeout、NaN、收敛失败等求解器问题。"
+  - event: EXPERIMENTS_UNTRACKED
+    name: experiment-manager
+    path: skills/experiment/experiment-manager
+    description: "轻量管理实验，使成功与失败运行都可追溯，而不是引入完整 MLOps。"
+  - event: RESULT_NEEDS_INTERPRETATION
+    name: result-analysis
+    path: skills/experiment/result-analysis
+    description: "把结果从“报数字”提升为 Baseline 对比、原因解释、异常和决策含义。"
+  - event: RESULT_UNSTABLE
+    name: robustness
+    path: skills/experiment/robustness
+    description: "识别结论对种子、采样、边界条件、参数区间或数据扰动的稳定性。"
+  - event: NEED_SENSITIVITY
+    name: sensitivity
+    path: skills/experiment/sensitivity
+    description: "量化关键参数/假设扰动对目标和结论的影响。"
+  - event: NEED_LOW_RISK_IMPROVEMENT
+    name: innovation
+    path: skills/modeling/innovation
+    description: "生成与题目结构相关、可验证、可回滚的改进候选，不用主观 0-100 分冒充科学评价。"
+  - event: MODELS_NEED_COMPARISON
+    name: model-comparison
+    path: skills/modeling/model-comparison
+    description: "用统一数据、指标、约束和计算预算比较候选模型。"
+  - event: MODEL_CONTRACT_MISSING
+    name: model-contract
+    path: skills/modeling/model-contract
+    description: "冻结可执行模型定义，使公式、单位、参数、输入输出与验证可追溯。"
+  - event: MODEL_UNCERTAIN
+    name: model-selection
+    path: skills/modeling/model-selection
+    description: "基于任务类型、数据规模、可解释性、约束与验证成本选择 Baseline + 首选 + 必要备选。"
+  - event: PROBLEM_AMBIGUOUS
+    name: ambiguity-resolution
+    path: skills/problem/ambiguity-resolution
+    description: "对有多种解释的题意建立竞争解释并用递进性、量纲、后续问题边际效果筛选。"
+  - event: DATA_UNKNOWN
+    name: data-audit
+    path: skills/problem/data-audit
+    description: "建立数据事实基线，不凭经验猜结构。"
+  - event: ASSUMPTION_WEAK
+    name: hypothesis
+    path: skills/problem/hypothesis
+    description: "把假设视为模型前提，记录理由、可验证性、影响和失效风险。"
+  - event: PROBLEM_UNCLEAR
+    name: problem-analysis
+    path: skills/problem/problem-analysis
+    description: "把题面拆为完整问题合同，避免漏问、错问和背景/任务混淆。"
+  - event: FIGURE_NEEDED
+    name: figure-design
+    path: skills/visualization/figure-design
+    description: "围绕一个明确 claim 选择最小充分图型与统计口径。"
+  - event: FLOWCHART_NEEDED
+    name: flowchart
+    path: skills/visualization/flowchart
+    description: "生成真正表达决策、数据流或反馈回路的流程图，不把文字列表包装成图。"
+  - event: FIGURE_WEAK
+    name: visualization-review
+    path: skills/visualization/visualization-review
+    description: "在论文实际尺寸与灰度/色盲条件下审查可读性和证据表达。"
+  - event: ABSTRACT_NEEDED
+    name: abstract
+    path: skills/writing/abstract
+    description: "用已冻结结果写摘要：问题→方法→关键结果→验证/价值。"
+  - event: PAPER_OUTLINE_NEEDED
+    name: outline
+    path: skills/writing/outline
+    description: "从问题结构和证据链组织论文，不按固定模板机械凑章节。"
+  - event: RESULT_SECTION_NEEDED
+    name: result-writing
+    path: skills/writing/result-writing
+    description: "把数值结果写成“结果+比较+原因+意义+限制”的正文证据段。"
