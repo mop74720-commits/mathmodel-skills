@@ -2,9 +2,9 @@
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.7：50 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
+## v0.1.9：50 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
 
-v0.1.7 在 v0.1.6 的“同能力择优”基础上继续做第二轮深挖：补齐 XiaoMa 剩余高价值 PARTIAL——结构化模型组合模式、MATLAB 一等后端、当届官方比赛规则 profile、Figure 深度选图/编码/误导审查。Hub/Coach 权限边界和 18 个原子算法族保持不变。
+v0.1.9 保留 v0.1.7 的深度选择，并完成 2020C 演练后的发布一致性与复现/大 XLSX 修复。补齐 XiaoMa 剩余高价值 PARTIAL——结构化模型组合模式、MATLAB 一等后端、当届官方比赛规则 profile、Figure 深度选图/编码/误导审查。Hub/Coach 权限边界和 18 个原子算法族保持不变。
 
 设计原则：
 
@@ -16,6 +16,16 @@ v0.1.7 在 v0.1.6 的“同能力择优”基础上继续做第二轮深挖：�
 
 
 
+
+
+## v0.1.9 Rehearsal Integration Patch
+
+- 移除越权的 first-class `competition-strategy`；全局竞赛策略归 Coach，官方规则提取仍由 `competition-rules` 负责。
+- `validate_hub.py` 不再硬编码 Skill 数量，而是校验 Skill 文件、trigger、registry path、registry version 的双向一致性。
+- Reproducibility 明确拆分 `artifact_integrity` 与 `replay_reproducibility`，并修复 `--cwd` 下相对输入/产物路径解析。
+- CSV/JSON 可选 semantic fingerprint，允许小数舍入后的语义重放检查，与字节级 exact hash 分开报告。
+- XLSX 新增 large-file read-only streaming/summary 模式，用于百万行级附件，不把工作簿编辑逻辑强加给只读审计。
+- 根 SKILL / VERSION / registry / README 版本统一。
 
 ## v0.1.7 Deep Upstream Selection
 
@@ -63,12 +73,12 @@ v0.1.7 在 v0.1.6 的“同能力择优”基础上继续做第二轮深挖：�
 ## Tool Layer（v0.1.7 质量择优增强）
 
 - PDF：结构/SHA/page/font/text/image/vector/bounds 审计、带页码文本抽取、页面真实渲染；只读且不默认 OCR。
-- XLSX：工作表/行列/表头/公式/错误/合并区域审计、受限读取，以及显式 LibreOffice 重算到新文件；不宣称等价于全部 Excel 专有函数。
+- XLSX：工作表/行列/表头/公式/错误/合并区域审计、受限读取、百万行级只读 streaming，以及显式 LibreOffice 重算到新文件；不宣称等价于全部 Excel 专有函数。
 - Figure：CSV/TSV/XLSX 丰富数据剖析、multi-path raster/SVG/PDF 机械审计、matplotlib 导出、源码静态 QA 与灰度/对比度 QA。
 - DOCX：OOXML/OMML、样式、关系、修订、批注、fields/hyperlinks、媒体和残留 LaTeX 审计；模板格式摘要和 LibreOffice→PNG 真实渲染 QA。
 - LaTeX：`doctor / init / init-cjk / build / bind / validate`；含 bibliography、graphics/bib/ref 检查、PDF/font 审计、可选显式规则阈值和 build provenance。
 - Paper Search：OpenAlex + Crossref 双源检索，DOI + 高阈值模糊题名去重、年份/引用过滤与透明相关性排序；关键主张仍需回真实论文。
-- Reproducibility：按 feature 检查实际依赖，创建/验证 run manifest，绑定命令、seed、版本和指定输入/产物哈希。
+- Reproducibility：按 feature 检查实际依赖；`verify` 只检查 artifact integrity，`replay` 才执行重放；支持 cwd 相对路径与可选 CSV/JSON semantic fingerprint。
 
 工具执行入口见 `tools/README.md`；逐工具实现/边界见 `references/tool-implementation-matrix.md`。
 

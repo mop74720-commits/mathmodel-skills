@@ -24,6 +24,7 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     xlsx=td/'sample.xlsx'; wb=openpyxl.Workbook(); ws=wb.active; ws.append(['x','y']); ws.append([1,2]); ws['C1']='sum'; ws['C2']='=A2+B2'; wb.save(xlsx)
     run(sys.executable,ROOT/'tools/xlsx/scripts/audit_workbook.py',xlsx,'--json')
     run(sys.executable,ROOT/'tools/xlsx/scripts/read_rows.py',xlsx,'--max-row','3')
+    s=run(sys.executable,ROOT/'tools/xlsx/scripts/stream_rows.py',xlsx,'--json-summary','--sample-rows','2'); assert 'read-only-stream' in s
     recalc=td/'sample-recalc.xlsx'; run(sys.executable,ROOT/'tools/xlsx/scripts/recalc.py',xlsx,'--output',recalc); assert recalc.exists()
 
     print('SMOKE figure', flush=True)
@@ -59,10 +60,14 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     init_dir=td/'latex-init'; run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','init',init_dir,'--contest','generic'); assert (init_dir/'main.tex').exists() and (init_dir/'references.bib').exists()
 
     print('SMOKE reproducibility', flush=True)
-    manifest=td/'run-manifest.json'
+    repod=td/'repro'; repod.mkdir(); (repod/'input.txt').write_text('fixed\n',encoding='utf-8')
+    (repod/'result.csv').write_text('x\n0.1234567890123\n',encoding='utf-8')
+    (repod/'regen.py').write_text("from pathlib import Path\nPath('result.csv').write_text('x\\n0.1234567890124\\n',encoding='utf-8')\n",encoding='utf-8')
+    manifest=repod/'run-manifest.json'
     run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','doctor','--features','data')
-    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','create','--output',manifest,'--run-id','smoke','--runtime','matlab','--runtime-version','R2025b','--dependency','Optimization Toolbox=25.2','--command','matlab -batch \"main(42)\"','--seed','42','--input',csv,'--artifact',td/'fig.png','--package','matplotlib')
-    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','verify',manifest)
+    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','create','--output',manifest,'--run-id','smoke','--cwd',repod,'--runtime','python','--command',f'{sys.executable} regen.py','--seed','42','--input','input.txt','--artifact','result.csv','--semantic-decimals','10')
+    v=run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','verify',manifest); assert 'artifact_integrity' in v
+    rr=run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','replay',manifest,'--timeout','30'); assert 'SEMANTIC_MATCH' in rr
 
     print('SMOKE search', flush=True)
     # Network-independent search logic test

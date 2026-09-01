@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.9
+
+- 2020C 全系统演练修复版。
+- 移除越权 `competition-strategy` first-class Skill，恢复 50 个局部事件 Skill。
+- validator 改为 registry/Skill 双向动态一致性检查并校验版本。
+- reproducibility 拆分 artifact integrity / replay reproducibility，修正 cwd 相对路径，支持 CSV/JSON semantic fingerprint。
+- XLSX 增加百万行级只读 streaming/summary。
+
+## 0.1.8
+
+- 减法优化：降低 Skill 重复。
+- 增加 claim-evidence Figure 映射与 benchmark 压力测试规范。
+- 曾加入 `competition-strategy`；2020C 演练证明其越过 Coach/Hub 边界，因此在 0.1.9 回退为 Coach-owned strategy。
+
 ## 0.1.7
 
 - 第二轮按同能力质量深挖，不扩张 Coach/Hub 总架构。
@@ -80,10 +94,3 @@
 - 删除固定 12 阶段链、固定图数/篇幅、逐阶段审批和无 Subagent 即全局阻断。
 - 明确 Coach > Hub 的调度权边界。
 - 新增 registry、QA contract、router scenarios 和结构校验脚本。
-
-
-## v0.1.8
-- 减法优化：降低 Skill 重复。
-- 新增 competition-strategy。
-- 增加 claim-evidence Figure 映射。
-- 增加 benchmark 压力测试规范。

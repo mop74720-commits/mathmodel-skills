@@ -1,10 +1,6 @@
-version: 0.1.8
+version: 0.1.9
 router_policy: minimal-primary-first
 skills:
-  - event: COMPETITION_STRATEGY_NEEDED
-    name: competition-strategy
-    path: skills/problem/competition-strategy
-    description: "根据竞赛类型、题型和交付约束选择执行策略，不把经验规则当官方规则。"
   - event: DOMAIN_CONTEXT_NEEDED
     name: domain-context
     path: skills/domain/domain-context

@@ -1,6 +1,6 @@
 # Tool implementation layer
 
-v0.1.7 有七个质量择优后的可执行工具。它们处理机械载体、检索、复现或 QA，不拥有 Coach 的阶段/时间/提交决策权。
+v0.1.9 有七个质量择优后的可执行工具。它们处理机械载体、检索、复现或 QA，不拥有 Coach 的阶段/时间/提交决策权。
 
 | Tool | Executable core |
 |---|---|

@@ -1,6 +1,6 @@
 ---
 name: mathmodel-skills
-version: 0.1.7
+version: 0.1.9
 description: 数学建模专项 Skill Hub。接收 Coach 或用户给出的局部事件，渐进式路由到 Role、专项 Skill、工具和 QA；不管理比赛时间线与全局优先级。
 ---
 
@@ -11,7 +11,7 @@ description: 数学建模专项 Skill Hub。接收 Coach 或用户给出的局�
 本 Skill Hub 是执行层，不是 Coach。
 
 Coach 权威：
-- 比赛阶段、剩余时间和优先级；
+- 当前项目状态、剩余时间和全局优先级；
 - 是否冻结模型、切换问题、提前写作；
 - 是否接受 WARN、是否返工、是否降级目标；
 - 最终提交范围。
@@ -36,7 +36,7 @@ Skill Hub 权威：
 2. 一次优先调用一个 primary Skill；只有 primary 输出明确缺口时才加载 secondary Skill。
 3. 先读目标 Skill 的 `SKILL.md`；只有其 `Procedure` 要求时才加载 Role、Tool 或 references。
 4. 不运行完整流水线来解决单点问题。
-5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.7 的七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
+5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.9 的七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
 6. QA reviewer 默认只读，不直接修改权威产物。
 
 ## 4. 常见事件

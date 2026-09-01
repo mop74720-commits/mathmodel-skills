@@ -1,58 +1,59 @@
 ---
 name: tool-reproducibility
-description: 生成/验证轻量运行 manifest，并按实际功能检查依赖；v0.1.7 增加 MATLAB/非 Python runtime 记录，同时不采集秘密环境变量。
+description: 记录运行合同，并明确区分 artifact integrity 与 replay reproducibility；支持 Python/MATLAB/其他 runtime、cwd 相对路径和 CSV/JSON 数值语义指纹。
 ---
 
-# Reproducibility Tool
+# Reproducibility Tool — v0.1.9
 
-用于 `experiment-manager`、`implementation` 和 Final Run 证据绑定。
+## Two different claims
 
-## Commands
+1. **artifact_integrity**：当前文件是否仍与记录时完全相同。`verify` 只证明这一点。
+2. **replay_reproducibility**：重新执行记录命令后，产物是否重新得到相同结果。`replay` 才检查这一点。
 
-Python：
+绝不把 hash verify PASS 写成“代码可复现”。
+
+## Create
+
+相对 `--input` / `--artifact` 路径按 `--cwd` 解析：
 
 ```bash
-python tools/reproducibility/scripts/run_manifest.py doctor --features data visualization optimization
 python tools/reproducibility/scripts/run_manifest.py create \
   --output results/run-manifest.json \
   --run-id q2-final \
-  --command "python q2.py --config configs/q2.json" \
+  --cwd . \
+  --command "python src/q2/main.py" \
   --seed 42 \
-  --input data/input.xlsx \
+  --input data/processed/q2.csv \
   --artifact results/q2.csv \
+  --semantic-decimals 10 \
   --package numpy --package scipy
+```
+
+`--semantic-decimals` 只对 CSV/JSON 建立可选数值 canonical fingerprint。它用于容忍最后几位浮点漂移，不取代 exact SHA-256。
+
+## Verify artifact integrity
+
+```bash
 python tools/reproducibility/scripts/run_manifest.py verify results/run-manifest.json
 ```
 
-MATLAB 或其他 runtime：
+输出明确标记 `check_type=artifact_integrity`。
+
+## Replay
 
 ```bash
-python tools/reproducibility/scripts/run_manifest.py create \
-  --output results/run-manifest.json \
-  --run-id q2-matlab \
-  --runtime matlab \
-  --runtime-version R2025b \
-  --dependency "Optimization Toolbox=25.2" \
-  --command 'matlab -batch "main(42)"' \
-  --seed 42 \
-  --input data/input.csv \
-  --artifact results/q2.csv
+python tools/reproducibility/scripts/run_manifest.py replay results/run-manifest.json --timeout 600
 ```
 
-## Contract
+可能状态：
 
-`create` 生成 `mathmodel-run-manifest/v2`，记录：
+- `EXACT_MATCH`：重新运行后的产物字节级一致；
+- `SEMANTIC_MATCH`：exact hash 不同，但配置的 CSV/JSON 数值 canonical fingerprint 一致；
+- `MISMATCH`：重放结果不满足已记录合同；
+- `INPUT_DRIFT`：输入在重放前已经改变，默认不继续。
 
-- UTC 时间、run id、唯一复现命令；
-- runtime 名称/版本；
-- 执行 manifest 脚本的 host Python/platform；
-- Git commit/dirty（若存在）；
-- 指定 Python package 与通用 `name=version` dependency；
-- 指定输入/产物 SHA-256；
-- seed 与显式 notes。
+## Boundary
 
-它不会转储完整环境变量、token、密钥或系统秘密。
-
-`doctor` 只检查用户声明会用到的 feature；`matlab` feature 只检查 MATLAB executable 是否存在。MATLAB 工具箱的精确检查由 `roles/coding/scripts/check_matlab_env.m` 完成。
-
-`verify` 同时兼容 v1/v2 manifest，重新计算已记录输入与产物哈希；文件缺失或内容变化返回非零状态。
+- semantic fingerprint 是工程复现工具，不替代科学误差分析；真正允许的容差应来自模型/数值语义。
+- 对随机并行算法，必要时记录 deterministic/canonical Final Run，并把更广泛的随机稳健性放在 `robustness` Skill。
+- 不采集秘密环境变量。

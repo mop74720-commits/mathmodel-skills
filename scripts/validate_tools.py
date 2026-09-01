@@ -3,7 +3,7 @@ import subprocess, sys
 ROOT=Path(__file__).resolve().parents[1]
 required={
  'pdf':['scripts/inspect_pdf.py','scripts/extract_text.py','scripts/render_pages.py','scripts/check_bounds.py'],
- 'xlsx':['scripts/audit_workbook.py','scripts/read_rows.py','scripts/recalc.py'],
+ 'xlsx':['scripts/audit_workbook.py','scripts/read_rows.py','scripts/stream_rows.py','scripts/recalc.py'],
  'figure':['scripts/profile_data.py','scripts/check_figure.py','scripts/export_figure.py','scripts/validate_source.py','scripts/visual_qa.py'],
  'docx':['scripts/docx_audit.py','scripts/render_docx.py','scripts/inspect_template_format.py','scripts/self_check.py'],
  'latex':['scripts/latex_paper.py','assets/cjk_minimal.tex'],
