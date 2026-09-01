@@ -1,6 +1,6 @@
 ---
 name: mathmodel-skills
-version: 0.1.6
+version: 0.1.7
 description: 数学建模专项 Skill Hub。接收 Coach 或用户给出的局部事件，渐进式路由到 Role、专项 Skill、工具和 QA；不管理比赛时间线与全局优先级。
 ---
 
@@ -36,7 +36,7 @@ Skill Hub 权威：
 2. 一次优先调用一个 primary Skill；只有 primary 输出明确缺口时才加载 secondary Skill。
 3. 先读目标 Skill 的 `SKILL.md`；只有其 `Procedure` 要求时才加载 Role、Tool 或 references。
 4. 不运行完整流水线来解决单点问题。
-5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.6 的七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
+5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.7 的七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
 6. QA reviewer 默认只读，不直接修改权威产物。
 
 ## 4. 常见事件
@@ -45,6 +45,7 @@ Skill Hub 权威：
 |---|---|
 | `PROBLEM_UNCLEAR` | `problem/problem-analysis` |
 | `DATA_UNKNOWN` | `problem/data-audit` |
+| `OFFICIAL_RULES_NEEDED` | `problem/competition-rules` |
 | `PROBLEM_AMBIGUOUS` | `problem/ambiguity-resolution` |
 | `ASSUMPTION_WEAK` | `problem/hypothesis` |
 | `DOMAIN_CONTEXT_NEEDED` | `domain/domain-context` |
@@ -113,7 +114,7 @@ Skill Hub 权威：
 - 文献候选检索 → `tools/paper-search`
 - 运行复现 manifest / 功能依赖检查 → `tools/reproducibility`
 
-Tool 的成功只证明其机械检查范围，不自动把上层科学结论判为 PASS。
+Tool 的成功只证明其机械检查范围，不自动把上层科学结论判为 PASS。比赛格式或提交硬约束应先由 `OFFICIAL_RULES_NEEDED` 生成 rule profile，再传给载体 Tool。
 
 ## 5. 标准 Skill 回执
 

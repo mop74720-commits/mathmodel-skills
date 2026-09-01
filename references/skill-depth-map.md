@@ -1,6 +1,6 @@
 # Skill Depth Map
 
-v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.6 目前共 49 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
+v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.7 目前共 50 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
 
 | Category | Skill | Event | 核心输出 |
 |---|---|---|---|
@@ -65,3 +65,11 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.6 目前共
 | writing | english-paper | ENGLISH_PAPER_NEEDED | 英文化正文、术语/符号表、数字/公式/引用一致性审计 |
 
 算法族数量保持 18；新增具体算法知识通过 `references/algorithm-playbooks/*` 渐进加载，不为每个算法都新增 Router Event。
+
+## v0.1.7 Deep Selection Addition
+
+| Category | Skill | Event | 核心输出 |
+|---|---|---|---|
+| problem | competition-rules | OFFICIAL_RULES_NEEDED | 当届官方 rule profile、来源/locator、硬约束、UNKNOWN/CONFLICT |
+
+同时新增不占 Router Event 的深度参考：模型组合模式、MATLAB 实现规范、Figure 三份选图/编码/review guide。

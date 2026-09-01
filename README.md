@@ -2,9 +2,9 @@
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.6：49 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
+## v0.1.7：50 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
 
-v0.1.6 在 v0.1.5 基础上改用“同能力择优”策略：同一功能同时存在于 Hub、Han、XiaoMa 时逐项比较质量，保留更好的设计或融合。Hub 的事件/权限/原子 Skill 继续作为主架构；XiaoMa 在角色细则与工具深度上胜出的能力按安全边界独立重实现；Han 的少量挑战/创新启发式并入现有 Skill。仍不恢复固定阶段链、固定图数/页数或主观评分。
+v0.1.7 在 v0.1.6 的“同能力择优”基础上继续做第二轮深挖：补齐 XiaoMa 剩余高价值 PARTIAL——结构化模型组合模式、MATLAB 一等后端、当届官方比赛规则 profile、Figure 深度选图/编码/误导审查。Hub/Coach 权限边界和 18 个原子算法族保持不变。
 
 设计原则：
 
@@ -16,14 +16,24 @@ v0.1.6 在 v0.1.5 基础上改用“同能力择优”策略：同一功能同�
 
 
 
-## v0.1.6 Same-capability Quality Selection
+
+## v0.1.7 Deep Upstream Selection
+
+- 新增 `OFFICIAL_RULES_NEEDED -> problem/competition-rules`，把官方规则、官方建议、用户要求和内部质量目标分开，生成 `mathmodel-competition-rules/v1`。
+- `references/model-composition-patterns.md` 把常见组合模式从“题型→算法捷径”改成“结构信号→候选组合→必需证据→失效条件”。
+- MATLAB 升级为一等实现后端：新增 `matlab-implementation.md`、`check_matlab_env.m`，复现 manifest v2 支持 `--runtime matlab` 与工具箱版本。
+- Figure 新增三份深度 guide：选图与证据、视觉编码与布局、误导与最终尺寸 review；仍不规定固定图数。
+- 上游覆盖矩阵中 XiaoMa 的“常见模式”“MATLAB规范”“论文格式规范”从 PARTIAL 提升为 FULL/TRANSFORMED；Figure 深度知识从方法论覆盖升级为显式按需参考。
+- 当前 XiaoMa 35 个审计项为 `22 FULL + 10 TRANSFORMED + 1 PARTIAL + 2 EXCLUDED`；唯一 PARTIAL 是“章节模板”，因 Hub 有意保持 claim-evidence 驱动结构，不固定通用章节顺序。
+
+## v0.1.6 Same-capability Quality Selection（v0.1.7 保留）
 
 这次不是“上游有什么新东西就补什么”，而是对**重叠能力**逐项裁决。完整矩阵见 `references/overlap-quality-selection.md`。核心结果：
 
 - Han 的题意分析、假设、模型选择、实验、Reviewer/Verify 等重叠项：当前 Hub 的事件合同、失败分流和证据门禁整体更好，继续以 Hub 为主，只抽取少量删除/替换/解释类启发式。
-- XiaoMa 的三角色细则：其建模前置检查、数值稳健性、复现、自审和英文写作深度更好；v0.1.6 保留 Hub 的角色外壳，新增按需深度参考。
+- XiaoMa 的三角色细则：其建模前置检查、数值稳健性、复现、自审和英文写作深度更好；v0.1.7 保留 Hub 的角色外壳，新增按需深度参考。
 - 算法：Hub 的 18 个原子 Skill 继续负责“何时用/何时不用/怎么验”；深度算法知识只作为 reference/playbook，不把大百科变成第二个 Router。
-- Figure/LaTeX：上游能力目标明显胜出，v0.1.6 独立重实现更完整 QA。
+- Figure/LaTeX：上游能力目标明显胜出，v0.1.7 独立重实现更完整 QA。
 - XLSX/Paper Search：双方各有优势，采用融合。
 - DOCX/PDF：上游能力更广，但相关目录存在限制性许可；本包只做独立只读 QA 实现，不复制或派生其代码。
 
@@ -50,7 +60,7 @@ v0.1.6 在 v0.1.5 基础上改用“同能力择优”策略：同一功能同�
 - 新增 `references/upstream-coverage-matrix.md` 和 CSV，对两个上游共 72 个重要条目逐项映射。
 
 
-## Tool Layer（v0.1.6 质量择优增强）
+## Tool Layer（v0.1.7 质量择优增强）
 
 - PDF：结构/SHA/page/font/text/image/vector/bounds 审计、带页码文本抽取、页面真实渲染；只读且不默认 OCR。
 - XLSX：工作表/行列/表头/公式/错误/合并区域审计、受限读取，以及显式 LibreOffice 重算到新文件；不宣称等价于全部 Excel 专有函数。
@@ -149,5 +159,6 @@ python scripts/validate_algorithm_routing.py
 python scripts/validate_scenarios.py
 python scripts/validate_upstream_coverage.py
 python scripts/validate_tools.py
+python scripts/validate_profiles.py
 python tests/tool_smoke.py
 ```

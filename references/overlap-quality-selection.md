@@ -1,10 +1,10 @@
-# Overlap Quality Selection — v0.1.6
+# Overlap Quality Selection — v0.1.7
 
 本矩阵只比较“当前 Hub 与 Han/XiaoMa 同时拥有的能力”。原则不是来源优先，而是按同一能力的实际质量择优：触发边界、方法完整性、防错、可验证性、比赛可用性、复现性、维护成本和许可风险。
 
 ## 总裁决
 
-| 重叠能力 | 当前 Hub | Han | XiaoMa | v0.1.6 裁决 |
+| 重叠能力 | 当前 Hub | Han | XiaoMa | v0.1.7 裁决 |
 |---|---|---|---|---|
 | Hub/系统路由 | 事件路由、单职责、Coach 边界清楚 | 固定阶段链较强但重复入口较多 | 三角色/阶段门禁较强 | **保留 Hub**。全局阶段仍由 Coach 管理 |
 | 题意分析 | 子问题六要素合同、FACT/INFERENCE/ASSUMPTION、依赖图 | 步骤较粗 | 建模手前置合同较细 | **Hub 主体 + XiaoMa 检查项** |
@@ -22,6 +22,9 @@
 | XLSX | 结构/公式审计较强 | 无同等级工具 | 有读取与重算流程 | **融合**：保留 Hub 审计 + 增加安全重算流程 |
 | Paper Search | OpenAlex + Crossref，无密钥公共源 | 无同等级工具 | 检索过滤/相关性/去重更丰富，另有平台源 | **融合**：保留公共无密钥源，吸收丰富过滤、相关性与 DOI/模糊题名去重思路 |
 | Reproducibility | v0.1.5 已有独立 manifest | 实验管理概念较浅 | 编程手有复现 manifest 思路 | **Hub 独立实现保留并强化角色绑定** |
+| 常见模型组合 | 原子算法路由强，但此前组合模式较隐式 | 部分流程型经验 | 有较丰富组合模式，但含过硬决策映射 | **融合**：v0.1.7 新增诊断式 composition patterns，保留结构启发，删除固定算法捷径 |
+| MATLAB 后端 | 通用 coding contract，之前语言专项不足 | coding 较浅 | MATLAB 环境/复现/绘图规范更完整 | **XiaoMa 能力目标胜出 + Hub 独立重实现**：MATLAB 一等后端、feature-scoped 工具箱、manifest v2 |
+| 当届比赛规则 | “官方规则优先”只有原则 | 固定工作流/模板经验较多 | 明确官方规则优先，但混有内部质量目标 | **Hub 重构胜出**：新增独立 rule profile，把 OFFICIAL_HARD 与 LOCAL_TARGET 分离 |
 
 ## 明确不选的内容
 

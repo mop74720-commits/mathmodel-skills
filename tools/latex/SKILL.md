@@ -26,3 +26,8 @@ python tools/latex/scripts/latex_paper.py validate paper/main.tex --pdf paper/ma
 
 ## Selection note
 XiaoMa 的 LaTeX 工程能力明显胜过早期 Hub；v0.1.6 因此采用同等级能力目标重新独立实现，并保留 Hub 的“官方规则外置、无固定页数/图数”边界。
+
+
+## Competition rule profile
+
+LaTeX 的页数、字体、边距、命名、摘要页等“硬约束”不得来自工具默认值。若存在 `mathmodel-competition-rules/v1`，只执行其中已核验的 `OFFICIAL_HARD` 机械检查；`LOCAL_TARGET` 只能作为建议，不能触发官方违规结论。

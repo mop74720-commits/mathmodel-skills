@@ -1,0 +1,18 @@
+schema: mathmodel-competition-rules/v1
+contest: ""
+season: ""
+verified_at_utc: ""
+sources: []
+rules: []
+# rule example:
+# - id: body_page_limit
+#   authority: OFFICIAL_HARD   # OFFICIAL_HARD | OFFICIAL_GUIDANCE | USER_REQUIREMENT | LOCAL_TARGET | UNKNOWN
+#   value: 30
+#   unit: pages
+#   scope: body
+#   source:
+#     title: ""
+#     url: ""
+#     locator: ""
+#     sha256: ""
+#   note: ""

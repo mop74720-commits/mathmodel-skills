@@ -61,7 +61,7 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     print('SMOKE reproducibility', flush=True)
     manifest=td/'run-manifest.json'
     run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','doctor','--features','data')
-    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','create','--output',manifest,'--run-id','smoke','--command','python smoke.py','--seed','42','--input',csv,'--artifact',td/'fig.png','--package','matplotlib')
+    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','create','--output',manifest,'--run-id','smoke','--runtime','matlab','--runtime-version','R2025b','--dependency','Optimization Toolbox=25.2','--command','matlab -batch \"main(42)\"','--seed','42','--input',csv,'--artifact',td/'fig.png','--package','matplotlib')
     run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','verify',manifest)
 
     print('SMOKE search', flush=True)

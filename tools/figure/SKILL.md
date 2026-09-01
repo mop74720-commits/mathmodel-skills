@@ -1,6 +1,6 @@
 ---
 name: tool-figure
-description: 数据剖析、出版图导出、文件/源码/视觉机械 QA；v0.1.6 扩展为多文件、DPI/物理尺寸、灰度和数据诊断，科学结论仍由 figure-design 决定。
+description: 数据剖析、出版图导出、文件/源码/视觉机械 QA；v0.1.7 结合深度选图/编码/review guide，机械工具仍不替代 figure-design 的科学判断。
 ---
 
 # Tool: Figure
@@ -29,6 +29,13 @@ export_figure(fig, "figures/q2_result", formats=("svg","png"), dpi=300, grayscal
 - `validate_source.py` 检查绘图源码中的可疑静态模式；`visual_qa.py` 检查灰度/对比度并生成预览。
 - DPI、像素和尺寸阈值是可配置交付参数，不是科学质量真值；期刊/竞赛规则优先。
 - 所有机械 PASS 都不能证明图表统计设计、结论或视觉表达正确，必须在最终物理尺寸下人工/语义复审。
+
+## Deep references
+
+语义选图与审稿按需读取：
+- `references/figure-guides/selection-and-evidence.md`
+- `references/figure-guides/encoding-and-layout.md`
+- `references/figure-guides/pitfalls-and-review.md`
 
 ## Selection note
 上游 XiaoMa 在 Figure 工具深度上胜过早期 Hub，因此 v0.1.6 按其能力边界独立补强；没有复制上游源码。

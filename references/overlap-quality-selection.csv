@@ -1,17 +1,20 @@
-capability,current_hub,han,xiaoma,decision
-routing,"event/atomic/coach-boundary","fixed stages + duplicates","three-role staged orchestration","KEEP_HUB"
-problem_analysis,"deep contract + fact/inference/assumption","coarser","strong preflight contract","FUSE_HUB_XIAOMA"
-hypothesis,"testable assumptions + failure routing","shallow","role checklist","KEEP_HUB"
-model_selection,"baseline/candidates/applicability/failure/router","some over-hard heuristics","richer design theory","FUSE_HUB_XIAOMA_REFERENCE"
-model_challenge_innovation,"ablation/replace/rollback/A-B","useful remove-replace-explain heuristics","quality gates","FUSE_HUB_HAN_HEURISTICS"
-coding_role,"clean boundary but thin","thin","robustness/repro/QA deep","FUSE_HUB_XIAOMA_DEPTH"
-writing_role,"evidence chain but thin","thin","writing/self-review/English/format deep","FUSE_HUB_XIAOMA_DEPTH"
-review_verify,"P0-P2 evidence review","coarser/subjective variants","strong self-review","FUSE_HUB_XIAOMA_CHECKS"
-algorithm_system,"18 atomic contracts","limited","large detailed encyclopedia","HUB_CONTRACT_PLUS_DEEP_REFERENCE"
-figure_tool,"thin independent core","thin","mature QA breadth","XIAOMA_CAPABILITY_TARGET_INDEPENDENT_REIMPLEMENT"
-latex_tool,"thin independent core","simple CJK","mature engineering QA","XIAOMA_CAPABILITY_TARGET_INDEPENDENT_REIMPLEMENT"
-docx_tool,"audit/render","none","mature OOXML/equation/format tools","XIAOMA_CAPABILITY_TARGET_SAFE_INDEPENDENT_REIMPLEMENT"
-pdf_tool,"inspect/extract","none","broader PDF tooling","XIAOMA_CAPABILITY_TARGET_SAFE_INDEPENDENT_REIMPLEMENT"
-xlsx_tool,"strong audit/bounded read","none","read/recalc","FUSE_AUDIT_PLUS_RECALC"
-paper_search,"OpenAlex+Crossref","none","richer filtering/relevance/dedup","FUSE_PUBLIC_SOURCES_PLUS_RICH_RANKING"
-reproducibility,"independent manifest","basic experiment mgmt","repro concepts","KEEP_HUB_AND_BIND_TO_ROLE"
+﻿capability,current_hub,han,xiaoma,decision
+routing,event/atomic/coach-boundary,fixed stages + duplicates,three-role staged orchestration,KEEP_HUB
+problem_analysis,deep contract + fact/inference/assumption,coarser,strong preflight contract,FUSE_HUB_XIAOMA
+hypothesis,testable assumptions + failure routing,shallow,role checklist,KEEP_HUB
+model_selection,baseline/candidates/applicability/failure/router,some over-hard heuristics,richer design theory,FUSE_HUB_XIAOMA_REFERENCE
+model_challenge_innovation,ablation/replace/rollback/A-B,useful remove-replace-explain heuristics,quality gates,FUSE_HUB_HAN_HEURISTICS
+coding_role,clean boundary but thin,thin,robustness/repro/QA deep,FUSE_HUB_XIAOMA_DEPTH
+writing_role,evidence chain but thin,thin,writing/self-review/English/format deep,FUSE_HUB_XIAOMA_DEPTH
+review_verify,P0-P2 evidence review,coarser/subjective variants,strong self-review,FUSE_HUB_XIAOMA_CHECKS
+algorithm_system,18 atomic contracts,limited,large detailed encyclopedia,HUB_CONTRACT_PLUS_DEEP_REFERENCE
+figure_tool,thin independent core,thin,mature QA breadth,XIAOMA_CAPABILITY_TARGET_INDEPENDENT_REIMPLEMENT
+latex_tool,thin independent core,simple CJK,mature engineering QA,XIAOMA_CAPABILITY_TARGET_INDEPENDENT_REIMPLEMENT
+docx_tool,audit/render,none,mature OOXML/equation/format tools,XIAOMA_CAPABILITY_TARGET_SAFE_INDEPENDENT_REIMPLEMENT
+pdf_tool,inspect/extract,none,broader PDF tooling,XIAOMA_CAPABILITY_TARGET_SAFE_INDEPENDENT_REIMPLEMENT
+xlsx_tool,strong audit/bounded read,none,read/recalc,FUSE_AUDIT_PLUS_RECALC
+paper_search,OpenAlex+Crossref,none,richer filtering/relevance/dedup,FUSE_PUBLIC_SOURCES_PLUS_RICH_RANKING
+reproducibility,independent manifest,basic experiment mgmt,repro concepts,KEEP_HUB_AND_BIND_TO_ROLE
+model_composition_patterns,atomic routing; composition previously implicit,some workflow heuristics,richer patterns but some hard mappings,FUSE_DIAGNOSTIC_PATTERNS_NO_HARD_MAPPING
+matlab_backend,generic coding contract,shallow coding,strong MATLAB env/repro/figure guidance,XIAOMA_CAPABILITY_TARGET_INDEPENDENT_REIMPLEMENTATION
+competition_rule_profile,official-rules-first principle,workflow/template experience,official-first plus local numeric quality targets,HUB_RULE_PROFILE_SEPARATE_OFFICIAL_FROM_LOCAL

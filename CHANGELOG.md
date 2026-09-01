@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.7
+
+- 第二轮按同能力质量深挖，不扩张 Coach/Hub 总架构。
+- 新增 `OFFICIAL_RULES_NEEDED` / `problem/competition-rules`，总事件 Skill 从 49 增至 50；官方硬约束、官方建议、用户要求、内部目标分级记录。
+- 新增 `competition-rule-profile.md` 与 `templates/competition-rules.yaml`，避免固定页数/图数/字数被误当永久官方规则。
+- 新增 `model-composition-patterns.md`：11 类组合模式以结构签名、候选组合、证据、失效条件表达，明确禁止“题型→固定算法”捷径。
+- MATLAB 成为一等实现后端：新增 MATLAB 专项规范与 feature-scoped 环境报告脚本；run manifest 升级 v2，支持任意 runtime 和 dependency 版本。
+- Figure 增加选图与证据、视觉编码与布局、误导/最终尺寸 review 三份深度 guide。
+- 新增 `validate_profiles.py`；原 18 算法族、7 Tool、72 上游审计行保持兼容。
+
 ## 0.1.6
 
 - 纠正“只补缺失项”的合并策略，改为对 Hub / Han / XiaoMa **同能力逐项比较后择优**。

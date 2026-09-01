@@ -16,8 +16,11 @@ description: 把题面、数据事实和约束转成可实现、可验证的模�
 5. 若模型由多个组件串联/并联，逐个说明独立职责；必要时调用 `model-challenge` 做删除/替换/消融测试。
 6. 实现前检查符号、单位、维度、边界条件、参数来源和验证指标是否闭合。
 
-## Deep reference
-按需读取 `roles/modeling/references/design-and-preflight.md`。算法细节再路由到对应原子 algorithm Skill，而不是加载整本算法百科。
+## Deep references
+
+- 按需读取 `roles/modeling/references/design-and-preflight.md`。
+- 候选模型存在串联/并联结构时，可读取 `references/model-composition-patterns.md`；只把模式当候选生成器，不当自动决策树。
+- 算法细节再路由到对应原子 algorithm Skill，而不是加载整本算法百科。
 
 ## Handoff
 交给 coding 的必须是可执行 model contract，而不是算法名称列表。回执包含权威输入、合同路径、未解决歧义、验证设计、失败回退和建议事件；阶段切换仍由 Coach 决定。

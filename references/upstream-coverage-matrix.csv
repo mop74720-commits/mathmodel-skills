@@ -3,19 +3,19 @@ XiaoMaColtAI/math-modeling-skill@e5d9313,SKILL.md / 三阶段总路由,TRANSFORM
 XiaoMaColtAI/math-modeling-skill@e5d9313,references/roles/建模手/SKILL.md,FULL,roles/modeling + problem/* + modeling/*,吸收,保留题意/数据/候选/验证设计；取消硬 M1 阻断
 XiaoMaColtAI/math-modeling-skill@e5d9313,建模手/references/前置合同.md,FULL,skills/modeling/model-contract,吸收,以可执行 model contract 重构
 XiaoMaColtAI/math-modeling-skill@e5d9313,建模手/references/工作流程.md,TRANSFORMED,problem/* + modeling/*,吸收,拆为事件，不保留阶段顺序
-XiaoMaColtAI/math-modeling-skill@e5d9313,建模手/references/常见模式.md,PARTIAL,model-selection + algorithm/*,继续补,常见题型已覆盖，具体算法细节仍可继续深化
+XiaoMaColtAI/math-modeling-skill@e5d9313,建模手/references/常见模式.md,FULL,model-selection + references/model-composition-patterns.md + algorithm/*,择优吸收,v0.1.7 改写为结构信号→候选组合→证据→失效条件，删除题型到固定算法硬映射
 XiaoMaColtAI/math-modeling-skill@e5d9313,建模手/references/建模设计理论.md,FULL,model-selection + model-comparison + model-challenge,吸收,补了 Baseline、失败模式、简化/替换/消融
 XiaoMaColtAI/math-modeling-skill@e5d9313,建模手/references/质检清单.md,FULL,audit/model-review,吸收,证据化 reviewer，不用阶段硬门禁
 XiaoMaColtAI/math-modeling-skill@e5d9313,references/roles/编程手/SKILL.md,FULL,roles/coding + coding/* + experiment/*,吸收,MVP/复现/数值检查被拆成专项能力
 XiaoMaColtAI/math-modeling-skill@e5d9313,编程手/references/工作流程.md,TRANSFORMED,implementation + mvp-check + result-review,吸收,先 MVP 再扩展保留；是否扩展由 Coach 可覆盖
-XiaoMaColtAI/math-modeling-skill@e5d9313,编程手/references/MATLAB规范.md,PARTIAL,roles/coding + tools contracts,按需补,语言特定细节未完整复制
+XiaoMaColtAI/math-modeling-skill@e5d9313,编程手/references/MATLAB规范.md,FULL,roles/coding/references/matlab-implementation.md + check_matlab_env.m + reproducibility,择优吸收,v0.1.7 MATLAB 一等后端：feature-scoped 工具箱、solver/数值/复现/Figure parity
 XiaoMaColtAI/math-modeling-skill@e5d9313,编程手/references/质检清单.md,FULL,audit/mvp-check + result-review + numerical-check,吸收,强调复现、约束、单位、Final Run
 XiaoMaColtAI/math-modeling-skill@e5d9313,references/roles/论文手/SKILL.md,FULL,roles/writing + writing/* + audit/*,吸收,证据先行、真实结果、规则优先保留
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/写作规范.md,FULL,writing/technical-style + abstract + result-writing,吸收,去模板化但不做“检测器规避”
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/章节模板.md,PARTIAL,writing/outline,保留思想,不固定章节模板，按问题与证据链组织
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/自审框架.md,FULL,audit/paper-review + final-review,吸收,数学/证据/可读性/过度宣称检查
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/英文化工作流.md,FULL,skills/writing/english-paper + roles/writing,吸收并独立重写,v0.1.5 增加独立 MCM/ICM 技术英文化、术语与数字/公式/引用一致性检查
-XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/论文格式规范.md,PARTIAL,tools/docx + tools/latex + final-review,继续规则化,已有可执行载体 QA；具体比赛格式仍必须按当届官方模板/规则配置
+XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/论文格式规范.md,FULL,problem/competition-rules + competition-rule-profile + tools/docx/latex/pdf + final-review,规则外置吸收,v0.1.7 将当届官方规则做成 rule profile；固定内部图数/页数目标继续排除
 XiaoMaColtAI/math-modeling-skill@e5d9313,references/Subagent调度.md,TRANSFORMED,qa/protocol.md + reviewer-contract.md,吸收,独立 reviewer 思想保留；无 Subagent 不再全局 BLOCKED
 XiaoMaColtAI/math-modeling-skill@e5d9313,references/算法索引.md,FULL,references/algorithm-index.md + algorithm-dispatch.md,吸收,渐进加载与按问题族路由保留
 XiaoMaColtAI/math-modeling-skill@e5d9313,assets/01-优化算法说明.md,FULL,algorithm/linear-integer-optimization + nonlinear-optimization,吸收,优化大类已覆盖

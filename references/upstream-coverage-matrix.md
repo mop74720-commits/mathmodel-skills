@@ -5,13 +5,13 @@
 基线：
 - XiaoMa: `XiaoMaColtAI/math-modeling-skill` commit `e5d9313420d519f18ed1429d52d95fe0a72ae944`。
 - Han: `han69611/math-modeling-skills` commit `b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca`。
-- 本仓库：`mathmodel-skills v0.1.6`。
+- 本仓库：`mathmodel-skills v0.1.7`。
 
 状态定义：`FULL`=核心能力已落入可调用 Skill；`TRANSFORMED`=吸收但按 Coach/Hub 边界改造；`PARTIAL`=只吸收方法/接口，具体工具或细节仍缺；`EXCLUDED`=主动不吸收。
 
 ## 摘要
 
-- **XiaoMaColtAI/math-modeling-skill@e5d9313**：TRANSFORMED 8，FULL 19，PARTIAL 6，EXCLUDED 2。
+- **XiaoMaColtAI/math-modeling-skill@e5d9313**：TRANSFORMED 10，FULL 22，PARTIAL 1，EXCLUDED 2。
 - **han69611/math-modeling-skills@b5b98ae**：TRANSFORMED 6，EXCLUDED 9，FULL 22，PARTIAL 0。
 
 v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey-forecasting`、`efficiency-analysis`、`queueing`、`system-dynamics`、`cellular-automata`、`game-theory`。
@@ -30,19 +30,19 @@ v0.1.6 改为“同能力择优”：Han 的原子建模/审稿能力仍以 Hub 
 | references/roles/建模手/SKILL.md | FULL | roles/modeling + problem/* + modeling/* | 吸收 | 保留题意/数据/候选/验证设计；取消硬 M1 阻断 |
 | 建模手/references/前置合同.md | FULL | skills/modeling/model-contract | 吸收 | 以可执行 model contract 重构 |
 | 建模手/references/工作流程.md | TRANSFORMED | problem/* + modeling/* | 吸收 | 拆为事件，不保留阶段顺序 |
-| 建模手/references/常见模式.md | PARTIAL | model-selection + algorithm/* | 继续补 | 常见题型已覆盖，具体算法细节仍可继续深化 |
+| 建模手/references/常见模式.md | FULL | model-selection + `references/model-composition-patterns.md` + algorithm/* | 择优吸收 | v0.1.7 保留组合模式的结构识别价值，但改写为候选+证据+失效条件，删除题型到固定算法的硬映射 |
 | 建模手/references/建模设计理论.md | FULL | model-selection + model-comparison + model-challenge | 吸收 | 补了 Baseline、失败模式、简化/替换/消融 |
 | 建模手/references/质检清单.md | FULL | audit/model-review | 吸收 | 证据化 reviewer，不用阶段硬门禁 |
 | references/roles/编程手/SKILL.md | FULL | roles/coding + coding/* + experiment/* | 吸收 | MVP/复现/数值检查被拆成专项能力 |
 | 编程手/references/工作流程.md | TRANSFORMED | implementation + mvp-check + result-review | 吸收 | 先 MVP 再扩展保留；是否扩展由 Coach 可覆盖 |
-| 编程手/references/MATLAB规范.md | PARTIAL | roles/coding + tools contracts | 按需补 | 语言特定细节未完整复制 |
+| 编程手/references/MATLAB规范.md | FULL | `roles/coding/references/matlab-implementation.md` + `check_matlab_env.m` + reproducibility | 择优吸收 | v0.1.7 将 MATLAB 提升为一等后端，补 feature-scoped 工具箱检查、solver/数值/复现与 Figure parity |
 | 编程手/references/质检清单.md | FULL | audit/mvp-check + result-review + numerical-check | 吸收 | 强调复现、约束、单位、Final Run |
 | references/roles/论文手/SKILL.md | FULL | roles/writing + writing/* + audit/* | 吸收 | 证据先行、真实结果、规则优先保留 |
 | 论文手/references/写作规范.md | FULL | writing/technical-style + abstract + result-writing | 吸收 | 去模板化但不做“检测器规避” |
 | 论文手/references/章节模板.md | PARTIAL | writing/outline | 保留思想 | 不固定章节模板，按问题与证据链组织 |
 | 论文手/references/自审框架.md | FULL | audit/paper-review + final-review | 吸收 | 数学/证据/可读性/过度宣称检查 |
 | 论文手/references/英文化工作流.md | FULL | skills/writing/english-paper + roles/writing | 吸收并独立重写 | v0.1.5 增加 MCM/ICM 技术英文化、术语与数字/公式/引用一致性检查 |
-| 论文手/references/论文格式规范.md | PARTIAL | tools/docx + tools/latex + final-review | 继续规则化 | 已有可执行载体 QA；具体比赛格式仍必须按当届官方模板/规则配置 |
+| 论文手/references/论文格式规范.md | FULL | `problem/competition-rules` + `competition-rule-profile.md` + tools/docx/latex/pdf + final-review | 规则外置吸收 | v0.1.7 把“当届官方规则优先”做成独立 rule profile；不吸收上游固定内部图数/页数质量目标 |
 | references/Subagent调度.md | TRANSFORMED | qa/protocol.md + reviewer-contract.md | 吸收 | 独立 reviewer 思想保留；无 Subagent 不再全局 BLOCKED |
 | references/算法索引.md | FULL | references/algorithm-index.md + algorithm-dispatch.md | 吸收 | 渐进加载与按问题族路由保留 |
 | assets/01-优化算法说明.md | FULL | algorithm/linear-integer-optimization + nonlinear-optimization | 吸收 | 优化大类已覆盖 |
@@ -131,6 +131,7 @@ v0.1.6 改为“同能力择优”：Han 的原子建模/审稿能力仍以 Hub 
 - 英文建模论文：新增 `writing/english-paper`。
 - Figure/LaTeX：v0.1.6 进一步按同能力质量择优，扩展机械 QA、资源绑定与构建 provenance。
 - 评阅可读性：吸收“快速找到答案/证据”的思想，但不把它变成评分技巧或固定图数。
+- v0.1.7 深挖：常见模型组合改成诊断式 patterns；MATLAB 升为一等后端；官方规则外置成 `mathmodel-competition-rules/v1`；Figure 增加 claim/样本支持/编码/误导审查 guides。
 
 ### 不采纳
 

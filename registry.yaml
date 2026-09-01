@@ -1,4 +1,4 @@
-version: 0.1.6
+version: 0.1.7
 router_policy: minimal-primary-first
 skills:
   - event: DOMAIN_CONTEXT_NEEDED
@@ -166,6 +166,10 @@ skills:
     name: data-audit
     path: skills/problem/data-audit
     description: "建立数据事实基线，不凭经验猜结构。"
+  - event: OFFICIAL_RULES_NEEDED
+    name: competition-rules
+    path: skills/problem/competition-rules
+    description: "把目标竞赛当届官方规则与模板提取为可追溯 rule profile，区分硬约束、建议、用户要求和内部目标。"
   - event: ASSUMPTION_WEAK
     name: hypothesis
     path: skills/problem/hypothesis

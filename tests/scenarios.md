@@ -83,3 +83,5 @@
 47. 题目核心是库存-流量-反馈-时滞和政策情景 -> `ALGO_SYSTEM_DYNAMICS` -> `system-dynamics`
 48. 扩散/拥挤由空间格点上的局部更新规则驱动 -> `ALGO_CELLULAR_AUTOMATA` -> `cellular-automata`
 49. 多个自主主体的最优策略彼此依赖，需要均衡分析 -> `ALGO_GAME_THEORY` -> `game-theory`
+
+50. “准备按 2026 当届规则排版，但还没核验官方页数、模板和提交要求。” -> `OFFICIAL_RULES_NEEDED` -> `competition-rules`
