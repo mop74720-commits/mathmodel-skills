@@ -1,0 +1,12 @@
+{
+  "xiaoma": {
+    "repo": "https://github.com/XiaoMaColtAI/math-modeling-skill.git",
+    "commit": "e5d9313420d519f18ed1429d52d95fe0a72ae944",
+    "path": "upstream/xiaoma"
+  },
+  "han": {
+    "repo": "https://github.com/han69611/math-modeling-skills.git",
+    "commit": "b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca",
+    "path": "upstream/han"
+  }
+}

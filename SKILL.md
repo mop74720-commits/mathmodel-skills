@@ -1,148 +1,72 @@
 ---
 name: mathmodel-skills
-version: 0.1.4
-description: 数学建模专项 Skill Hub。接收 Coach 或用户给出的局部事件，渐进式路由到 Role、专项 Skill、工具和 QA；不管理比赛时间线与全局优先级。
+version: 0.2.0
+description: 数学建模专项 Skill Hub。以 XiaoMa 原仓库作为角色/工具/QA 基座，以 Han 原仓库提供细粒度专项 Skill；Coach 只传入事件，本 Hub 路由到原始上游内容并应用最小 overlay。
 ---
 
-# MathModel Skills Router
+# MathModel Skills Hub
 
-## 1. 权限边界
+## 1. 权力边界
 
-本 Skill Hub 是执行层，不是 Coach。
+本 Hub 不决定比赛时间、题目取舍、模型冻结时点或最终提交。这些由 `mathmodel-pro` Coach 决定。
 
-Coach 权威：
-- 比赛阶段、剩余时间和优先级；
-- 是否冻结模型、切换问题、提前写作；
-- 是否接受 WARN、是否返工、是否降级目标；
-- 最终提交范围。
+本 Hub 只做：
 
-Skill Hub 权威：
-- 当前局部问题的技术分析与执行；
-- 选择最小必要 Skill / Tool；
-- 产生可验证的局部产物；
-- 返回 QA 状态、证据、风险与 handoff。
+1. 接收 Coach 或用户给出的局部事件；
+2. 选择一个或少数几个上游 Skill/Role/Tool；
+3. 按原始上游内容执行具体任务；
+4. 应用 `overlay/` 中的冲突覆盖规则；
+5. 返回结构化结果、证据和下一事件建议。
 
-不得因为 Hub 内部建议覆盖 Coach 的显式决策。
+## 2. 上游优先级
 
-## 2. 根目录合同
+### XiaoMa — 主底座
 
-- `SKILL_ROOT`：本仓库，只读。
-- `PROJECT_ROOT`：真实比赛仓库，所有权威产物写入这里。
-- 禁止把比赛数据、结果、论文正文写回 `SKILL_ROOT`。
+原始入口：
 
-## 3. Router 规则
+- `upstream/xiaoma/SKILL.md`
+- `upstream/xiaoma/references/roles/建模手/SKILL.md`
+- `upstream/xiaoma/references/roles/编程手/SKILL.md`
+- `upstream/xiaoma/references/roles/论文手/SKILL.md`
+- `upstream/xiaoma/tools/*/SKILL.md`
+- `upstream/xiaoma/references/Subagent调度.md`
 
-1. 优先根据事件匹配 `registry.yaml`。
-2. 一次优先调用一个 primary Skill；只有 primary 输出明确缺口时才加载 secondary Skill。
-3. 先读目标 Skill 的 `SKILL.md`；只有其 `Procedure` 要求时才加载 Role、Tool 或 references。
-4. 不运行完整流水线来解决单点问题。
-5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.4 的六个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
-6. QA reviewer 默认只读，不直接修改权威产物。
+用于：角色合同、工具使用、渐进加载、项目根目录隔离、QA 结构。
 
-## 4. 常见事件
+### Han — 专项 Skill 库
 
-| Event | Primary Skill |
-|---|---|
-| `PROBLEM_UNCLEAR` | `problem/problem-analysis` |
-| `DATA_UNKNOWN` | `problem/data-audit` |
-| `PROBLEM_AMBIGUOUS` | `problem/ambiguity-resolution` |
-| `ASSUMPTION_WEAK` | `problem/hypothesis` |
-| `DOMAIN_CONTEXT_NEEDED` | `domain/domain-context` |
-| `MODEL_UNCERTAIN` | `modeling/model-selection` |
-| `MODELS_NEED_COMPARISON` | `modeling/model-comparison` |
-| `MODEL_CONTRACT_MISSING` | `modeling/model-contract` |
-| `NEED_LOW_RISK_IMPROVEMENT` | `modeling/innovation` |
-| `MODEL_NEEDS_CHALLENGE` | `modeling/model-challenge` |
-| `IMPLEMENT_MODEL` | `coding/implementation` |
-| `SOLVER_FAILED` | `coding/solver-debug` |
-| `NUMERICAL_SUSPECT` | `coding/numerical-check` |
-| `EXPERIMENTS_UNTRACKED` | `experiment/experiment-manager` |
-| `NEED_SENSITIVITY` | `experiment/sensitivity` |
-| `RESULT_UNSTABLE` | `experiment/robustness` |
-| `RESULT_NEEDS_INTERPRETATION` | `experiment/result-analysis` |
-| `FIGURE_NEEDED` | `visualization/figure-design` |
-| `FIGURE_WEAK` | `visualization/visualization-review` |
-| `FLOWCHART_NEEDED` | `visualization/flowchart` |
-| `PAPER_OUTLINE_NEEDED` | `writing/outline` |
-| `ABSTRACT_NEEDED` | `writing/abstract` |
-| `RESULT_SECTION_NEEDED` | `writing/result-writing` |
-| `WRITING_STYLE_WEAK` | `writing/technical-style` |
-| `MODEL_NEEDS_REVIEW` | `audit/model-review` |
-| `MVP_NEEDS_CHECK` | `audit/mvp-check` |
-| `FINAL_RESULT_NEEDS_REVIEW` | `audit/result-review` |
-| `CLAIM_UNSUPPORTED` | `audit/claim-evidence` |
-| `PAPER_NEEDS_ATTACK` | `audit/paper-review` |
-| `PRE_SUBMISSION` | `audit/final-review` |
+原始入口：`upstream/han/skills/*/SKILL.md`
 
+用于：假设、模型选择、实验管理、结果分析、创新、审稿、验证、可视化等局部能力。
 
-## 4A. Algorithm Knowledge Events
+## 3. Overlay 优先于冲突规则
 
-当 `MODEL_UNCERTAIN` 已识别出结构后，Router 优先进入一个算法族 Skill，而不是继续让 model-selection 承担全部算法知识。
+上游原文保持不变；当原规则与 Coach 分层设计冲突时，不修改 upstream，而是读取：
 
-| Event | Algorithm Skill |
-|---|---|
-| `ALGO_LINEAR_INTEGER` | `algorithm/linear-integer-optimization` |
-| `ALGO_NONLINEAR_OPT` | `algorithm/nonlinear-optimization` |
-| `ALGO_NETWORK_ROUTING` | `algorithm/network-routing` |
-| `ALGO_TIME_SERIES` | `algorithm/time-series` |
-| `ALGO_GREY_FORECAST` | `algorithm/grey-forecasting` |
-| `ALGO_SUPERVISED_LEARNING` | `algorithm/supervised-learning` |
-| `ALGO_UNSUPERVISED_LEARNING` | `algorithm/unsupervised-learning` |
-| `ALGO_MULTI_CRITERIA` | `algorithm/multi-criteria-evaluation` |
-| `ALGO_EFFICIENCY_ANALYSIS` | `algorithm/efficiency-analysis` |
-| `ALGO_ODE_DYNAMICS` | `algorithm/ode-dynamics` |
-| `ALGO_PDE_DYNAMICS` | `algorithm/pde-dynamics` |
-| `ALGO_STOCHASTIC_SIM` | `algorithm/stochastic-simulation` |
-| `ALGO_QUEUEING` | `algorithm/queueing` |
-| `ALGO_SYSTEM_DYNAMICS` | `algorithm/system-dynamics` |
-| `ALGO_CELLULAR_AUTOMATA` | `algorithm/cellular-automata` |
-| `ALGO_GAME_THEORY` | `algorithm/game-theory` |
-| `ALGO_STATISTICAL_INFERENCE` | `algorithm/statistical-inference` |
-| `ALGO_GEOMETRY` | `algorithm/geometry-reconstruction` |
+- `overlay/authority.md`
+- `overlay/qa-policy.md`
+- `overlay/quantity-policy.md`
+- `overlay/routing-policy.md`
 
-## 4B. Tool Dispatch
+例如：
 
-专项 Skill 在 Procedure 明确需要机械处理时才加载 Tool：
+- 上游的“必须等待用户批准”不自动变成 Hub 全局阻塞；
+- 上游的固定图数/篇幅目标不自动变成比赛硬要求；
+- 无 Subagent 不等于整场比赛 BLOCKED；
+- 上游阶段编号不构成必须顺序执行的 01→12 流程。
 
-- PDF 题面/参考资料 → `tools/pdf`
-- XLSX 工作簿 → `tools/xlsx`
-- 数据剖析/图文件 QA → `tools/figure`
-- Word 结构/渲染 → `tools/docx`
-- LaTeX 编译/绑定/验证 → `tools/latex`
-- 文献候选检索 → `tools/paper-search`
+## 4. 路由流程
 
-Tool 的成功只证明其机械检查范围，不自动把上层科学结论判为 PASS。
+1. 读取 `registry.yaml`。
+2. 匹配事件。
+3. 读取对应 `upstream_path` 的原始 `SKILL.md`。
+4. 如涉及角色/工具，再渐进加载 XiaoMa 原始 Role/Tool。
+5. 同时读取相关 overlay。
+6. 执行并写入 `PROJECT_ROOT`，不改 `upstream/`。
+7. 返回 `status / evidence / outputs / risks / suggested_next_event`。
 
-## 5. 标准 Skill 回执
+## 5. 状态
 
-每个 Skill 最终返回：
+允许：`PASS`, `WARN`, `FAIL`, `NOT_INDEPENDENTLY_VERIFIED`, `BLOCKED_BY_DEPENDENCY`。
 
-```text
-skill:
-status: DONE | PARTIAL | FAIL
-inputs_used:
-outputs_written:
-key_findings:
-risks:
-qa_status: PASS | WARN | FAIL | NOT_INDEPENDENTLY_VERIFIED
-handoff:
-```
-
-`FAIL` 表示该局部任务未满足其自身正确性条件；不等于整场比赛停止。
-
-## 6. QA 状态
-
-- `PASS`：检查范围内无阻断问题。
-- `WARN`：存在可接受但需要 Coach 知晓的风险。
-- `FAIL`：存在会使该局部结论失效的正确性或证据问题。
-- `NOT_INDEPENDENTLY_VERIFIED`：只有作者/主 Agent 自检，没有独立 reviewer。
-
-## 7. 禁止事项
-
-- 不维护 12 阶段强制链。
-- 不要求每一步用户审批后才继续。
-- 不把复杂度当创新。
-- 不把固定图数、页数、字数当通用质量门槛。
-- 不以评分表伪装官方评审分数。
-- 不允许 writer 编造未运行结果。
-- 不允许 coding 通过偷偷改模型公式来绕开 model contract。
+不得把“缺独立 reviewer”自动升级为整个竞赛 `BLOCKED`。

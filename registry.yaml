@@ -1,196 +1,43 @@
-version: 0.1.3
-router_policy: minimal-primary-first
-skills:
-  - event: DOMAIN_CONTEXT_NEEDED
-    name: domain-context
-    path: skills/domain/domain-context
-    description: "加载领域特有机制、数据陷阱、约束和评价口径，避免数学可行但领域无意义。"
-  - event: MODEL_NEEDS_CHALLENGE
-    name: model-challenge
-    path: skills/modeling/model-challenge
-    description: "通过简化、替换、去掉和解释测试检查模型必要性、可解释性与创新真实性。"
-  - event: WRITING_STYLE_WEAK
-    name: technical-style
-    path: skills/writing/technical-style
-    description: "修复模板化、流水账、无解释结果和空泛评价，不改变数学事实。"
-  - event: ALGO_GREY_FORECAST
-    name: grey-forecasting
-    path: skills/algorithm/grey-forecasting
-    description: "小样本趋势型灰色预测：适用性、Baseline、滚动验证和外推边界。"
-  - event: ALGO_EFFICIENCY_ANALYSIS
-    name: efficiency-analysis
-    path: skills/algorithm/efficiency-analysis
-    description: "DEA/多投入多产出效率分析：DMU同质性、前沿、slack与稳健性。"
-  - event: ALGO_QUEUEING
-    name: queueing
-    path: skills/algorithm/queueing
-    description: "排队系统：到达/服务机制、稳态条件、解析/仿真和容量配置。"
-  - event: ALGO_SYSTEM_DYNAMICS
-    name: system-dynamics
-    path: skills/algorithm/system-dynamics
-    description: "系统动力学：库存-流量、反馈、延迟、量纲和政策情景。"
-  - event: ALGO_CELLULAR_AUTOMATA
-    name: cellular-automata
-    path: skills/algorithm/cellular-automata
-    description: "元胞自动机：空间格点、局部规则、边界、尺度和涌现验证。"
-  - event: ALGO_GAME_THEORY
-    name: game-theory
-    path: skills/algorithm/game-theory
-    description: "博弈论：玩家、策略、收益、信息结构、均衡和社会最优对照。"
-  - event: ALGO_LINEAR_INTEGER
-    name: linear-integer-optimization
-    path: skills/algorithm/linear-integer-optimization
-    description: "LP/MILP/0-1/离散资源分配：建模、线性化、可行性和最优性证据。"
-  - event: ALGO_NONLINEAR_OPT
-    name: nonlinear-optimization
-    path: skills/algorithm/nonlinear-optimization
-    description: "连续非线性/非凸优化：尺度、初值、多起点、约束和启发式校准。"
-  - event: ALGO_NETWORK_ROUTING
-    name: network-routing
-    path: skills/algorithm/network-routing
-    description: "图、流、最短路、TSP/VRP与动态路由的结构化选择和可行性复核。"
-  - event: ALGO_TIME_SERIES
-    name: time-series
-    path: skills/algorithm/time-series
-    description: "时序预测：时间切分、防泄漏、Baseline、滚动验证与区间。"
-  - event: ALGO_SUPERVISED_LEARNING
-    name: supervised-learning
-    path: skills/algorithm/supervised-learning
-    description: "回归/分类：切分、pipeline、泛化、校准和解释边界。"
-  - event: ALGO_UNSUPERVISED_LEARNING
-    name: unsupervised-learning
-    path: skills/algorithm/unsupervised-learning
-    description: "聚类/降维：距离、尺度、稳定性和原变量解释。"
-  - event: ALGO_MULTI_CRITERIA
-    name: multi-criteria-evaluation
-    path: skills/algorithm/multi-criteria-evaluation
-    description: "多指标评价：方向、归一化、权重来源和排名稳健性。"
-  - event: ALGO_ODE_DYNAMICS
-    name: ode-dynamics
-    path: skills/algorithm/ode-dynamics
-    description: "ODE/状态空间：单位、初值、刚性、收敛、守恒与参数可辨识性。"
-  - event: ALGO_PDE_DYNAMICS
-    name: pde-dynamics
-    path: skills/algorithm/pde-dynamics
-    description: "PDE：初边值、离散方法、稳定性、网格收敛与守恒残差。"
-  - event: ALGO_STOCHASTIC_SIM
-    name: stochastic-simulation
-    path: skills/algorithm/stochastic-simulation
-    description: "Monte Carlo/Markov：随机机制、seed、CI、收敛与方差缩减。"
-  - event: ALGO_STATISTICAL_INFERENCE
-    name: statistical-inference
-    path: skills/algorithm/statistical-inference
-    description: "统计推断：效应、区间、独立性、多重比较和稳健性。"
-  - event: ALGO_GEOMETRY
-    name: geometry-reconstruction
-    path: skills/algorithm/geometry-reconstruction
-    description: "几何/重建：坐标、边界、有限尺寸、搜索压缩和边界验证。"
+version: 0.2.0
+routing_mode: event-driven
+upstreams:
+  xiaoma:
+    root: upstream/xiaoma
+    commit: e5d9313420d519f18ed1429d52d95fe0a72ae944
+  han:
+    root: upstream/han
+    commit: b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca
 
-  - event: CLAIM_UNSUPPORTED
-    name: claim-evidence
-    path: skills/audit/claim-evidence
-    description: "建立或审查每个论文主张到公式、运行、表图、文献的证据路径。"
-  - event: PRE_SUBMISSION
-    name: final-review
-    path: skills/audit/final-review
-    description: "提交前做有限且高价值的最终审计：官方硬约束、PDF视觉、数字一致、引用、附件、AI声明。"
-  - event: MODEL_NEEDS_REVIEW
-    name: model-review
-    path: skills/audit/model-review
-    description: "独立攻击模型合同的正确性、覆盖性、单位、假设、约束和可实现性。"
-  - event: MVP_NEEDS_CHECK
-    name: mvp-check
-    path: skills/audit/mvp-check
-    description: "复现最小纵向切片，验证输入→核心算法→结果链真的跑通。"
-  - event: PAPER_NEEDS_ATTACK
-    name: paper-review
-    path: skills/audit/paper-review
-    description: "以严格评委视角审查数学、逻辑、证据、图表、夸大、可读性和 AI 痕迹。"
-  - event: FINAL_RESULT_NEEDS_REVIEW
-    name: result-review
-    path: skills/audit/result-review
-    description: "对候选 Final Run 做独立复现与关键结论核对。"
-  - event: IMPLEMENT_MODEL
-    name: implementation
-    path: skills/coding/implementation
-    description: "把 model contract 实现为最小可运行纵向切片，再扩展到正式计算。"
-  - event: NUMERICAL_SUSPECT
-    name: numerical-check
-    path: skills/coding/numerical-check
-    description: "检查离散误差、容差、随机误差、尺度病态和守恒/边界残差。"
-  - event: SOLVER_FAILED
-    name: solver-debug
-    path: skills/coding/solver-debug
-    description: "定位 infeasible、diverge、timeout、NaN、收敛失败等求解器问题。"
-  - event: EXPERIMENTS_UNTRACKED
-    name: experiment-manager
-    path: skills/experiment/experiment-manager
-    description: "轻量管理实验，使成功与失败运行都可追溯，而不是引入完整 MLOps。"
-  - event: RESULT_NEEDS_INTERPRETATION
-    name: result-analysis
-    path: skills/experiment/result-analysis
-    description: "把结果从“报数字”提升为 Baseline 对比、原因解释、异常和决策含义。"
-  - event: RESULT_UNSTABLE
-    name: robustness
-    path: skills/experiment/robustness
-    description: "识别结论对种子、采样、边界条件、参数区间或数据扰动的稳定性。"
-  - event: NEED_SENSITIVITY
-    name: sensitivity
-    path: skills/experiment/sensitivity
-    description: "量化关键参数/假设扰动对目标和结论的影响。"
-  - event: NEED_LOW_RISK_IMPROVEMENT
-    name: innovation
-    path: skills/modeling/innovation
-    description: "生成与题目结构相关、可验证、可回滚的改进候选，不用主观 0-100 分冒充科学评价。"
-  - event: MODELS_NEED_COMPARISON
-    name: model-comparison
-    path: skills/modeling/model-comparison
-    description: "用统一数据、指标、约束和计算预算比较候选模型。"
-  - event: MODEL_CONTRACT_MISSING
-    name: model-contract
-    path: skills/modeling/model-contract
-    description: "冻结可执行模型定义，使公式、单位、参数、输入输出与验证可追溯。"
-  - event: MODEL_UNCERTAIN
-    name: model-selection
-    path: skills/modeling/model-selection
-    description: "基于任务类型、数据规模、可解释性、约束与验证成本选择 Baseline + 首选 + 必要备选。"
-  - event: PROBLEM_AMBIGUOUS
-    name: ambiguity-resolution
-    path: skills/problem/ambiguity-resolution
-    description: "对有多种解释的题意建立竞争解释并用递进性、量纲、后续问题边际效果筛选。"
-  - event: DATA_UNKNOWN
-    name: data-audit
-    path: skills/problem/data-audit
-    description: "建立数据事实基线，不凭经验猜结构。"
-  - event: ASSUMPTION_WEAK
-    name: hypothesis
-    path: skills/problem/hypothesis
-    description: "把假设视为模型前提，记录理由、可验证性、影响和失效风险。"
-  - event: PROBLEM_UNCLEAR
-    name: problem-analysis
-    path: skills/problem/problem-analysis
-    description: "把题面拆为完整问题合同，避免漏问、错问和背景/任务混淆。"
-  - event: FIGURE_NEEDED
-    name: figure-design
-    path: skills/visualization/figure-design
-    description: "围绕一个明确 claim 选择最小充分图型与统计口径。"
-  - event: FLOWCHART_NEEDED
-    name: flowchart
-    path: skills/visualization/flowchart
-    description: "生成真正表达决策、数据流或反馈回路的流程图，不把文字列表包装成图。"
-  - event: FIGURE_WEAK
-    name: visualization-review
-    path: skills/visualization/visualization-review
-    description: "在论文实际尺寸与灰度/色盲条件下审查可读性和证据表达。"
-  - event: ABSTRACT_NEEDED
-    name: abstract
-    path: skills/writing/abstract
-    description: "用已冻结结果写摘要：问题→方法→关键结果→验证/价值。"
-  - event: PAPER_OUTLINE_NEEDED
-    name: outline
-    path: skills/writing/outline
-    description: "从问题结构和证据链组织论文，不按固定模板机械凑章节。"
-  - event: RESULT_SECTION_NEEDED
-    name: result-writing
-    path: skills/writing/result-writing
-    description: "把数值结果写成“结果+比较+原因+意义+限制”的正文证据段。"
+events:
+  PROBLEM_NEEDS_ANALYSIS:
+    upstream_path: upstream/xiaoma/references/roles/建模手/SKILL.md
+    overlay: [authority, routing]
+  ASSUMPTION_WEAK:
+    upstream_path: upstream/han/skills/03-hypothesis/SKILL.md
+    role: upstream/xiaoma/references/roles/建模手/SKILL.md
+    overlay: [authority, routing]
+  MODEL_UNCERTAIN:
+    upstream_path: upstream/han/skills/03-model-selection/SKILL.md
+    role: upstream/xiaoma/references/roles/建模手/SKILL.md
+    overlay: [authority, routing, quantity]
+  IMPLEMENTATION_NEEDED:
+    upstream_path: upstream/xiaoma/references/roles/编程手/SKILL.md
+    overlay: [authority, qa, quantity]
+  EXPERIMENTS_NEED_TRACKING:
+    upstream_path: upstream/han/skills/06-experiment-manager/SKILL.md
+    overlay: [authority, routing]
+  RESULT_NEEDS_ANALYSIS:
+    upstream_path: upstream/han/skills/07-result-analysis/SKILL.md
+    overlay: [authority, routing]
+  NEED_LOW_RISK_IMPROVEMENT:
+    upstream_path: upstream/han/skills/10-innovation-engine/SKILL.md
+    overlay: [authority, routing]
+  PAPER_NEEDS_ATTACK:
+    upstream_path: upstream/han/skills/11-reviewer-mode/SKILL.md
+    overlay: [authority, qa]
+  PRE_SUBMISSION:
+    upstream_path: upstream/han/skills/12-verify/SKILL.md
+    overlay: [authority, qa, quantity]
+  PAPER_WRITING_NEEDED:
+    upstream_path: upstream/xiaoma/references/roles/论文手/SKILL.md
+    overlay: [authority, qa, quantity]
