@@ -2,9 +2,9 @@
 
 数学建模竞赛的第二层 Skill Hub。它不决定比赛时间线、模型冻结时点或团队优先级；这些属于 `mathmodel-pro` Coach。它负责在收到明确局部任务或事件后，路由到最小必要的 Role / Skill / Tool / QA，并把结构化结果交还给真实 Competition Repo。
 
-## v0.1.5：49 个事件驱动 Skill + 18 算法族 + 7 个可执行 Tool
+## v0.1.6：49 个事件驱动 Skill + 18 算法族 + 7 个质量择优 Tool
 
-v0.1.5 在 v0.1.4 的事件驱动架构上做选择性上游补强：新增 MCM/ICM 英文化 Skill；增加求解稳健性与算法 playbook；新增可复现运行 Tool；增强 Figure 源码/灰度 QA 与 LaTeX build provenance。仍不恢复固定阶段链、固定图数/页数或主观评分。
+v0.1.6 在 v0.1.5 基础上改用“同能力择优”策略：同一功能同时存在于 Hub、Han、XiaoMa 时逐项比较质量，保留更好的设计或融合。Hub 的事件/权限/原子 Skill 继续作为主架构；XiaoMa 在角色细则与工具深度上胜出的能力按安全边界独立重实现；Han 的少量挑战/创新启发式并入现有 Skill。仍不恢复固定阶段链、固定图数/页数或主观评分。
 
 设计原则：
 
@@ -14,6 +14,18 @@ v0.1.5 在 v0.1.4 的事件驱动架构上做选择性上游补强：新增 MCM/
 - QA 返回证据化 PASS/WARN/FAIL/NOT_INDEPENDENTLY_VERIFIED，不用主观总分代替问题。
 - 论文/结果关键数字优先绑定 Final Run 与 Claim-Evidence Map。
 
+
+
+## v0.1.6 Same-capability Quality Selection
+
+这次不是“上游有什么新东西就补什么”，而是对**重叠能力**逐项裁决。完整矩阵见 `references/overlap-quality-selection.md`。核心结果：
+
+- Han 的题意分析、假设、模型选择、实验、Reviewer/Verify 等重叠项：当前 Hub 的事件合同、失败分流和证据门禁整体更好，继续以 Hub 为主，只抽取少量删除/替换/解释类启发式。
+- XiaoMa 的三角色细则：其建模前置检查、数值稳健性、复现、自审和英文写作深度更好；v0.1.6 保留 Hub 的角色外壳，新增按需深度参考。
+- 算法：Hub 的 18 个原子 Skill 继续负责“何时用/何时不用/怎么验”；深度算法知识只作为 reference/playbook，不把大百科变成第二个 Router。
+- Figure/LaTeX：上游能力目标明显胜出，v0.1.6 独立重实现更完整 QA。
+- XLSX/Paper Search：双方各有优势，采用融合。
+- DOCX/PDF：上游能力更广，但相关目录存在限制性许可；本包只做独立只读 QA 实现，不复制或派生其代码。
 
 ## v0.1.5 Selective Upstream Refresh
 
@@ -38,14 +50,14 @@ v0.1.5 在 v0.1.4 的事件驱动架构上做选择性上游补强：新增 MCM/
 - 新增 `references/upstream-coverage-matrix.md` 和 CSV，对两个上游共 72 个重要条目逐项映射。
 
 
-## v0.1.4 Tool Layer（v0.1.5 继续增强）
+## Tool Layer（v0.1.6 质量择优增强）
 
-- PDF：结构审计、SHA-256、页尺寸/文本/图片统计、带页码嵌入文本抽取；不默认 OCR。
-- XLSX：工作表/行列/表头/公式/错误单元格/合并区域审计，以及受限行读取；不伪造 Excel 公式重算。
-- Figure：CSV/TSV 数据剖析、raster/SVG/PDF 图文件机械审计、matplotlib 多格式导出 helper；v0.1.5 增加绘图源码静态 QA 与灰度/对比度 QA。
-- DOCX：OOXML/OMML、修订、批注、媒体和残留 LaTeX 标记审计；LibreOffice→PDF→PNG 真实渲染 QA。
-- LaTeX：`doctor / init-cjk / build / bind / validate`；v0.1.5 增加 build provenance JSON 与 fatal/warning 分层，已用 XeLaTeX 真实 smoke。
-- Paper Search：OpenAlex + Crossref 双源检索与 DOI/题名去重；关键主张仍需回到 DOI/出版机构原页面。
+- PDF：结构/SHA/page/font/text/image/vector/bounds 审计、带页码文本抽取、页面真实渲染；只读且不默认 OCR。
+- XLSX：工作表/行列/表头/公式/错误/合并区域审计、受限读取，以及显式 LibreOffice 重算到新文件；不宣称等价于全部 Excel 专有函数。
+- Figure：CSV/TSV/XLSX 丰富数据剖析、multi-path raster/SVG/PDF 机械审计、matplotlib 导出、源码静态 QA 与灰度/对比度 QA。
+- DOCX：OOXML/OMML、样式、关系、修订、批注、fields/hyperlinks、媒体和残留 LaTeX 审计；模板格式摘要和 LibreOffice→PNG 真实渲染 QA。
+- LaTeX：`doctor / init / init-cjk / build / bind / validate`；含 bibliography、graphics/bib/ref 检查、PDF/font 审计、可选显式规则阈值和 build provenance。
+- Paper Search：OpenAlex + Crossref 双源检索，DOI + 高阈值模糊题名去重、年份/引用过滤与透明相关性排序；关键主张仍需回真实论文。
 - Reproducibility：按 feature 检查实际依赖，创建/验证 run manifest，绑定命令、seed、版本和指定输入/产物哈希。
 
 工具执行入口见 `tools/README.md`；逐工具实现/边界见 `references/tool-implementation-matrix.md`。

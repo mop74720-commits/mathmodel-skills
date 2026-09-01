@@ -1,24 +1,27 @@
 ---
 name: tool-docx
-description: 审计 DOCX 的结构、OMML 公式、修订/批注和媒体，并可真实渲染为页面 PNG 做视觉 QA。
+description: DOCX 结构、样式、关系、OMML、修订/批注和真实渲染 QA；强调只读机械审计，不复制受限上游编辑代码。
 ---
 
 # Tool: DOCX
 
-## Scope
-处理论文载体与机械质量，不修改科学结论。优先使用当届官方 Word 模板。
-
 ## Commands
 ```bash
 python tools/docx/scripts/docx_audit.py paper.docx --json
+python tools/docx/scripts/inspect_template_format.py official-template.docx --json
 python tools/docx/scripts/render_docx.py paper.docx --output-dir _docx_render --emit-pdf
+python tools/docx/scripts/self_check.py paper.docx --render --output-dir _docx_render
 ```
 
 ## Checks
-`docx_audit.py` 检查段落、表格、标题、媒体、OMML、修订、批注和残留 LaTeX 标记。`render_docx.py` 使用 LibreOffice headless 转 PDF 后逐页 rasterize；渲染图必须实际检查。
+- 段落、表格、标题、drawing/media、样式使用；
+- OMML 公式、残留字面 LaTeX；
+- tracked changes、comments、fields、hyperlinks；
+- internal relationship 是否断裂；
+- 页面尺寸/页边距与模板样式摘要；
+- LibreOffice headless 真实渲染后逐页 PNG 视觉 QA。
 
 ## Boundary
-当前版本不重实现 XiaoMa 的整套评论编辑、tracked-change 接受、复杂 LaTeX→OMML 转换；这些在 coverage matrix 中继续明确标注。
+XiaoMa 在 DOCX 工具深度上胜过早期 Hub，但其相关工具目录包含限制性许可。v0.1.6 **没有复制、改写或分发其源码/模板**，而是独立实现只读 QA 与格式检查。复杂批注编辑、tracked-change 接受、LaTeX→OMML 全功能转换不在本 Hub 内伪造；需要时由专门文档能力处理。
 
-## Handoff
-结构警告返回 writing / `PAPER_NEEDS_ATTACK`；公式仍为字面 LaTeX 时必须修复后再交付。
+机械 PASS 不等于论文内容 PASS。

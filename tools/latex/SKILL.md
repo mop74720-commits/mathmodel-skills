@@ -1,6 +1,6 @@
 ---
 name: tool-latex
-description: LaTeX 环境诊断、CJK 基线初始化、真实编译、build provenance、资源哈希绑定和 PDF/日志验证。
+description: LaTeX 工程 doctor/init/build/bind/validate；检查引用、图资源、字体、页数和构建 provenance，赛事阈值均显式传入而非硬编码。
 ---
 
 # Tool: LaTeX
@@ -8,17 +8,21 @@ description: LaTeX 环境诊断、CJK 基线初始化、真实编译、build pro
 ## Commands
 ```bash
 python tools/latex/scripts/latex_paper.py doctor --engine xelatex
-python tools/latex/scripts/latex_paper.py init-cjk paper/main.tex
-python tools/latex/scripts/latex_paper.py build paper/main.tex --engine xelatex --publish paper/final.pdf
-python tools/latex/scripts/latex_paper.py bind paper --output paper/latex-project.json
-python tools/latex/scripts/latex_paper.py validate paper/main.tex --pdf paper/final.pdf
+python tools/latex/scripts/latex_paper.py init paper --contest generic
+python tools/latex/scripts/latex_paper.py init-cjk scratch/main.tex
+python tools/latex/scripts/latex_paper.py build paper/main.tex --engine xelatex --runs 2
+python tools/latex/scripts/latex_paper.py bind paper --output paper/project-manifest.json
+python tools/latex/scripts/latex_paper.py validate paper/main.tex --pdf paper/main.pdf
 ```
 
-## Checks
-- `build` 真实运行 TeX engine，不以源码存在代替编译，并生成 `<main>.build.json`，记录 engine 路径/版本、耗时、源码/PDF SHA-256、fatal/warning。
-- `validate` 将 PDF 缺失、LaTeX Error、未解析引用/引文列为 fatal；Overfull/Underfull 等排版项列为 warning，避免把可读性警告误当数学失败。
-- `bind` 对项目资源做 SHA-256 清单，用于最终结果追溯。
-- 官方模板优先，`init-cjk` 只是无官方模板时的环境 smoke baseline。
+可选的页数/公式/图/表阈值只在用户或当届规则明确时传入：`--max-pages`、`--min-pages`、`--min-equations`、`--min-figures`、`--min-tables`。它们没有通用默认值。
 
-## Handoff
-编译/引用问题返回 writing；内容或数值问题不在本工具修正。
+## Checks
+- engine / bibliography / Pandoc 等依赖按任务检查；
+- 真正编译并记录 engine、版本、耗时、source/PDF SHA-256 与日志；
+- 检查 `includegraphics`、bibliography 文件、局部 label/ref；
+- PDF 页面/字体做机械审计；Overfull/Underfull 默认是 warning，不冒充编译失败；
+- `bind` 对工程文件建立可验证哈希清单。
+
+## Selection note
+XiaoMa 的 LaTeX 工程能力明显胜过早期 Hub；v0.1.6 因此采用同等级能力目标重新独立实现，并保留 Hub 的“官方规则外置、无固定页数/图数”边界。

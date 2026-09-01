@@ -5,7 +5,7 @@
 基线：
 - XiaoMa: `XiaoMaColtAI/math-modeling-skill` commit `e5d9313420d519f18ed1429d52d95fe0a72ae944`。
 - Han: `han69611/math-modeling-skills` commit `b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca`。
-- 本仓库：`mathmodel-skills v0.1.5`。
+- 本仓库：`mathmodel-skills v0.1.6`。
 
 状态定义：`FULL`=核心能力已落入可调用 Skill；`TRANSFORMED`=吸收但按 Coach/Hub 边界改造；`PARTIAL`=只吸收方法/接口，具体工具或细节仍缺；`EXCLUDED`=主动不吸收。
 
@@ -18,7 +18,9 @@ v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey
 
 v0.1.4 新补：六个工具的可执行核心；figure/paper-search/latex/pdf 从仅接口升级为 `TRANSFORMED`，DOCX/XLSX 仍诚实保留为 `PARTIAL`。
 
-v0.1.5 选择性补强：英文化工作流从 `PARTIAL` → `FULL`；新增 solver robustness、4 个算法 playbook、reproducibility Tool，并增强 Figure/LaTeX QA。
+v0.1.5 选择性补强：英文化、solver robustness、算法 playbook 与 reproducibility。
+
+v0.1.6 改为“同能力择优”：Han 的原子建模/审稿能力仍以 Hub 实现为主；XiaoMa 在角色细则和工具深度上胜出的部分按能力边界独立重实现，并新增 overlap quality matrix。
 
 ## XiaoMaColtAI/math-modeling-skill@e5d9313
 
@@ -51,12 +53,12 @@ v0.1.5 选择性补强：英文化工作流从 `PARTIAL` → `FULL`；新增 sol
 | assets/06-综合类算法说明.md | FULL | stochastic-simulation + ode-dynamics + queueing + system-dynamics + cellular-automata + game-theory | 吸收 | v0.1.3 补排队/系统动力学/CA/博弈 |
 | assets/07-机器学习算法说明.md | FULL | supervised-learning + unsupervised-learning | 吸收 | 算法级细分仍可继续向 RF/XGBoost/NN 下钻 |
 | tools/figure/SKILL.md 方法论 | FULL | figure-design + visualization-review + tools/figure | 吸收 | 数据剖析→claim→选图→视觉审查逻辑已吸收；固定图数删除 |
-| tools/figure/scripts/* | TRANSFORMED | tools/figure | 核心重实现 | v0.1.5 已实现 profile/check/export + source static QA + grayscale raster QA；复杂多后端 layout helper 不逐文件复制 |
-| tools/paper_search/* | TRANSFORMED | tools/paper-search | 替代实现 | 已实现 OpenAlex + Crossref 双源检索、DOI/题名去重；不复制 AnySearch 专有接口 |
-| tools/docx/* | PARTIAL | tools/docx | 继续深化 | 已实现结构/OMML/修订/批注审计和真实渲染；复杂公式转换、评论编辑等仍缺 |
-| tools/latex/* | TRANSFORMED | tools/latex | 核心重实现 | v0.1.5 已实现 doctor/init/build/bind/validate + build provenance/fatal-warning 分层并真实 XeLaTeX smoke |
-| tools/xlsx/* | PARTIAL | tools/xlsx | 继续深化 | 已实现工作簿审计和受限行读取；公式权威重算/模板编辑工具仍未实现 |
-| tools/pdf/* | TRANSFORMED | tools/pdf | 核心重实现 | 已实现 PDF 结构审计与带页码嵌入文本抽取；OCR 明确不作为默认 |
+| tools/figure/scripts/* | TRANSFORMED | tools/figure | 能力目标择优、独立重实现 | v0.1.6 扩展为多文件/glob、raster/SVG/PDF、可配置 DPI/尺寸、丰富数据剖析、source/gray QA；不复制上游源码 |
+| tools/paper_search/* | TRANSFORMED | tools/paper-search | 融合实现 | 保留 OpenAlex + Crossref 公共双源，同时增加 DOI/高阈值模糊题名去重、年份/引用过滤和透明相关性排序 |
+| tools/docx/* | TRANSFORMED | tools/docx | 安全独立重实现 | v0.1.6 增加样式、关系、fields/hyperlinks、模板格式、自审和真实渲染；上游对应目录带限制性许可，故不复制编辑源码 |
+| tools/latex/* | TRANSFORMED | tools/latex | 能力目标择优、独立重实现 | v0.1.6 增加工程 init、bibliography build、graphics/bib/ref 资源检查、字体/PDF 审计、显式可选规则阈值与 provenance |
+| tools/xlsx/* | TRANSFORMED | tools/xlsx | 融合 | 保留 Hub 工作簿/公式审计与受限读行，新增显式 LibreOffice 重算到新文件；不声称等价于所有 Excel 专有函数 |
+| tools/pdf/* | TRANSFORMED | tools/pdf | 安全独立重实现 | 增加页面/字体/图像/矢量/bounds/render QA；上游相关目录带限制性许可，不复制表单/编辑源码；OCR 仍非默认 |
 | dsh-plugin/math-modeling-agent/* | EXCLUDED | — | 主动排除 | DeepSeek Harness 平台专用封装，不属于通用 Skill Hub 核心 |
 | .github / imgs / star-history / changelog | EXCLUDED | — | 主动排除 | 仓库运营与展示元数据，不影响建模能力 |
 
@@ -104,10 +106,10 @@ v0.1.5 选择性补强：英文化工作流从 `PARTIAL` → `FULL`；新增 sol
 
 ## Remaining High-Value Gaps
 
-1. **DOCX 深层编辑/公式转换**：当前能审计和真实渲染，但还未覆盖上游的复杂 LaTeX→OMML、批注/修订编辑等完整工具面。
-2. **XLSX 公式权威重算与模板写入**：当前能审计/读行，但不假装 Python 可以完整模拟 Excel 计算引擎。
-3. **具体算法实现深度**：v0.1.5 已补一批 playbook，但仍不追求把每种算法都做成独立 Router Skill；需要时继续按问题族下钻。
-4. **多后端科研可视化**：当前 Figure Tool 以 Python/matplotlib 和机械 QA 为核心，未复制上游完整 R/复杂 layout 工具面。
+1. **DOCX 深层写入/公式转换**：只读 QA 已明显补强；复杂 LaTeX→OMML、批注/修订编辑仍交由专门文档能力，不复制受限上游实现。
+2. **Excel 专有计算兼容性**：已增加 LibreOffice 重算，但不声称等价于 Microsoft Excel 的全部函数/数据模型。
+3. **具体算法实现深度**：原子 Skill 保留为执行合同，深度知识继续按需放 reference/playbook，不制造几十个重复 Router。
+4. **多后端科研可视化**：当前 Figure Tool 以 Python/matplotlib 和通用机械 QA 为核心，不追求复制上游完整多后端工具面。
 
 ## Explicit Non-Goals
 
@@ -127,7 +129,7 @@ v0.1.5 选择性补强：英文化工作流从 `PARTIAL` → `FULL`；新增 sol
 - 求解稳健性：稳定数值形式、尺度/条件、solver 匹配、多起点、收敛、资源与跨环境复现，整理为 `references/solver-robustness.md`。
 - 新算法细节：模糊综合评价、A*/TSP/Chinese Postman、常见分类 baseline、随机启发式规范，以 playbook 形式按需加载。
 - 英文建模论文：新增 `writing/english-paper`。
-- Figure/LaTeX：增加源码/灰度 QA 与 build provenance。
+- Figure/LaTeX：v0.1.6 进一步按同能力质量择优，扩展机械 QA、资源绑定与构建 provenance。
 - 评阅可读性：吸收“快速找到答案/证据”的思想，但不把它变成评分技巧或固定图数。
 
 ### 不采纳

@@ -15,6 +15,8 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     pdf=td/'sample.pdf'; d=fitz.open(); p=d.new_page(); p.insert_text((72,72),'Problem statement page 1'); d.save(pdf); d.close()
     run(sys.executable,ROOT/'tools/pdf/scripts/inspect_pdf.py',pdf,'--json')
     txt=td/'pdf.txt'; run(sys.executable,ROOT/'tools/pdf/scripts/extract_text.py',pdf,'--output',txt); assert 'Problem statement' in txt.read_text()
+    run(sys.executable,ROOT/'tools/pdf/scripts/check_bounds.py',pdf)
+    pdf_render=td/'pdf-render'; run(sys.executable,ROOT/'tools/pdf/scripts/render_pages.py',pdf,'--output-dir',pdf_render); assert (pdf_render/'page-1.png').exists()
 
     print('SMOKE xlsx', flush=True)
     # XLSX fixture
@@ -22,6 +24,7 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     xlsx=td/'sample.xlsx'; wb=openpyxl.Workbook(); ws=wb.active; ws.append(['x','y']); ws.append([1,2]); ws['C1']='sum'; ws['C2']='=A2+B2'; wb.save(xlsx)
     run(sys.executable,ROOT/'tools/xlsx/scripts/audit_workbook.py',xlsx,'--json')
     run(sys.executable,ROOT/'tools/xlsx/scripts/read_rows.py',xlsx,'--max-row','3')
+    recalc=td/'sample-recalc.xlsx'; run(sys.executable,ROOT/'tools/xlsx/scripts/recalc.py',xlsx,'--output',recalc); assert recalc.exists()
 
     print('SMOKE figure', flush=True)
     # Data/figure fixture
@@ -42,7 +45,9 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     from docx import Document
     docx=td/'sample.docx'; doc=Document(); doc.add_heading('Smoke',1); doc.add_paragraph('Evidence-based result.'); table=doc.add_table(rows=2,cols=2); table.cell(0,0).text='A'; table.cell(0,1).text='B'; doc.save(docx)
     run(sys.executable,ROOT/'tools/docx/scripts/docx_audit.py',docx,'--json')
+    run(sys.executable,ROOT/'tools/docx/scripts/inspect_template_format.py',docx,'--json')
     render=td/'render'; out=run(sys.executable,ROOT/'tools/docx/scripts/render_docx.py',docx,'--output-dir',render); assert (render/'page-1.png').exists()
+    run(sys.executable,ROOT/'tools/docx/scripts/self_check.py',docx)
 
     print('SMOKE latex', flush=True)
     # LaTeX CJK doctor/build/bind/validate
@@ -51,6 +56,7 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','build',tex,'--engine','xelatex')
     run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','validate',tex)
     manifest=td/'paper/latex-project.json'; run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','bind',tex.parent,'--output',manifest); assert manifest.exists()
+    init_dir=td/'latex-init'; run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','init',init_dir,'--contest','generic'); assert (init_dir/'main.tex').exists() and (init_dir/'references.bib').exists()
 
     print('SMOKE reproducibility', flush=True)
     manifest=td/'run-manifest.json'

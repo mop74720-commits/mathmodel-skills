@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.6
+
+- 纠正“只补缺失项”的合并策略，改为对 Hub / Han / XiaoMa **同能力逐项比较后择优**。
+- 新增 `references/overlap-quality-selection.md/.csv` 与 `algorithm-depth-selection.md`，明确每类重叠能力的 winner、融合项和主动排除项。
+- 三个 Role 保留 Hub 权限外壳，但补强建模前置合同、数值稳健性/复现、证据写作/自审与英文论文参考。
+- Figure 独立增强为多文件/glob、raster/SVG/PDF、可配置 DPI/尺寸、丰富数据剖析、source 与灰度 QA。
+- LaTeX 独立增强为 generic/CJK init、bibliography-aware build、资源/ref 检查、字体/PDF 审计、显式规则阈值与 provenance。
+- XLSX 采用融合：保留原工作簿/公式审计，新增显式 LibreOffice 重算到新文件。
+- Paper Search 采用融合：保留 OpenAlex + Crossref 公共双源，增加 DOI/高阈值模糊题名去重、年份/引用过滤和透明相关性排序。
+- DOCX/PDF 依据能力边界独立补强只读 QA；由于上游对应目录含限制性许可，明确不复制/派生其源码或模板。
+- 工具验证扩展为 22 个实现文件；原有 49 事件 / 18 算法族 / 72 上游覆盖行保持结构兼容。
 ## 0.1.5
 
 - 选择性吸收当前上游高价值能力，不恢复固定阶段总流程。

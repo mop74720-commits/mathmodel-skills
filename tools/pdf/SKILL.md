@@ -1,25 +1,22 @@
 ---
 name: tool-pdf
-description: 读取和审计题面/参考 PDF，保留页码、尺寸和结构证据；OCR 只作为最后手段。
+description: 最终 PDF 的页面、字体、文本/图像、边界和真实渲染机械 QA；只读，不复制限制性上游表单/编辑代码。
 ---
 
 # Tool: PDF
 
-## Scope
-机械读取 PDF，不替代题意判断。优先读取嵌入文本；公式、表格或扫描页解析不可靠时必须回到页面图像核对。
-
-## Commands
 ```bash
-python tools/pdf/scripts/inspect_pdf.py problem.pdf --json
-python tools/pdf/scripts/extract_text.py problem.pdf --pages 1-3 --output problem.txt
+python tools/pdf/scripts/inspect_pdf.py paper.pdf --json
+python tools/pdf/scripts/extract_text.py paper.pdf --output paper.txt
+python tools/pdf/scripts/check_bounds.py paper.pdf --edge-mm 2
+python tools/pdf/scripts/render_pages.py paper.pdf --output-dir _pdf_render --dpi 150
 ```
 
-`inspect_pdf.py` 输出 SHA-256、页数、页尺寸、文本量、图片/链接/批注数量。`extract_text.py` 保留页码标记，不做 OCR。
-
 ## Checks
-- 原 PDF 只读。
-- 文本为空不等于页面为空；可能是扫描件。
-- 数学公式、图形和复杂表格以页面视觉证据为准。
+- SHA-256、页数、页面尺寸/旋转、文本块、嵌入图像和矢量 drawing；
+- 字体名称与混合页面尺寸提示；
+- 页面边界/近裁切区域的机械检查；
+- 真正 rasterize 页面后做视觉检查。
 
-## Handoff
-返回页面定位、抽取文本路径、结构警告；语义歧义交给 `PROBLEM_AMBIGUOUS`。
+## Boundary
+上游 XiaoMa 的 PDF 工具能力更广，但部分目录带限制性许可。v0.1.6 采用独立只读审计实现，不复制其源码，也不把表单写入/编辑能力塞进数学建模 Hub。最终视觉与科学语义仍需人工/Reviewer 审查。

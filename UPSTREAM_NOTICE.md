@@ -33,3 +33,9 @@
 ## v0.1.5 current-upstream refresh
 
 2026-08-31 再次复核当前公开上游后，本版本只吸收能力边界与方法思想，并继续独立重写。新增的 solver robustness、algorithm playbooks、reproducibility、Figure QA、LaTeX provenance 与 English-paper 均不是对上游脚本/正文的逐文件复制。固定阶段链、固定图数/篇幅、平台专用封装和主观总评分继续排除。
+
+## v0.1.6 overlap-selection note
+
+本版本改用“同能力择优”而不是“只补缺失项”的策略。详细裁决见 `references/overlap-quality-selection.md`。
+
+特别说明：XiaoMa 的 `tools/docx/LICENSE.txt` / `tools/pdf/LICENSE.txt` 在审计基线中包含限制提取、复制、衍生和再分发的条款。因此 v0.1.6 不复制这些目录的源码/模板，只根据可观察能力边界做独立实现；这也是为什么“XiaoMa 在能力上胜出”不等于“把其代码直接打进本包”。

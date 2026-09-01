@@ -1,13 +1,13 @@
-# Tool Implementation Matrix — v0.1.5
+# Tool Implementation Matrix — v0.1.6
 
-| Tool | Implemented | Smoke status | Known boundary |
+| Tool | Quality-selected implementation | Validation target | Known boundary |
 |---|---|---|---|
-| PDF | SHA/page/size/text/image audit; page-aware embedded text extraction | PASS | no default OCR; complex formula/table meaning still requires visual inspection |
-| XLSX | workbook/sheet/formula/error/merge audit; bounded row reading | PASS | no authoritative Excel formula engine/recalc; no full template writer yet |
-| Figure | CSV/TSV profiling; PNG/JPEG/TIFF/SVG/PDF mechanical audit; matplotlib export helper; plotting-source static QA; grayscale/contrast raster QA | PASS | semantic figure quality still requires actual visual review; static warnings are not scientific failures |
-| DOCX | paragraphs/tables/headings/media/OMML/revisions/comments/LaTeX-marker audit; real render to PNG | PASS | no full LaTeX→OMML conversion/comment editing/tracked-change editing suite |
-| LaTeX | doctor; CJK smoke init; real build; build provenance JSON; SHA-256 bind; fatal/warning log/PDF validate | PASS | contest-specific class/template rules remain external/official |
-| Paper Search | OpenAlex + Crossref clients; DOI/title merge/dedupe | SELF-TEST PASS | live network query not exercised in the offline build container |
-| Reproducibility | feature-scoped dependency doctor; run manifest create/verify; input/artifact hashes; Git/runtime/package provenance | PASS | records only explicitly requested files/packages; not a full environment/container lockfile |
+| PDF | SHA/page/size/text/image/vector/font audit; page-aware text extraction; edge/bounds scan; page render to PNG | smoke + real render | read-only; no default OCR; no upstream form-edit code; visual/scientific meaning still requires review |
+| XLSX | workbook/sheet/formula/error/merge audit; bounded row read; explicit LibreOffice recalculation to a new file | smoke; recalc when LibreOffice available | LibreOffice ≠ authoritative Excel for every proprietary function; no silent overwrite |
+| Figure | richer CSV/TSV/XLSX profiling; outlier/skew/correlation/group diagnostics; multi-path raster/SVG/PDF audit; source QA; grayscale/contrast QA; export helper | smoke + actual output review | thresholds configurable; mechanics do not establish chart semantics or statistics |
+| DOCX | paragraphs/tables/headings/media/styles/OMML/revisions/comments/fields/hyperlinks/relationship audit; template-style inspection; real render; deterministic self-check | smoke + real render | no copied restricted editing code; no full comment/redline/LaTeX→OMML editing suite |
+| LaTeX | feature doctor; generic/CJK init; real build + bibliography; resource/ref checks; build provenance; SHA bind; PDF/font/page audit; optional explicit rule thresholds | real XeLaTeX smoke | contest class/template rules remain external/official; source-only checks cannot prove rendered quality |
+| Paper Search | OpenAlex + Crossref; DOI + high-threshold fuzzy title dedup; year/citation filters; transparent relevance ranking | network-independent self-test | metadata discovery only; paper claims require source verification |
+| Reproducibility | feature-scoped dependency doctor; run manifest create/verify; input/artifact hashes; Git/runtime/package provenance | smoke | records explicitly requested files/packages; not a container/environment lockfile |
 
-`PASS` only covers the mechanical behavior exercised by `tests/tool_smoke.py`; it is not a scientific/modeling PASS.
+`PASS`/smoke 仅说明机械实现按测试用例运行，不代表模型、统计结论或论文科学质量通过。
