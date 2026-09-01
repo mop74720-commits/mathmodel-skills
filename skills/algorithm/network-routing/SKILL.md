@@ -49,6 +49,10 @@ description: 处理图论、最短路、最大流、匹配、TSP/VRP、运输网
 4. 构造小网络与手工/枚举答案比较。
 5. 对不可达节点、零容量、相同距离多最优等边界场景做测试，确认 tie-breaking 不影响论文主结论。
 
+## Optional Reference
+
+按问题结构需要时加载 `references/algorithm-playbooks/network-search-routing.md`（A*、TSP baseline、Chinese Postman 的结构区分与验证）。
+
 ## Outputs
 
 - 图语义合同

@@ -1,6 +1,6 @@
 # Skill Depth Map
 
-v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，目前共 48 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
+v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.5 目前共 49 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
 
 | Category | Skill | Event | 核心输出 |
 |---|---|---|---|
@@ -57,3 +57,11 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，目前共 48 个
 | algorithm | system-dynamics | ALGO_SYSTEM_DYNAMICS | 因果回路、stock-flow、政策情景 |
 | algorithm | cellular-automata | ALGO_CELLULAR_AUTOMATA | 元胞/邻域/更新/边界与涌现验证 |
 | algorithm | game-theory | ALGO_GAME_THEORY | 玩家/策略/收益/均衡与集中式基准 |
+
+## v0.1.5 Selective Addition
+
+| Category | Skill | Event | 核心输出 |
+|---|---|---|---|
+| writing | english-paper | ENGLISH_PAPER_NEEDED | 英文化正文、术语/符号表、数字/公式/引用一致性审计 |
+
+算法族数量保持 18；新增具体算法知识通过 `references/algorithm-playbooks/*` 渐进加载，不为每个算法都新增 Router Event。

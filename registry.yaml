@@ -1,4 +1,4 @@
-version: 0.1.3
+version: 0.1.5
 router_policy: minimal-primary-first
 skills:
   - event: DOMAIN_CONTEXT_NEEDED
@@ -13,6 +13,10 @@ skills:
     name: technical-style
     path: skills/writing/technical-style
     description: "修复模板化、流水账、无解释结果和空泛评价，不改变数学事实。"
+  - event: ENGLISH_PAPER_NEEDED
+    name: english-paper
+    path: skills/writing/english-paper
+    description: "把已验证建模内容转换为严谨英文论文，保持公式、数字、单位、引用与证据链不变。"
   - event: ALGO_GREY_FORECAST
     name: grey-forecasting
     path: skills/algorithm/grey-forecasting

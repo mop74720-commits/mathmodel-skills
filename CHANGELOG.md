@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.5
+
+- 选择性吸收当前上游高价值能力，不恢复固定阶段总流程。
+- 新增 `ENGLISH_PAPER_NEEDED` / `writing/english-paper`，总事件 Skill 49 个，算法族仍 18 个。
+- 新增 `references/solver-robustness.md` 与 4 个算法 playbook：模糊综合评价、网络搜索/路由、分类 baseline、随机启发式优化。
+- 新增 `tools/reproducibility`：按 feature 检查依赖；创建/验证 run manifest，绑定命令、seed、Git/运行时/依赖版本和指定输入/产物 SHA-256。
+- Figure Tool 新增绘图源码静态 QA 与 raster 灰度/对比度 QA。
+- LaTeX Tool 新增 build provenance JSON、engine 版本、耗时与 fatal/warning 分层。
+- Paper Review 增加快速评阅路径与关键结论证据密度检查，但不规定固定图数。
+- 修复 `registry.yaml` 版本仍停留在 0.1.3 的一致性问题。
+- 主动不吸收 Han Legacy/12 阶段、paper-score/project-manager，以及 XiaoMa 固定图数/页数/平台插件和不明确许可证代码的直接复制。
+
 ## 0.1.4
 
 - 六个 Tool 从纯契约升级为可执行核心：PDF、XLSX、Figure、DOCX、LaTeX、Paper Search。

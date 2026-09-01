@@ -35,6 +35,10 @@ description: 系统定位 infeasible、diverge、timeout、NaN、奇异、收敛
 7. 每次只改一类因素并重新运行最小复现，记录“修改 → 结果”，避免多项同时改导致无法定位。
 8. 若确认是模型不可行，不再通过调 solver 规避，携证据返回 modeling。
 
+## Optional Reference
+
+当失败涉及尺度、稳定变换、条件性、solver 选择、多起点或跨环境复现时，按需加载 `references/solver-robustness.md`；它不是固定门禁。
+
 ## Outputs
 
 - 故障分类与最小复现

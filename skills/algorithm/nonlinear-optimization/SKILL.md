@@ -49,6 +49,10 @@ description: 处理连续非线性优化、约束非线性、非凸目标、多�
 4. 在结论重要且环境允许时，用不同机制 solver 或更高精度局部 polish 交叉检查关键 objective/decision 是否一致。
 5. 若全局启发式声称改善，必须和相同计算预算下的 multi-start baseline 对比，而不是只比单次局部结果。
 
+## Optional Reference
+
+按问题结构需要时加载 `references/algorithm-playbooks/heuristic-optimization.md`（GA/PSO/GWO/DE 等随机启发式的公平预算与可行性规范）。
+
 ## Outputs
 
 - 问题结构与凸性判断

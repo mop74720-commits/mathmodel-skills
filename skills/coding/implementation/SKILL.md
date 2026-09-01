@@ -33,6 +33,10 @@ description: 把模型合同实现为可运行、可复现的纵向切片，再�
 6. 纵向切片通过后再扩展到全量数据、正式参数和并行/加速；性能优化不得改变数学结果而无对照。
 7. 把运行结果写入 Run Ledger/实验记录，并关联 Git commit（若项目使用 Git）。
 
+## Optional Reference
+
+当失败涉及尺度、稳定变换、条件性、solver 选择、多起点或跨环境复现时，按需加载 `references/solver-robustness.md`；它不是固定门禁。
+
 ## Outputs
 
 - 可运行源代码

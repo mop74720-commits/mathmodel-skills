@@ -14,7 +14,7 @@ XiaoMaColtAI/math-modeling-skill@e5d9313,references/roles/论文手/SKILL.md,FUL
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/写作规范.md,FULL,writing/technical-style + abstract + result-writing,吸收,去模板化但不做“检测器规避”
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/章节模板.md,PARTIAL,writing/outline,保留思想,不固定章节模板，按问题与证据链组织
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/自审框架.md,FULL,audit/paper-review + final-review,吸收,数学/证据/可读性/过度宣称检查
-XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/英文化工作流.md,PARTIAL,roles/writing,未来可补,MCM/ICM 英文化尚无独立 Skill
+XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/英文化工作流.md,FULL,skills/writing/english-paper + roles/writing,吸收并独立重写,v0.1.5 增加独立 MCM/ICM 技术英文化、术语与数字/公式/引用一致性检查
 XiaoMaColtAI/math-modeling-skill@e5d9313,论文手/references/论文格式规范.md,PARTIAL,tools/docx + tools/latex + final-review,继续规则化,已有可执行载体 QA；具体比赛格式仍必须按当届官方模板/规则配置
 XiaoMaColtAI/math-modeling-skill@e5d9313,references/Subagent调度.md,TRANSFORMED,qa/protocol.md + reviewer-contract.md,吸收,独立 reviewer 思想保留；无 Subagent 不再全局 BLOCKED
 XiaoMaColtAI/math-modeling-skill@e5d9313,references/算法索引.md,FULL,references/algorithm-index.md + algorithm-dispatch.md,吸收,渐进加载与按问题族路由保留
@@ -26,10 +26,10 @@ XiaoMaColtAI/math-modeling-skill@e5d9313,assets/05-统计分析与数据处理�
 XiaoMaColtAI/math-modeling-skill@e5d9313,assets/06-综合类算法说明.md,FULL,stochastic-simulation + ode-dynamics + queueing + system-dynamics + cellular-automata + game-theory,吸收,v0.1.3 补排队/系统动力学/CA/博弈
 XiaoMaColtAI/math-modeling-skill@e5d9313,assets/07-机器学习算法说明.md,FULL,supervised-learning + unsupervised-learning,吸收,算法级细分仍可继续向 RF/XGBoost/NN 下钻
 XiaoMaColtAI/math-modeling-skill@e5d9313,tools/figure/SKILL.md 方法论,FULL,figure-design + visualization-review + tools/figure,吸收,数据剖析→claim→选图→视觉审查逻辑已吸收；固定图数删除
-XiaoMaColtAI/math-modeling-skill@e5d9313,tools/figure/scripts/*,TRANSFORMED,tools/figure,核心重实现,已实现 profile_data / check_figure / export_figure；复杂 layout/visual helper 不逐文件复制
+XiaoMaColtAI/math-modeling-skill@e5d9313,tools/figure/scripts/*,TRANSFORMED,tools/figure,核心重实现,v0.1.5 已实现 profile/check/export + source static QA + grayscale raster QA；复杂多后端布局 helper 不逐文件复制
 XiaoMaColtAI/math-modeling-skill@e5d9313,tools/paper_search/*,TRANSFORMED,tools/paper-search,替代实现,已实现 OpenAlex + Crossref 双源检索、DOI/题名去重；不复制 AnySearch 专有接口
 XiaoMaColtAI/math-modeling-skill@e5d9313,tools/docx/*,PARTIAL,tools/docx,继续深化,已实现结构/OMML/修订/批注审计和真实渲染；复杂公式转换、评论编辑等仍缺
-XiaoMaColtAI/math-modeling-skill@e5d9313,tools/latex/*,TRANSFORMED,tools/latex,核心重实现,已实现 doctor / init-cjk / build / bind / validate 并真实 XeLaTeX smoke
+XiaoMaColtAI/math-modeling-skill@e5d9313,tools/latex/*,TRANSFORMED,tools/latex,核心重实现,v0.1.5 已实现 doctor/init/build/bind/validate + build provenance/fatal-warning 分层；不复制上游脚本
 XiaoMaColtAI/math-modeling-skill@e5d9313,tools/xlsx/*,PARTIAL,tools/xlsx,继续深化,已实现工作簿审计和受限行读取；公式权威重算/模板编辑工具仍未实现
 XiaoMaColtAI/math-modeling-skill@e5d9313,tools/pdf/*,TRANSFORMED,tools/pdf,核心重实现,已实现 PDF 结构审计与带页码嵌入文本抽取；OCR 明确不作为默认
 XiaoMaColtAI/math-modeling-skill@e5d9313,dsh-plugin/math-modeling-agent/*,EXCLUDED,—,主动排除,DeepSeek Harness 平台专用封装，不属于通用 Skill Hub 核心

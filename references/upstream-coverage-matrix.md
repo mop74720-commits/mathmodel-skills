@@ -5,18 +5,20 @@
 基线：
 - XiaoMa: `XiaoMaColtAI/math-modeling-skill` commit `e5d9313420d519f18ed1429d52d95fe0a72ae944`。
 - Han: `han69611/math-modeling-skills` commit `b5b98aebcb25ff89a99ea1cbb52b31ccab5040ca`。
-- 本仓库：`mathmodel-skills v0.1.4`。
+- 本仓库：`mathmodel-skills v0.1.5`。
 
 状态定义：`FULL`=核心能力已落入可调用 Skill；`TRANSFORMED`=吸收但按 Coach/Hub 边界改造；`PARTIAL`=只吸收方法/接口，具体工具或细节仍缺；`EXCLUDED`=主动不吸收。
 
 ## 摘要
 
-- **XiaoMaColtAI/math-modeling-skill@e5d9313**：TRANSFORMED 8，FULL 18，PARTIAL 7，EXCLUDED 2。
+- **XiaoMaColtAI/math-modeling-skill@e5d9313**：TRANSFORMED 8，FULL 19，PARTIAL 6，EXCLUDED 2。
 - **han69611/math-modeling-skills@b5b98ae**：TRANSFORMED 6，EXCLUDED 9，FULL 22，PARTIAL 0。
 
 v0.1.3 新补：`domain-context`、`model-challenge`、`technical-style`、`grey-forecasting`、`efficiency-analysis`、`queueing`、`system-dynamics`、`cellular-automata`、`game-theory`。
 
 v0.1.4 新补：六个工具的可执行核心；figure/paper-search/latex/pdf 从仅接口升级为 `TRANSFORMED`，DOCX/XLSX 仍诚实保留为 `PARTIAL`。
+
+v0.1.5 选择性补强：英文化工作流从 `PARTIAL` → `FULL`；新增 solver robustness、4 个算法 playbook、reproducibility Tool，并增强 Figure/LaTeX QA。
 
 ## XiaoMaColtAI/math-modeling-skill@e5d9313
 
@@ -37,7 +39,7 @@ v0.1.4 新补：六个工具的可执行核心；figure/paper-search/latex/pdf �
 | 论文手/references/写作规范.md | FULL | writing/technical-style + abstract + result-writing | 吸收 | 去模板化但不做“检测器规避” |
 | 论文手/references/章节模板.md | PARTIAL | writing/outline | 保留思想 | 不固定章节模板，按问题与证据链组织 |
 | 论文手/references/自审框架.md | FULL | audit/paper-review + final-review | 吸收 | 数学/证据/可读性/过度宣称检查 |
-| 论文手/references/英文化工作流.md | PARTIAL | roles/writing | 未来可补 | MCM/ICM 英文化尚无独立 Skill |
+| 论文手/references/英文化工作流.md | FULL | skills/writing/english-paper + roles/writing | 吸收并独立重写 | v0.1.5 增加 MCM/ICM 技术英文化、术语与数字/公式/引用一致性检查 |
 | 论文手/references/论文格式规范.md | PARTIAL | tools/docx + tools/latex + final-review | 继续规则化 | 已有可执行载体 QA；具体比赛格式仍必须按当届官方模板/规则配置 |
 | references/Subagent调度.md | TRANSFORMED | qa/protocol.md + reviewer-contract.md | 吸收 | 独立 reviewer 思想保留；无 Subagent 不再全局 BLOCKED |
 | references/算法索引.md | FULL | references/algorithm-index.md + algorithm-dispatch.md | 吸收 | 渐进加载与按问题族路由保留 |
@@ -49,10 +51,10 @@ v0.1.4 新补：六个工具的可执行核心；figure/paper-search/latex/pdf �
 | assets/06-综合类算法说明.md | FULL | stochastic-simulation + ode-dynamics + queueing + system-dynamics + cellular-automata + game-theory | 吸收 | v0.1.3 补排队/系统动力学/CA/博弈 |
 | assets/07-机器学习算法说明.md | FULL | supervised-learning + unsupervised-learning | 吸收 | 算法级细分仍可继续向 RF/XGBoost/NN 下钻 |
 | tools/figure/SKILL.md 方法论 | FULL | figure-design + visualization-review + tools/figure | 吸收 | 数据剖析→claim→选图→视觉审查逻辑已吸收；固定图数删除 |
-| tools/figure/scripts/* | TRANSFORMED | tools/figure | 核心重实现 | 已实现 profile_data / check_figure / export_figure；复杂 layout/visual helper 不逐文件复制 |
+| tools/figure/scripts/* | TRANSFORMED | tools/figure | 核心重实现 | v0.1.5 已实现 profile/check/export + source static QA + grayscale raster QA；复杂多后端 layout helper 不逐文件复制 |
 | tools/paper_search/* | TRANSFORMED | tools/paper-search | 替代实现 | 已实现 OpenAlex + Crossref 双源检索、DOI/题名去重；不复制 AnySearch 专有接口 |
 | tools/docx/* | PARTIAL | tools/docx | 继续深化 | 已实现结构/OMML/修订/批注审计和真实渲染；复杂公式转换、评论编辑等仍缺 |
-| tools/latex/* | TRANSFORMED | tools/latex | 核心重实现 | 已实现 doctor / init-cjk / build / bind / validate 并真实 XeLaTeX smoke |
+| tools/latex/* | TRANSFORMED | tools/latex | 核心重实现 | v0.1.5 已实现 doctor/init/build/bind/validate + build provenance/fatal-warning 分层并真实 XeLaTeX smoke |
 | tools/xlsx/* | PARTIAL | tools/xlsx | 继续深化 | 已实现工作簿审计和受限行读取；公式权威重算/模板编辑工具仍未实现 |
 | tools/pdf/* | TRANSFORMED | tools/pdf | 核心重实现 | 已实现 PDF 结构审计与带页码嵌入文本抽取；OCR 明确不作为默认 |
 | dsh-plugin/math-modeling-agent/* | EXCLUDED | — | 主动排除 | DeepSeek Harness 平台专用封装，不属于通用 Skill Hub 核心 |
@@ -104,8 +106,8 @@ v0.1.4 新补：六个工具的可执行核心；figure/paper-search/latex/pdf �
 
 1. **DOCX 深层编辑/公式转换**：当前能审计和真实渲染，但还未覆盖上游的复杂 LaTeX→OMML、批注/修订编辑等完整工具面。
 2. **XLSX 公式权威重算与模板写入**：当前能审计/读行，但不假装 Python 可以完整模拟 Excel 计算引擎。
-3. **MCM/ICM 英文化工作流**目前仍仅部分存在于 writing role，尚未做成独立事件 Skill。
-4. 算法族覆盖较完整，后续主要是向具体算法单元下钻，而不是补上游大类。
+3. **具体算法实现深度**：v0.1.5 已补一批 playbook，但仍不追求把每种算法都做成独立 Router Skill；需要时继续按问题族下钻。
+4. **多后端科研可视化**：当前 Figure Tool 以 Python/matplotlib 和机械 QA 为核心，未复制上游完整 R/复杂 layout 工具面。
 
 ## Explicit Non-Goals
 
@@ -114,3 +116,23 @@ v0.1.4 新补：六个工具的可执行核心；figure/paper-search/latex/pdf �
 - 不恢复 Innovation Score / paper-score 之类无官方依据的总分作为决策真值。
 - 不吸收 XiaoMa 的 DSH 平台专用插件和仓库运营元数据。
 
+
+## 2026-08-31 Current-Upstream Delta Review
+
+本节是对最初固定 commit 基线之外的**当前上游变化**的选择性复核，不改变 CSV 的 72 条历史对照行。
+
+### 采纳
+
+- XiaoMa 当前公开版的可复现运行思想：独立实现为 `tools/reproducibility`，只记录显式指定文件/依赖，不采集秘密。
+- 求解稳健性：稳定数值形式、尺度/条件、solver 匹配、多起点、收敛、资源与跨环境复现，整理为 `references/solver-robustness.md`。
+- 新算法细节：模糊综合评价、A*/TSP/Chinese Postman、常见分类 baseline、随机启发式规范，以 playbook 形式按需加载。
+- 英文建模论文：新增 `writing/english-paper`。
+- Figure/LaTeX：增加源码/灰度 QA 与 build provenance。
+- 评阅可读性：吸收“快速找到答案/证据”的思想，但不把它变成评分技巧或固定图数。
+
+### 不采纳
+
+- Han 的固定 12 阶段、Legacy 重复入口、project-manager 与主观 paper-score：与 Coach/Competition Repo 权限重复。
+- XiaoMa 的固定图数、篇幅目标、固定阶段门禁：不同竞赛/题型不应被同一数量指标绑死。
+- DSH 等平台专用封装：不属于通用 Hub 核心。
+- 上游许可证边界不清晰或专有的脚本：只吸收能力边界并独立实现，不直接复制代码。

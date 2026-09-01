@@ -1,6 +1,6 @@
 ---
 name: tool-latex
-description: LaTeX 环境诊断、CJK 基线初始化、真实编译、资源哈希绑定和基础 PDF/日志验证。
+description: LaTeX 环境诊断、CJK 基线初始化、真实编译、build provenance、资源哈希绑定和 PDF/日志验证。
 ---
 
 # Tool: LaTeX
@@ -15,8 +15,8 @@ python tools/latex/scripts/latex_paper.py validate paper/main.tex --pdf paper/fi
 ```
 
 ## Checks
-- `build` 真实运行 TeX engine，不以源码存在代替编译。
-- `validate` 暴露 PDF 缺失、LaTeX Error、未解析引用/引文。
+- `build` 真实运行 TeX engine，不以源码存在代替编译，并生成 `<main>.build.json`，记录 engine 路径/版本、耗时、源码/PDF SHA-256、fatal/warning。
+- `validate` 将 PDF 缺失、LaTeX Error、未解析引用/引文列为 fatal；Overfull/Underfull 等排版项列为 warning，避免把可读性警告误当数学失败。
 - `bind` 对项目资源做 SHA-256 清单，用于最终结果追溯。
 - 官方模板优先，`init-cjk` 只是无官方模板时的环境 smoke baseline。
 

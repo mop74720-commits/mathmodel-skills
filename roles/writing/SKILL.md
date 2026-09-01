@@ -21,3 +21,4 @@ description: 负责把已验证的模型、结果、图表和文献组织为论�
 - Word 载体：`tools/docx` 做结构审计和真实渲染 QA。
 - LaTeX 载体：`tools/latex` 做 doctor/build/bind/validate。
 - 文献候选：`tools/paper-search`，关键主张仍需原出版页面核验。
+- MCM/ICM 或其他英文建模论文：先调用 `writing/english-paper`，再做独立 paper review。

@@ -29,3 +29,7 @@
 
 - `references/upstream-coverage-matrix.md`
 - `references/upstream-coverage-matrix.csv`
+
+## v0.1.5 current-upstream refresh
+
+2026-08-31 再次复核当前公开上游后，本版本只吸收能力边界与方法思想，并继续独立重写。新增的 solver robustness、algorithm playbooks、reproducibility、Figure QA、LaTeX provenance 与 English-paper 均不是对上游脚本/正文的逐文件复制。固定阶段链、固定图数/篇幅、平台专用封装和主观总评分继续排除。

@@ -4,10 +4,11 @@ ROOT=Path(__file__).resolve().parents[1]
 required={
  'pdf':['scripts/inspect_pdf.py','scripts/extract_text.py'],
  'xlsx':['scripts/audit_workbook.py','scripts/read_rows.py'],
- 'figure':['scripts/profile_data.py','scripts/check_figure.py','scripts/export_figure.py'],
+ 'figure':['scripts/profile_data.py','scripts/check_figure.py','scripts/export_figure.py','scripts/validate_source.py','scripts/visual_qa.py'],
  'docx':['scripts/docx_audit.py','scripts/render_docx.py'],
  'latex':['scripts/latex_paper.py','assets/cjk_minimal.tex'],
  'paper-search':['scripts/openalex_scholar.py','scripts/crossref_scholar.py','scripts/hybrid_scholar.py'],
+ 'reproducibility':['scripts/run_manifest.py'],
 }
 errors=[]
 for tool, rels in required.items():

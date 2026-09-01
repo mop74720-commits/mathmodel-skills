@@ -49,6 +49,10 @@ description: 处理多指标综合评价、排序、权重、TOPSIS/AHP/熵权/P
 4. 对高相关指标做去重/分组后重算，观察重复信息影响。
 5. 把最终综合分分解回关键指标贡献，确保结论可解释。
 
+## Optional Reference
+
+按问题结构需要时加载 `references/algorithm-playbooks/fuzzy-comprehensive-evaluation.md`（存在模糊等级/隶属度结构时）。
+
 ## Outputs
 
 - 指标定义/方向/单位表

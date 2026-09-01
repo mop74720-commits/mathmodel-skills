@@ -33,6 +33,9 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     export_figure(fig,td/'fig',formats=('svg','png'),dpi=200); plt.close(fig)
     run(sys.executable,ROOT/'tools/figure/scripts/check_figure.py',td/'fig.png','--json')
     run(sys.executable,ROOT/'tools/figure/scripts/check_figure.py',td/'fig.svg','--json')
+    plot_src=td/'plot.py'; plot_src.write_text("import matplotlib.pyplot as plt\nfig,ax=plt.subplots()\nax.plot([1,2],[2,3])\nax.set_xlabel('x')\nax.set_ylabel('y')\nfig.savefig('out.png')\n",encoding='utf-8')
+    run(sys.executable,ROOT/'tools/figure/scripts/validate_source.py',plot_src,'--json')
+    gray=td/'fig-gray.png'; run(sys.executable,ROOT/'tools/figure/scripts/visual_qa.py',td/'fig.png','--preview',gray,'--json'); assert gray.exists()
 
     print('SMOKE docx', flush=True)
     # DOCX fixture + render
@@ -48,6 +51,12 @@ with tempfile.TemporaryDirectory(prefix='mms_tool_smoke_') as td:
     run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','build',tex,'--engine','xelatex')
     run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','validate',tex)
     manifest=td/'paper/latex-project.json'; run(sys.executable,ROOT/'tools/latex/scripts/latex_paper.py','bind',tex.parent,'--output',manifest); assert manifest.exists()
+
+    print('SMOKE reproducibility', flush=True)
+    manifest=td/'run-manifest.json'
+    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','doctor','--features','data')
+    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','create','--output',manifest,'--run-id','smoke','--command','python smoke.py','--seed','42','--input',csv,'--artifact',td/'fig.png','--package','matplotlib')
+    run(sys.executable,ROOT/'tools/reproducibility/scripts/run_manifest.py','verify',manifest)
 
     print('SMOKE search', flush=True)
     # Network-independent search logic test

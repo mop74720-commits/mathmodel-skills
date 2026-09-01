@@ -49,6 +49,10 @@ description: 处理回归、分类、排序及结构化数据的监督学习模�
 4. 对高性能模型做简单模型对照，判断增益是否值得复杂度。
 5. 对关键特征做 permutation/ablation，检查模型是否依赖可疑代理变量或泄漏字段。
 
+## Optional Reference
+
+按问题结构需要时加载 `references/algorithm-playbooks/classification-baselines.md`（logistic/tree/KNN/NB/SVM/ensemble 的少量 baseline 选择）。
+
 ## Outputs
 
 - 切分与防泄漏合同
