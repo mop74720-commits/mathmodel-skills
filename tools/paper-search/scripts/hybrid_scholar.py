@@ -3,6 +3,8 @@ import argparse, json, math, re
 from difflib import SequenceMatcher
 from openalex_scholar import search as openalex
 from crossref_scholar import search as crossref
+from semantic_scholar import search as semantic_scholar
+from arxiv_scholar import search as arxiv
 
 def norm_title(s): return re.sub(r'[^a-z0-9]+',' ',(s or '').lower()).strip()
 def doi_norm(s): return (s or '').lower().replace('https://doi.org/','').replace('doi:','').strip()
@@ -48,19 +50,42 @@ def filter_rank(query,rows,year_from=None,year_to=None,min_citations=0,sort='rel
     return out
 
 def self_test():
-    rows=[{'source':'a','title':'A Robust Model for Routing','doi':'10.1/x','year':2020,'url':None,'authors':[],'cited_by_count':5},{'source':'b','title':'A robust model for routing','doi':'10.1/X','year':2020,'url':'u','authors':['A'],'cited_by_count':7},{'source':'c','title':'Robust Models for Routing','doi':None,'year':2021,'url':'v','authors':[],'cited_by_count':1}]
-    out=merge(rows); assert len(out)==2 and set(out[0]['sources'])=={'a','b'}; ranked=filter_rank('robust routing',out); assert ranked[0]['relevance_score']>=ranked[-1]['relevance_score']; print('SELF_TEST_PASS')
+    rows=[
+        {'source':'openalex','title':'A Robust Model for Routing','doi':'10.1/x','year':2020,'url':None,'authors':[],'cited_by_count':5},
+        {'source':'semantic_scholar','title':'A robust model for routing','doi':'10.1/X','year':2020,'url':'u','authors':['A'],'cited_by_count':7},
+        {'source':'arxiv','title':'Robust Models for Routing','doi':None,'year':2021,'url':'v','authors':[],'cited_by_count':1},
+    ]
+    out=merge(rows)
+    assert len(out)==2 and set(out[0]['sources'])=={'openalex','semantic_scholar'}
+    ranked=filter_rank('robust routing',out)
+    assert ranked[0]['relevance_score']>=ranked[-1]['relevance_score']
+    print('SELF_TEST_PASS')
 
 def main():
-    ap=argparse.ArgumentParser(description='Public-source academic metadata search with DOI/fuzzy-title dedup and transparent ranking.')
+    ap=argparse.ArgumentParser(description='Public-source academic metadata search with DOI/fuzzy-title dedup, graceful fallback, and transparent ranking.')
     ap.add_argument('--query'); ap.add_argument('--limit',type=int,default=10); ap.add_argument('--fetch-per-source',type=int); ap.add_argument('--email'); ap.add_argument('--year-from',type=int); ap.add_argument('--year-to',type=int); ap.add_argument('--min-citations',type=int,default=0); ap.add_argument('--sort',choices=['relevance','citations','year'],default='relevance'); ap.add_argument('--title-similarity',type=float,default=.96); ap.add_argument('--self-test',action='store_true'); a=ap.parse_args()
     if a.self_test: return self_test()
     if not a.query: ap.error('--query required unless --self-test')
     n=a.fetch_per_source or max(a.limit*2,20); errors=[]; rows=[]
-    for name,fn in [('openalex',lambda:openalex(a.query,n,a.email)),('crossref',lambda:crossref(a.query,n))]:
+    sources=[
+        ('openalex',lambda:openalex(a.query,n,a.email)),
+        ('crossref',lambda:crossref(a.query,n)),
+        ('semantic_scholar',lambda:semantic_scholar(a.query,n)),
+        ('arxiv',lambda:arxiv(a.query,n)),
+    ]
+    for name,fn in sources:
         try: rows.extend(fn())
         except Exception as e: errors.append(f'{name}: {type(e).__name__}: {e}')
     merged=merge(rows,a.title_similarity); ranked=filter_rank(a.query,merged,a.year_from,a.year_to,a.min_citations,a.sort)[:a.limit]
-    print(json.dumps({'query':a.query,'sources_attempted':['openalex','crossref'],'raw_records':len(rows),'deduplicated_records':len(merged),'results':ranked,'errors':errors,'warning':'Metadata/relevance scores are discovery aids; verify key claims in the actual publication.'},ensure_ascii=False,indent=2))
+    print(json.dumps({
+        'query':a.query,
+        'sources_attempted':[name for name,_ in sources],
+        'raw_records':len(rows),
+        'deduplicated_records':len(merged),
+        'results':ranked,
+        'errors':errors,
+        'warning':'Metadata/relevance scores are discovery aids; verify key claims in the actual publication.'
+    },ensure_ascii=False,indent=2))
     if not rows: raise SystemExit(2)
+
 if __name__=='__main__': main()

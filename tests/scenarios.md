@@ -106,3 +106,9 @@
 ## 2026-09-10 XiaoMa 1.3 delta regression
 
 57. “Figure Contract 已经确定，真实 CSV 也有了，现在把折线/误差图实际渲染成 SVG 和 PNG。” -> `FIGURE_RENDER_NEEDED` -> `figure-render`
+
+## 2026-09-10 ScholarSkill gap-audit v2 regression
+
+58. “找到一篇类似论文，但不知道它的方法前提、验证方式和失败条件能不能迁移到当前赛题。” -> `LITERATURE_EVIDENCE_NEEDED` -> `literature-evidence`
+59. “政策实施前后有处理组和对照组，要判断政策是否导致结果变化并控制混杂。” -> `ALGO_CAUSAL_INFERENCE` -> `causal-inference`
+60. “仿真要比较多个因素及交互效应，怎么安排随机化、重复、区组和因子组合？” -> `EXPERIMENT_DESIGN_NEEDED` -> `experimental-design`

@@ -19,6 +19,7 @@ expected={
 "ALGO_PDE_DYNAMICS":"pde-dynamics",
 "ALGO_STOCHASTIC_SIM":"stochastic-simulation",
 "ALGO_STATISTICAL_INFERENCE":"statistical-inference",
+"ALGO_CAUSAL_INFERENCE":"causal-inference",
 "ALGO_GEOMETRY":"geometry-reconstruction",
 "ALGO_BAYESIAN_MODELING":"bayesian-modeling",
 "ALGO_SIGNAL_PROCESSING":"signal-processing",
@@ -46,4 +47,4 @@ if errors:
     print('FAIL')
     for e in errors: print('-',e)
     sys.exit(1)
-print('ALGORITHM_ROUTING_PASS: 21 algorithm skills')
+print('ALGORITHM_ROUTING_PASS: 22 algorithm skills')

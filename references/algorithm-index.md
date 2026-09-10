@@ -21,6 +21,7 @@
 | 空间格点+局部更新规则 | `ALGO_CELLULAR_AUTOMATA` | 最小规则 CA | 网格尺度、边界、seed |
 | 多自主主体策略相互依赖 | `ALGO_GAME_THEORY` | 简单收益矩阵/集中式基准 | 收益依据、信息结构、多均衡 |
 | 参数估计、差异检验、效应判断 | `ALGO_STATISTICAL_INFERENCE` | 描述统计/简单检验 | 独立性、效应量、多重比较 |
+| 干预/处理—结果、政策效应、反事实、混杂控制 | `ALGO_CAUSAL_INFERENCE` | 描述差异/调整回归（非因果锚点） | 识别失败、未观测混杂、positivity、干扰 |
 | 几何边界、姿态、碰撞、重建 | `ALGO_GEOMETRY` | 解析几何 | 坐标、实体尺寸、边界容差 |
 | 先验信息、层级/部分池化、完整参数后验 | `ALGO_BAYESIAN_MODELING` | 频率学派/弱先验模型 | 先验敏感、不可辨识、采样诊断 |
 | 采样信号、频率/时频、滤波/去噪 | `ALGO_SIGNAL_PROCESSING` | 原始时域统计 / FFT baseline | aliasing、谱泄漏、边界效应、泄漏 |
@@ -29,7 +30,7 @@
 ## 混合问题的组合规则
 
 - 优先识别“决定结论的主结构”，只加载一个 primary algorithm Skill。
-- Secondary 只用于明确耦合，例如 `network-routing + linear-integer-optimization`、`ODE + nonlinear-optimization`、`game-theory + agent-based-modeling`。
+- Secondary 只用于明确耦合，例如 `network-routing + linear-integer-optimization`、`ODE + nonlinear-optimization`、`causal-inference + statistical-inference`、`game-theory + agent-based-modeling`。
 - 同一模型族的不同 solver/超参数不算新的 algorithm Skill。
 - 如果算法选择会改变假设或问题定义，必须回到 `ASSUMPTION_WEAK` / `PROBLEM_AMBIGUOUS`，不能在算法层偷偷改题。
 
@@ -37,6 +38,8 @@
 
 具体算法不继续膨胀 Router event。需要时按 `references/algorithm-depth-selection.md` 加载 `references/algorithm-playbooks/*`，例如 robust / multi-objective optimization、CP-SAT、DP、evolutionary game、VIKOR/GRA、Prophet/boosting/stacking。算法名本身不是一级路由依据。
 
+因果推断是例外地保留一级算法族，因为它的核心判据是“是否能识别反事实效应”，验证合同与普通统计推断不同；DiD/RDD/IV/IPW 等仍属于该族内部具体方法，不各自新增事件。
+
 ## 升级原则
 
-复杂方法只有在 Baseline 暴露了明确缺口后升级。升级证据可以是：约束无法表达、系统性偏差、泛化缺口、计算复杂度、非线性/随机结构或验证结果，而不是“看起来更高级”。
+复杂方法只有在 Baseline 暴露了明确缺口后升级。升级证据可以是：约束无法表达、系统性偏差、泛化缺口、因果识别缺口、计算复杂度、非线性/随机结构或验证结果，而不是“看起来更高级”。

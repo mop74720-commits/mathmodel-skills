@@ -45,6 +45,7 @@ Skill Hub 权威：
 |---|---|
 | `PROBLEM_UNCLEAR` | `problem/problem-analysis` |
 | `DATA_UNKNOWN` | `problem/data-audit` |
+| `LITERATURE_EVIDENCE_NEEDED` | `problem/literature-evidence` |
 | `OFFICIAL_RULES_NEEDED` | `problem/competition-rules` |
 | `PROBLEM_AMBIGUOUS` | `problem/ambiguity-resolution` |
 | `ASSUMPTION_WEAK` | `problem/hypothesis` |
@@ -57,6 +58,7 @@ Skill Hub 权威：
 | `IMPLEMENT_MODEL` | `coding/implementation` |
 | `SOLVER_FAILED` | `coding/solver-debug` |
 | `NUMERICAL_SUSPECT` | `coding/numerical-check` |
+| `EXPERIMENT_DESIGN_NEEDED` | `experiment/experimental-design` |
 | `EXPERIMENTS_UNTRACKED` | `experiment/experiment-manager` |
 | `NEED_SENSITIVITY` | `experiment/sensitivity` |
 | `RESULT_UNSTABLE` | `experiment/robustness` |
@@ -103,6 +105,7 @@ Skill Hub 权威：
 | `ALGO_CELLULAR_AUTOMATA` | `algorithm/cellular-automata` |
 | `ALGO_GAME_THEORY` | `algorithm/game-theory` |
 | `ALGO_STATISTICAL_INFERENCE` | `algorithm/statistical-inference` |
+| `ALGO_CAUSAL_INFERENCE` | `algorithm/causal-inference` |
 | `ALGO_GEOMETRY` | `algorithm/geometry-reconstruction` |
 | `ALGO_BAYESIAN_MODELING` | `algorithm/bayesian-modeling` |
 | `ALGO_SIGNAL_PROCESSING` | `algorithm/signal-processing` |
