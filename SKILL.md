@@ -36,7 +36,7 @@ Skill Hub 权威：
 2. 一次优先调用一个 primary Skill；只有 primary 输出明确缺口时才加载 secondary Skill。
 3. 先读目标 Skill 的 `SKILL.md`；只有其 `Procedure` 要求时才加载 Role、Tool 或 references。
 4. 不运行完整流水线来解决单点问题。
-5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；v0.1.13 的七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
+5. Tool 只处理载体/格式/检索/绘图，不替代建模判断；七个 Tool 均有可执行核心，具体命令见各 `tools/*/SKILL.md`。
 6. QA reviewer 默认只读，不直接修改权威产物。
 
 ## 4. 常见事件
@@ -62,6 +62,7 @@ Skill Hub 权威：
 | `RESULT_UNSTABLE` | `experiment/robustness` |
 | `RESULT_NEEDS_INTERPRETATION` | `experiment/result-analysis` |
 | `FIGURE_NEEDED` | `visualization/figure-design` |
+| `FIGURE_RENDER_NEEDED` | `visualization/figure-render` |
 | `FIGURE_WEAK` | `visualization/visualization-review` |
 | `FLOWCHART_NEEDED` | `visualization/flowchart` |
 | `PAPER_OUTLINE_NEEDED` | `writing/outline` |
@@ -113,8 +114,8 @@ Skill Hub 权威：
 
 - PDF 题面/参考资料 → `tools/pdf`
 - XLSX 工作簿 → `tools/xlsx`
-- 数据剖析/图文件 QA → `tools/figure`
-- Word 结构/渲染 → `tools/docx`
+- 数据剖析/标准科研图渲染/图文件 QA → `tools/figure`
+- Word 结构/内容残留/渲染 → `tools/docx`
 - LaTeX 编译/绑定/验证 → `tools/latex`
 - 文献候选检索 → `tools/paper-search`
 - 运行复现 manifest / 功能依赖检查 → `tools/reproducibility`

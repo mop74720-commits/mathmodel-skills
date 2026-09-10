@@ -206,6 +206,10 @@ skills:
     name: figure-design
     path: skills/visualization/figure-design
     description: "围绕一个明确 claim 选择最小充分图型与统计口径。"
+  - event: FIGURE_RENDER_NEEDED
+    name: figure-render
+    path: skills/visualization/figure-render
+    description: "按已冻结 Figure Contract 从真实数据实际生成可复现科研图，并完成源码/文件 QA。"
   - event: FLOWCHART_NEEDED
     name: flowchart
     path: skills/visualization/flowchart

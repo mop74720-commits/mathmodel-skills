@@ -102,3 +102,7 @@
 54. “每个地区样本都很少，希望用层级先验做部分池化并给后验预测区间。” -> `ALGO_BAYESIAN_MODELING` -> `bayesian-modeling`
 55. “传感器信号里有明显瞬态和频率漂移，需要做时频分析和去噪。” -> `ALGO_SIGNAL_PROCESSING` -> `signal-processing`
 56. “不同个体有异质属性和局部交互，希望模拟行为规则如何形成宏观涌现。” -> `ALGO_AGENT_BASED_MODELING` -> `agent-based-modeling`
+
+## 2026-09-10 XiaoMa 1.3 delta regression
+
+57. “Figure Contract 已经确定，真实 CSV 也有了，现在把折线/误差图实际渲染成 SVG 和 PNG。” -> `FIGURE_RENDER_NEEDED` -> `figure-render`
