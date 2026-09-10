@@ -157,7 +157,7 @@ skills:
   - event: RESULT_NEEDS_INTERPRETATION
     name: result-analysis
     path: skills/experiment/result-analysis
-    description: "把结果从“报数字”提升为 Baseline 对比、原因解释、异常和决策含义。"
+    description: "把结果从‘报数字’提升为 Baseline 对比、原因解释、异常和决策含义。"
   - event: RESULT_UNSTABLE
     name: robustness
     path: skills/experiment/robustness
@@ -190,6 +190,10 @@ skills:
     name: data-audit
     path: skills/problem/data-audit
     description: "建立数据事实基线，不凭经验猜结构。"
+  - event: LITERATURE_EVIDENCE_NEEDED
+    name: literature-evidence
+    path: skills/problem/literature-evidence
+    description: "把文献候选转成可审计 Method Card，核验方法前提、所需数据、迁移边界、失败模式与证据定位。"
   - event: OFFICIAL_RULES_NEEDED
     name: competition-rules
     path: skills/problem/competition-rules
@@ -229,4 +233,4 @@ skills:
   - event: RESULT_SECTION_NEEDED
     name: result-writing
     path: skills/writing/result-writing
-    description: "把数值结果写成“结果+比较+原因+意义+限制”的正文证据段。"
+    description: "把数值结果写成‘结果+比较+原因+意义+限制’的正文证据段。"
