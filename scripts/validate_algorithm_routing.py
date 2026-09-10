@@ -20,6 +20,9 @@ expected={
 "ALGO_STOCHASTIC_SIM":"stochastic-simulation",
 "ALGO_STATISTICAL_INFERENCE":"statistical-inference",
 "ALGO_GEOMETRY":"geometry-reconstruction",
+"ALGO_BAYESIAN_MODELING":"bayesian-modeling",
+"ALGO_SIGNAL_PROCESSING":"signal-processing",
+"ALGO_AGENT_BASED_MODELING":"agent-based-modeling",
 }
 errors=[]
 for event,name in expected.items():
@@ -27,7 +30,6 @@ for event,name in expected.items():
     if not p.exists(): errors.append(f'missing {p.relative_to(ROOT)}'); continue
     text=p.read_text(encoding='utf-8')
     if f'trigger: {event}' not in text: errors.append(f'{name}: wrong trigger')
-    
     for section in ['## Decision Rules','## Validation Design']:
         if section not in text: errors.append(f'{name}: missing {section}')
     if len(text)<1500: errors.append(f'{name}: content too shallow ({len(text)} chars)')
@@ -44,4 +46,4 @@ if errors:
     print('FAIL')
     for e in errors: print('-',e)
     sys.exit(1)
-print('ALGORITHM_ROUTING_PASS: 18 algorithm skills')
+print('ALGORITHM_ROUTING_PASS: 21 algorithm skills')

@@ -79,10 +79,9 @@ Skill Hub 权威：
 | `PAPER_JUDGE_REVIEW_NEEDED` | `audit/judge-review` |
 | `PRE_SUBMISSION` | `audit/final-review` |
 
-
 ## 4A. Algorithm Knowledge Events
 
-当 `MODEL_UNCERTAIN` 已识别出结构后，Router 优先进入一个算法族 Skill，而不是继续让 model-selection 承担全部算法知识。
+当 `MODEL_UNCERTAIN` 已识别出结构后，Router 优先进入一个算法族 Skill，而不是继续让 model-selection 承担全部算法知识。具体算法名继续通过 `references/algorithm-depth-selection.md` 和 playbook 按需加载。
 
 | Event | Algorithm Skill |
 |---|---|
@@ -104,6 +103,9 @@ Skill Hub 权威：
 | `ALGO_GAME_THEORY` | `algorithm/game-theory` |
 | `ALGO_STATISTICAL_INFERENCE` | `algorithm/statistical-inference` |
 | `ALGO_GEOMETRY` | `algorithm/geometry-reconstruction` |
+| `ALGO_BAYESIAN_MODELING` | `algorithm/bayesian-modeling` |
+| `ALGO_SIGNAL_PROCESSING` | `algorithm/signal-processing` |
+| `ALGO_AGENT_BASED_MODELING` | `algorithm/agent-based-modeling` |
 
 ## 4B. Tool Dispatch
 
@@ -152,7 +154,6 @@ handoff:
 - 不以评分表伪装官方评审分数。
 - 不允许 writer 编造未运行结果。
 - 不允许 coding 通过偷偷改模型公式来绕开 model contract。
-
 - 不把 Competition Repo 的完整性等同于论文正文的完整性；正文必须选择性表达。
 - 不允许为了合规把内部 audit/provenance/AI 历史无必要塞进科学正文。
 - Scientific Review、Judge Review、Compliance Review 分离；任何一个 PASS 都不自动代表另外两个 PASS。

@@ -51,7 +51,6 @@
 27. “整篇论文内容基本齐了，按评阅视角攻击一轮。” -> `PAPER_NEEDS_ATTACK` -> `paper-review`
 28. “准备提交，做最后的规则、PDF、数字和附件检查。” -> `PRE_SUBMISSION` -> `final-review`
 
-
 ## Algorithm Knowledge Layer
 
 29. “Q2 是 0-1 选址和产能约束。” -> `ALGO_LINEAR_INTEGER` -> `linear-integer-optimization`
@@ -86,16 +85,20 @@
 
 50. “准备按 2026 当届规则排版，但还没核验官方页数、模板和提交要求。” -> `OFFICIAL_RULES_NEEDED` -> `competition-rules`
 
-
 ## v0.1.12 route-decision regression
 
 - “高级模型看起来更强，但简单 baseline 可能已经够用；什么实验决定是否值得升级？” -> `MODEL_NEEDS_CHALLENGE` -> `model-challenge`
 - “两个路线当前都合理，什么新证据会让推荐翻转？” -> `MODELS_NEED_COMPARISON` -> `model-comparison`
 - “A/B/C 选哪题？” -> `HANDOFF_TO_COACH`（SkillHub 不新增 contest-route-selection）
 
-
 ## v0.1.13 paper-quality regression
 
 51. “Competition Repo 很完整，但论文像把实验日志和审计记录全打印出来，想重新合成竞赛正文。” -> `PAPER_SYNTHESIS_NEEDED` -> `paper-synthesis`
 52. “论文科学结果正确，但正文越来越长，算法百科、重复说明和合规补丁把主线冲散了。” -> `PAPER_TOO_BLOATED` -> `editorial-compression`
 53. “论文已经成形，想模拟评委五分钟扫读，看每问答案和关键贡献能不能快速抓住。” -> `PAPER_JUDGE_REVIEW_NEEDED` -> `judge-review`
+
+## 2026-09-10 algorithm-depth regression
+
+54. “每个地区样本都很少，希望用层级先验做部分池化并给后验预测区间。” -> `ALGO_BAYESIAN_MODELING` -> `bayesian-modeling`
+55. “传感器信号里有明显瞬态和频率漂移，需要做时频分析和去噪。” -> `ALGO_SIGNAL_PROCESSING` -> `signal-processing`
+56. “不同个体有异质属性和局部交互，希望模拟行为规则如何形成宏观涌现。” -> `ALGO_AGENT_BASED_MODELING` -> `agent-based-modeling`

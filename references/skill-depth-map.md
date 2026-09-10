@@ -1,6 +1,6 @@
 # Skill Depth Map
 
-v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.12 目前共 50 个事件驱动 Skill。下表前 27 项是原核心事件；后续新增项按版本补充。
+v0.1.13 基线包含 53 个事件驱动 Skill；2026-09-10 algorithm-depth patch 新增 3 个结构性算法族事件，目前共 56 个事件驱动 Skill、21 个一级算法族。下表前 27 项是原核心事件；后续新增项按版本/补丁补充。
 
 | Category | Skill | Event | 核心输出 |
 |---|---|---|---|
@@ -39,6 +39,7 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.12 目前�
 - 数值、模型、论文审计以证据为中心，不使用虚构综合分。
 - 需要时可以组合第二个 Skill，但组合应由第一个 Skill 的失败/风险证据触发。
 - Coach 仍拥有 priority、stage、freeze、abandon、submit 决策权。
+- 一级算法族按独立问题结构划分；具体算法名优先作为 playbook 深度，不无限扩张 Router。
 
 ## v0.1.2 Algorithm Family Additions
 
@@ -64,7 +65,7 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.12 目前�
 |---|---|---|---|
 | writing | english-paper | ENGLISH_PAPER_NEEDED | 英文化正文、术语/符号表、数字/公式/引用一致性审计 |
 
-算法族数量保持 18；新增具体算法知识通过 `references/algorithm-playbooks/*` 渐进加载，不为每个算法都新增 Router Event。
+v0.1.5 之后具体算法知识继续优先通过 `references/algorithm-playbooks/*` 渐进加载；只有出现无法由既有 18 类表达的独立结构时才新增 Router Event。
 
 ## v0.1.7 Deep Selection Addition
 
@@ -73,7 +74,6 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.12 目前�
 | problem | competition-rules | OFFICIAL_RULES_NEEDED | 当届官方 rule profile、来源/locator、硬约束、UNKNOWN/CONFLICT |
 
 同时新增不占 Router Event 的深度参考：模型组合模式、MATLAB 实现规范、Figure 三份选图/编码/review guide。
-
 
 ## v0.1.13 recovered paper-quality capabilities
 
@@ -84,3 +84,13 @@ v0.1.3 在 v0.1.2 的 39 个事件上补齐上游覆盖缺口，v0.1.12 目前�
 | audit | judge-review | PAPER_JUDGE_REVIEW_NEEDED | 5-minute map、scan friction、评委视角最小修改 |
 
 三者按当前问题触发，不构成 synthesis→compression→judge→final 强制链。
+
+## 2026-09-10 Algorithm-Depth Patch
+
+| Category | Skill | Event | 核心输出 |
+|---|---|---|---|
+| algorithm | bayesian-modeling | ALGO_BAYESIAN_MODELING | prior/likelihood/posterior、层级收缩、采样诊断、后验预测与 prior sensitivity |
+| algorithm | signal-processing | ALGO_SIGNAL_PROCESSING | sampling contract、FFT/PSD/STFT/wavelet、滤波、aliasing/边界效应验证 |
+| algorithm | agent-based-modeling | ALGO_AGENT_BASED_MODELING | Agent/环境/交互合同、调度、多 seed、校准、宏观涌现验证 |
+
+同时新增 7 个非一级 playbook：robust optimization、multi-objective optimization、constraint programming、dynamic programming、evolutionary game、VIKOR/GRA、advanced forecasting。它们按结构由 `algorithm-depth-selection.md` 渐进加载。

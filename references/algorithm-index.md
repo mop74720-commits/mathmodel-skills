@@ -22,13 +22,20 @@
 | 多自主主体策略相互依赖 | `ALGO_GAME_THEORY` | 简单收益矩阵/集中式基准 | 收益依据、信息结构、多均衡 |
 | 参数估计、差异检验、效应判断 | `ALGO_STATISTICAL_INFERENCE` | 描述统计/简单检验 | 独立性、效应量、多重比较 |
 | 几何边界、姿态、碰撞、重建 | `ALGO_GEOMETRY` | 解析几何 | 坐标、实体尺寸、边界容差 |
+| 先验信息、层级/部分池化、完整参数后验 | `ALGO_BAYESIAN_MODELING` | 频率学派/弱先验模型 | 先验敏感、不可辨识、采样诊断 |
+| 采样信号、频率/时频、滤波/去噪 | `ALGO_SIGNAL_PROCESSING` | 原始时域统计 / FFT baseline | aliasing、谱泄漏、边界效应、泄漏 |
+| 异质自主个体+环境/网络交互产生涌现 | `ALGO_AGENT_BASED_MODELING` | 聚合/同质模型 | 规则依据、校准、seed、调度敏感 |
 
 ## 混合问题的组合规则
 
 - 优先识别“决定结论的主结构”，只加载一个 primary algorithm Skill。
-- Secondary 只用于明确耦合，例如 `network-routing + linear-integer-optimization`、`ODE + nonlinear-optimization`。
+- Secondary 只用于明确耦合，例如 `network-routing + linear-integer-optimization`、`ODE + nonlinear-optimization`、`game-theory + agent-based-modeling`。
 - 同一模型族的不同 solver/超参数不算新的 algorithm Skill。
 - 如果算法选择会改变假设或问题定义，必须回到 `ASSUMPTION_WEAK` / `PROBLEM_AMBIGUOUS`，不能在算法层偷偷改题。
+
+## 深度方法按需加载
+
+具体算法不继续膨胀 Router event。需要时按 `references/algorithm-depth-selection.md` 加载 `references/algorithm-playbooks/*`，例如 robust / multi-objective optimization、CP-SAT、DP、evolutionary game、VIKOR/GRA、Prophet/boosting/stacking。算法名本身不是一级路由依据。
 
 ## 升级原则
 

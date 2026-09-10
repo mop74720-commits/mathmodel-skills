@@ -97,6 +97,18 @@ skills:
     name: geometry-reconstruction
     path: skills/algorithm/geometry-reconstruction
     description: "几何/重建：坐标、边界、有限尺寸、搜索压缩和边界验证。"
+  - event: ALGO_BAYESIAN_MODELING
+    name: bayesian-modeling
+    path: skills/algorithm/bayesian-modeling
+    description: "贝叶斯建模：prior/likelihood/posterior、层级收缩、采样诊断和后验预测。"
+  - event: ALGO_SIGNAL_PROCESSING
+    name: signal-processing
+    path: skills/algorithm/signal-processing
+    description: "信号处理：采样、FFT/PSD、STFT/小波、滤波、aliasing 与边界效应。"
+  - event: ALGO_AGENT_BASED_MODELING
+    name: agent-based-modeling
+    path: skills/algorithm/agent-based-modeling
+    description: "ABM：异质 agent、环境/网络交互、调度、校准、多 seed 与宏观涌现验证。"
 
   - event: CLAIM_UNSUPPORTED
     name: claim-evidence
